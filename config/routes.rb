@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :meetings 
+  get 'meetings/:id/select_users' => 'meetings#select_users', as: :select_users
+
+  resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
