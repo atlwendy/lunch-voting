@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+
+  get '/' => 'meetings#index'
+
   resources :meetings 
-  get 'meetings/:id/select_users' => 'meetings#select_users', as: :select_users
+  get 'meetings/:id/select_members' => 'meetings#select_members', as: :select_members
+  post 'meetings/:id/submit_members' => 'meetings#submit_members'
 
   resources :users
 

@@ -61,10 +61,16 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def select_users
+  def select_members
     @meeting = Meeting.find(params[:id])
     @users = @meeting.users
     @allusers = User.all
+  end
+
+  def submit_members
+    meeting = Meeting.find(params[:id])
+    meeting.users = User.where({id: params[:user_id]})
+    redirect_to meeting
   end
 
   private

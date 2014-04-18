@@ -46,4 +46,9 @@ class MeetingsControllerTest < ActionController::TestCase
 
     assert_redirected_to meetings_path
   end
+
+  test "should show select_members" do
+    get :select_members, id: @meeting
+    assert_response :success
+  end
 end
