@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyString
+  title: First Lunch
+  description: Our first lunch
   date: 2014-04-16 14:57:04
 
 two:
-  title: MyString
-  description: MyString
-  date: 2014-04-16 14:57:04
+  title: Second Lunch
+  description: Lunch again
+  date: 2014-04-18 14:57:04
