@@ -3,6 +3,7 @@ require 'test_helper'
 class MeetingsControllerTest < ActionController::TestCase
   setup do
     @meeting = meetings(:one)
+    @user = users(:one)
   end
 
   test "should get index" do
@@ -36,7 +37,7 @@ class MeetingsControllerTest < ActionController::TestCase
 
   test "should update meeting" do
     patch :update, id: @meeting, meeting: { date: @meeting.date, description: @meeting.description, title: @meeting.title }
-    assert_redirected_to meeting_path(assigns(:meeting))
+    assert_redirected_to @meeting
   end
 
   test "should destroy meeting" do
@@ -51,4 +52,12 @@ class MeetingsControllerTest < ActionController::TestCase
     get :select_members, id: @meeting
     assert_response :success
   end
+
+  test "should post submitted members" do
+    assert_difference("Meeting.find(#{@meeting.id}).users.size", 1) do
+      post :submit_members, id: @meeting, user_id: [@user.id]
+    end
+    assert_redirected_to @meeting
+  end
+
 end
