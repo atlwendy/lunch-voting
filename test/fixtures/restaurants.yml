@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Chipotle
+  address: windward
+  url: chipotle.com
+
+two:
+  name: subway
+  address: bethany
+  url: subway.com

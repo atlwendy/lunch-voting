@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :restaurants
+
   get '/' => 'meetings#index'
 
   resources :meetings 
