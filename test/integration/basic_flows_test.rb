@@ -36,4 +36,12 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert_equal current_path, user_path(@user)
     assert page.has_content?('Marty')
   end
+
+  test "link to meeting from user" do
+    @user.meetings = [@meeting]
+    visit("/users/#{@user.id}")
+    click_link('First Lunch')
+    assert_equal current_path, meeting_path(@meeting)
+  end
+
 end

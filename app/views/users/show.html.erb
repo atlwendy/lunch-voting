@@ -5,6 +5,15 @@
   <%= @user.username %>
   <strong>Email:</strong>
   <%= @user.email %>
+  <strong>Meetings:</strong>
+  <ul>
+  <% @user.meetings.each do |meeting| %>
+    <li>
+      <%= link_to meeting.title, meeting %> on
+      <%= meeting.date.to_s(:short) %>
+    </li>
+  <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
