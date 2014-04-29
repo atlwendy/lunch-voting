@@ -73,7 +73,7 @@ $(".intermitbutton").click(function() {
 $(".restb").click(function() {
   var ivalue = $(this).parents('tr').find("[name=rtt]")
   var rvalue = ivalue.val();
-  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurant[]' type='hidden' value='"+rvalue+"'></input></td></tr>");
+  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' value='"+rvalue+"'></input></td></tr>");
   ivalue.val("");
 })
 

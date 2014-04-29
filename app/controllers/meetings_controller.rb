@@ -26,9 +26,11 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     users = getUsers(params[:emailaddress])
-    #restaurants = getRest(params[:restaurant])
+    restaurants = getRest(params[:restaurantname])
+    logger.info("#########################")
+    logger.info(restaurants)
     @meeting.users = users
-    #@meeting.restaurants = restaurants
+    @meeting.restaurants = restaurants
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
@@ -53,9 +55,9 @@ class MeetingsController < ApplicationController
   def getRest(rest)
     rests = []
     rest.each do |r|
-      r = Restaurant.where({name: r})
-      r = r.empty? ? Restaurant.new(:name=>r) : r.first
-      rests.push(r)
+      rr = Restaurant.where({name: r})
+      rr = rr.empty? ? Restaurant.new(:name=>r) : rr.first
+      rests.push(rr)
     end
     return rests
   end
