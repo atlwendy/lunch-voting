@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :meetings 
   get 'meetings/:id/select_members' => 'meetings#select_members', as: :select_members
   post 'meetings/:id/submit_members' => 'meetings#submit_members'
+  get 'meetings/:id/select_restaurants' => 'meetings#select_restaurants', as: :select_restaurants
 
   resources :users
 

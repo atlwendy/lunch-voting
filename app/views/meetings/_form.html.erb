@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" %>
+<%= javascript_include_tag  "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"%>
+
 <%= form_for(@meeting) do |f| %>
   <% if @meeting.errors.any? %>
     <div id="error_explanation">
@@ -19,11 +22,59 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
-  <div class="field">
+  <div class="field" id="date">
     <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+	<%= f.text_field :date, :value=>Date.today %>
   </div>
+
+  <div class="field" id="member">
+	<table class="logincontent">
+    <tr>
+        <td><label for="Email address">Please enter members' email addresses: &nbsp </label></td>
+        <td><input class="text" type="text" name="email"></input>
+
+        <input class="button intermitbutton" name="addmore" type="button" value="Add" id="addmember"></input></td>
+		</tr>
+	</table>
+  </div>
+
+  <div class="field" id="restaurant">
+    <table class="rest">
+      <tr>
+        <td><label for="Restaurant">Please enter restaurant option(s): &nbsp </label></td>
+        <td><input class="text" type="text" name="rtt"></input>
+          <input class="button restb" name="morerest" type="button" value="Add"></input>
+        </td>
+      </tr>
+    </table>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+$(function() {
+        $( "#meeting_date" ).click(function() {
+			datepicker();
+          });
+});
+$("#meeting_date").datepicker({ dateFormat: 'yy-mm-dd' });
+
+$(".intermitbutton").click(function() {
+	var commonvalue = $(this).parents('tr').find("[name=email]")
+    var thisemailaddress = commonvalue.val();
+
+	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' value='"+thisemailaddress+"'></input></td></tr>");
+	commonvalue.val("");
+})
+
+$(".restb").click(function() {
+  var ivalue = $(this).parents('tr').find("[name=rtt]")
+  var rvalue = ivalue.val();
+  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurant[]' type='hidden' value='"+rvalue+"'></input></td></tr>");
+  ivalue.val("");
+})
+
+</script>

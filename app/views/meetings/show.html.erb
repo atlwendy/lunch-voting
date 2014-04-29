@@ -26,5 +26,16 @@
   </ul>
 </p>
 
+<p>
+	<strong>Restaurants</strong>
+	(<%= link_to 'edit restaurant', :select_restaurants%>)
+	<strong>:</strong>
+	<ul>
+		<% @meeting.restaurants.each do |rest|%>
+		<li><%= link_to rest.name, rest%></li>
+		<% end %>
+	</ul>
+		
+
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
 <%= link_to 'Back', meetings_path %>
