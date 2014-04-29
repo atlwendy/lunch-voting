@@ -102,7 +102,13 @@ class MeetingsController < ApplicationController
   def select_restaurants
     @meeting = Meeting.find(params[:id])
     @restaurants = @meeting.restaurants
-    @allrestaurants = Restaurant.all
+    @allrests = Restaurant.all
+  end
+
+  def submit_restaurants
+    meeting = Meeting.find(params[:id])
+    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]})
+    redirect_to meeting
   end
 
   private

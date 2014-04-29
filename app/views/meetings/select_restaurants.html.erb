@@ -1,0 +1,12 @@
+<h1>Select restaurants </h1>
+
+<%=form_tag 'submit_restaurants' do %>
+  <% @allrests.each do |rest| %>
+    <label><%=check_box_tag 'restaurant_id[]', 
+      rest.id, @restaurants.include?(rest) %>
+      <%= rest.name %>
+    </label>
+  <% end %>
+
+  <%=submit_tag "Save" %>
+<% end %>
