@@ -44,4 +44,17 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert_equal current_path, meeting_path(@meeting)
   end
 
+  test "edit meeting" do
+    visit('/meetings')
+    click_link('Edit')
+    assert_equal current_path, edit_meeting_path(@meeting)
+    #find_field("title").value.should eq 'First Lunch'
+    assert page.has_field?("title", :with=>"First Lunch")
+    fill_in 'temail', with: 'xyz@abc.com'
+    assert page.has_field?("temail", :with=>"xyz@abc.com")
+    click_button('Add member')
+    #find_field("thisid").value.should eq "xyz@abc.com"
+    #assert page.has_field?("thisid", :with=>"xyz@abc.com")
+  end
+
 end

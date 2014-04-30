@@ -16,7 +16,7 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, id:"title" %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -42,9 +42,9 @@
 	<table class="logincontent">
     <tr>
         <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
-        <td><input class="text" type="text" name="email"></input>
+        <td><input class="text" type="text" name="email" id="temail"></input>
 
-        <input class="button intermitbutton" name="addmore" type="button" value="Add" id="addmember"></input></td>
+        <input class="button intermitbutton" name="addmore" type="button" value="Add member" id="addmember"></input></td>
 		</tr>
 	</table>
   </div>
@@ -66,7 +66,7 @@
       <tr>
         <td><label for="Restaurant">Please enter new restaurant option(s): &nbsp </label></td>
         <td><input class="text" type="text" name="rtt"></input>
-          <input class="button restb" name="morerest" type="button" value="Add"></input>
+          <input class="button restb" name="morerest" type="button" value="Add restaurant"></input>
         </td>
       </tr>
     </table>
@@ -89,7 +89,7 @@ $(".intermitbutton").click(function() {
 	var commonvalue = $(this).parents('tr').find("[name=email]")
     var thisemailaddress = commonvalue.val();
 
-	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' value='"+thisemailaddress+"'></input></td></tr>");
+	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='thisid' value='"+thisemailaddress+"'></input></td></tr>");
 	commonvalue.val("");
 })
 

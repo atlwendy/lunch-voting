@@ -41,6 +41,7 @@ class MeetingsController < ApplicationController
   end
 
   def getUsers(emails)
+    return [] if emails.nil?
     users = []
     emails.each do |e|
       u = User.where({email: e})
@@ -51,6 +52,7 @@ class MeetingsController < ApplicationController
   end
 
   def getRest(rest)
+    return [] if rest.nil?
     rests = []
     rest.each do |r|
       rr = Restaurant.where({name: r})
