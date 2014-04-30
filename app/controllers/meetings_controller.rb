@@ -27,8 +27,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     users = getUsers(params[:emailaddress])
     restaurants = getRest(params[:restaurantname])
-    logger.info("#########################")
-    logger.info(restaurants)
     @meeting.users = users
     @meeting.restaurants = restaurants
     respond_to do |format|
@@ -66,6 +64,12 @@ class MeetingsController < ApplicationController
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
   def update
+    users = getUsers(params[:emailaddress])
+    restaurants = getRest(params[:restaurantname])
+    logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$")
+    logger.info(@meeting.users)
+    @meeting.users = users + @meeting.users
+    @meeting.restaurants = restaurants + @meeting.restaurants
     respond_to do |format|
       if @meeting.update(meeting_params)
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
