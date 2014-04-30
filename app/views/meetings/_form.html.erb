@@ -24,7 +24,11 @@
   </div>
   <div class="field" id="date">
     <%= f.label :date %><br>
-    <%= f.text_field :date, :value=>Date.today %>
+    <% if @meeting.date.nil? %>
+      <%= f.text_field :date, :value=>Date.today %>
+    <% else %>
+      <%= f.text_field :date, :value=>f.object.date.to_date %>
+    <% end %>
   </div>
 
   <% if not @meeting.users.empty? %>
@@ -65,7 +69,7 @@
     <table class="rest">
       <tr>
         <td><label for="Restaurant">Please enter new restaurant option(s): &nbsp </label></td>
-        <td><input class="text" type="text" name="rtt"></input>
+        <td><input class="text" type="text" name="rtt" id="trest"></input>
           <input class="button restb" name="morerest" type="button" value="Add restaurant"></input>
         </td>
       </tr>
@@ -89,14 +93,14 @@ $(".intermitbutton").click(function() {
 	var commonvalue = $(this).parents('tr').find("[name=email]")
     var thisemailaddress = commonvalue.val();
 
-	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='thisid' value='"+thisemailaddress+"'></input></td></tr>");
+	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='addeduser' value='"+thisemailaddress+"'></input></td></tr>");
 	commonvalue.val("");
 })
 
 $(".restb").click(function() {
   var ivalue = $(this).parents('tr').find("[name=rtt]")
   var rvalue = ivalue.val();
-  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' value='"+rvalue+"'></input></td></tr>");
+  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' id='addedrest' value='"+rvalue+"'></input></td></tr>");
   ivalue.val("");
 })
 

@@ -14,8 +14,23 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 end
 
 Capybara.match = :first
+
+
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection

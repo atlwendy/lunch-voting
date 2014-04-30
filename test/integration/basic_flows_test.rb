@@ -1,11 +1,16 @@
 require 'test_helper'
 
+
 class BasicFlowsTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   setup do
     @meeting = meetings(:one)
     @user = users(:two)
+  end
+
+  teardown do
+    Capybara.use_default_driver
   end
 
   test "edit meeting members" do
@@ -45,16 +50,46 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test "edit meeting" do
+    Capybara.current_driver = Capybara.javascript_driver
     visit('/meetings')
     click_link('Edit')
+
     assert_equal current_path, edit_meeting_path(@meeting)
-    #find_field("title").value.should eq 'First Lunch'
     assert page.has_field?("title", :with=>"First Lunch")
     fill_in 'temail', with: 'xyz@abc.com'
     assert page.has_field?("temail", :with=>"xyz@abc.com")
     click_button('Add member')
-    #find_field("thisid").value.should eq "xyz@abc.com"
-    #assert page.has_field?("thisid", :with=>"xyz@abc.com")
+    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
+    #assert_equal page.find("#thisid").value, "xyz@abc.com"
+    fill_in 'trest', with: 'canton cooks'
+    assert page.has_field?('trest', :with=>'canton cooks')
+    click_button('Add restaurant')
+    assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
+    click_button('Update Meeting')
+    assert_equal current_path, meeting_path(@meeting)
+    assert page.has_content?("xyz@abc.com")
+    assert page.has_content?("canton cooks")
+  end
+
+  test "create meeting" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit("/meetings/new")
+
+    fill_in 'title', with: 'Test Lunch'
+    fill_in 'temail', with: 'xyz@abc.com'
+    assert page.has_field?("temail", :with=>"xyz@abc.com")
+    click_button('Add member')
+    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
+    #assert_equal page.find("#thisid").value, "xyz@abc.com"
+    fill_in 'trest', with: 'canton cooks'
+    assert page.has_field?('trest', :with=>'canton cooks')
+    click_button('Add restaurant')
+    assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
+ 
+    click_button('Create Meeting')
+    assert page.has_content?('Test Lunch')
+    assert page.has_content?("xyz@abc.com")
+    assert page.has_content?("canton cooks")
   end
 
 end
