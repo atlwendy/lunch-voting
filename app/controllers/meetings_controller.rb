@@ -69,12 +69,15 @@ class MeetingsController < ApplicationController
   def update
     users = getUsers(params[:emailaddress])
     restaurants = getRest(params[:restaurantname])
-    logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    logger.info(@meeting.users)
     @meeting.users = users + @meeting.users
     @meeting.restaurants = restaurants + @meeting.restaurants
+    logger.info("$$$$$$$$$$$$$$$$$$$$$$$$")
+    @meeting.users.each do |u|
+      logger.info(u.email)
+    end
     respond_to do |format|
-      if @meeting.update(meeting_params)
+      if @meeting.update(meeting_params)  
+        UserMailer.meeting_update(@meeting.users, meeting_url(@meeting)).deliver      
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
