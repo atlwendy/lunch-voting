@@ -30,11 +30,11 @@
 	<strong>Restaurants</strong>
 	(<%= link_to 'edit restaurant', :select_restaurants%>)
 	<strong>:</strong>
-	<ul>
+	<table class='vote'>
 		<% @meeting.restaurants.each do |rest|%>
-		<li><%= link_to rest.name, rest%></li>
+		<tr><td><%= link_to rest.name, rest%></td></tr>
 		<% end %>
-	</ul>
+	</table>
 		
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
