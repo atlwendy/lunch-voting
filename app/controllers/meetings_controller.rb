@@ -33,7 +33,7 @@ class MeetingsController < ApplicationController
       if @meeting.save
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
-        UserMailer.invite(users, meetings_url).deliver
+        UserMailer.invite(users, meeting_url(@meeting)).deliver
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }

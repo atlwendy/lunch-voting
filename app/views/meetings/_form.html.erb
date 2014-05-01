@@ -91,10 +91,15 @@ $("#meeting_date").datepicker({ dateFormat: 'yy-mm-dd' });
 
 $(".intermitbutton").click(function() {
 	var commonvalue = $(this).parents('tr').find("[name=email]")
-    var thisemailaddress = commonvalue.val();
-
-	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='addeduser' value='"+thisemailaddress+"'></input></td></tr>");
-	commonvalue.val("");
+  var thisemailaddress = commonvalue.val();
+  if (validateEmail(thisemailaddress)) {
+    $("#invalidemail").remove();
+  	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='addeduser' value='"+thisemailaddress+"'></input></td></tr>"); 	
+  }
+  else {
+    $('#member').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"Invalid email address!"+"</p>");
+  }
+  commonvalue.val("");
 })
 
 $(".restb").click(function() {
@@ -103,5 +108,14 @@ $(".restb").click(function() {
   $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' id='addedrest' value='"+rvalue+"'></input></td></tr>");
   ivalue.val("");
 })
+
+function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  if( !emailReg.test( $email ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 </script>
