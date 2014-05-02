@@ -1,0 +1,30 @@
+.arrow-up {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid black;
+	position: absolute;
+}
+
+.arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	
+	border-top: 5px solid black;
+}
+
+table {
+	border: none;
+}
+
+td.restname {
+	font-size: 15px;
+	margin-left: 5px;
+}
+
+.votenumber {
+	padding-top: 5px;
+}

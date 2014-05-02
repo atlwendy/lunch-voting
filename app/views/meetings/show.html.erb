@@ -32,7 +32,17 @@
 	<strong>:</strong>
 	<table class='vote'>
 		<% @meeting.restaurants.each do |rest|%>
-		<tr><td><%= link_to rest.name, rest%></td></tr>
+		  <tr>
+        <td class="arrow-up"></td>
+        <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
+      </tr>
+      <tr>
+        <td class="votenumber">1</td>
+      </tr>
+      <tr>
+        <td class="arrow-down"></td>
+      </tr>
+        
 		<% end %>
 	</table>
 		
