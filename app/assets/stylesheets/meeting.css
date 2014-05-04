@@ -3,7 +3,16 @@
 	height: 0; 
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-bottom: 5px solid black;
+	border-bottom: 5px solid gray;
+	position: absolute;
+}
+
+.arrow-uped {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid orange;
 	position: absolute;
 }
 
@@ -13,7 +22,16 @@
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
 	
-	border-top: 5px solid black;
+	border-top: 5px solid gray;
+}
+
+.arrow-downed {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	
+	border-top: 5px solid orange;
 }
 
 table {

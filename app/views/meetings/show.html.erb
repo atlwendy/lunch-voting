@@ -27,20 +27,22 @@
 </p>
 
 <p>
+  <div id="editr">
 	<strong>Restaurants</strong>
 	(<%= link_to 'edit restaurant', :select_restaurants%>)
 	<strong>:</strong>
-	<table class='vote'>
+</div>
+	<table class='vote' id='editr'>
 		<% @meeting.restaurants.each do |rest|%>
 		  <tr>
-        <td class="arrow-up"></td>
+        <td class="arrow-up" id="uparrow" onclick="changevote('up', '<%=@user%>')"></td>
         <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
       </tr>
       <tr>
-        <td class="votenumber">1</td>
+        <td class="votenumber" id="vnumber">1</td>
       </tr>
       <tr>
-        <td class="arrow-down"></td>
+        <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
       </tr>
         
 		<% end %>
@@ -49,3 +51,25 @@
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
 <%= link_to 'Back', meetings_path %>
+
+<script>
+function changevote(direction, user){
+  if (! user) { 
+    $("#editr").append("<div style='color: red'>You have to login first to vote!</div>");
+    return
+  }
+  var votes;
+  votes = parseInt($("#vnumber").html());
+  if (direction == 'up') {
+    ++votes;
+    $("#uparrow").addClass('arrow-uped').removeClass('arrow-up');
+  }
+  else {
+    if (votes > 0) {
+     --votes;
+     $("#downarrow").addClass('arrow-downed').removeClass('arrow-down');
+    }
+  }
+  $("#vnumber").html(votes);
+}
+</script>
