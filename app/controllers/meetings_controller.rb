@@ -11,6 +11,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
     @user = params[:user]
+    @votes = getVotes(params[:id], params[:user])
   end
 
   # GET /meetings/new
@@ -40,6 +41,24 @@ class MeetingsController < ApplicationController
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def getVotes(meeting_id, user)
+    restaurants = Meeting.find(meeting_id).restaurants
+    mrs = MeetingRestaurantSelection.where('meeting_id = ?', meeting_id)
+    uid = User.find_by_email(user).id
+    return 0 if mrs.empty?
+    votes = 0
+    mrs.each do |mm|
+      umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mm.id)
+      next if umv.empty?
+      votes = votes + umv.vote_counts
+    end
+    return votes
+  end
+
+  def updateUMVdb
+    user = params[:user]
   end
 
   def getUsers(emails)

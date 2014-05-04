@@ -39,7 +39,7 @@
         <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
       </tr>
       <tr>
-        <td class="votenumber" id="vnumber">1</td>
+        <td class="votenumber" id="vnumber"><%=@votes%></td>
       </tr>
       <tr>
         <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
@@ -63,13 +63,24 @@ function changevote(direction, user){
   if (direction == 'up') {
     ++votes;
     $("#uparrow").addClass('arrow-uped').removeClass('arrow-up');
+    if ($("#downarrow").hasClass('arrow-downed')) {
+      $("#downarrow").addClass('arrow-down').removeClass('arrow-downed');
+    }
+    updateVoteDB('up');
   }
   else {
     if (votes > 0) {
      --votes;
      $("#downarrow").addClass('arrow-downed').removeClass('arrow-down');
+     if ($("#uparrow").hasClass('arrow-uped')) {
+        $("#uparrow").addClass('arrow-up').removeClass('arrow-uped');
+     }
     }
   }
   $("#vnumber").html(votes);
+}
+
+function updateVoteDB(vote) {
+
 }
 </script>
