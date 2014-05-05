@@ -10,6 +10,13 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
+    @meeting_id = params[:id] #if I don't have this, I get error message as:
+                              #Parameters: {"uid"=>"4", "mrs_id"=>"14", "vote"=>"up", "id"=>"updateVoteDB"}
+                              #Meeting Load (0.2ms)  SELECT  "meetings".* FROM "meetings"  WHERE "meetings"."id" = ? LIMIT 1  [["id", 0]]
+                              #Completed 404 Not Found in 3ms
+
+                              #ActiveRecord::RecordNotFound (Couldn't find Meeting with 'id'=updateVoteDB):
+                              #app/controllers/meetings_controller.rb:159:in `set_meeting'
     @user = params[:user]
     @uid = User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
@@ -64,6 +71,7 @@ class MeetingsController < ApplicationController
     uid = params[:uid]
     mrs_id = params[:mrs_id]
     vote = params[:vote] == 'up' ? 1 : -1
+    id = params[:id]
     umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mrs_id)
     if umv.empty?
       umv = UserMrsVotecounts.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)

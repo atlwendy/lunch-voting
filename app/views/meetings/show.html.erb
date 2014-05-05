@@ -54,24 +54,26 @@
 
 <script>
 function changevote(direction, user){
+  var direction = direction;
   if (! user) { 
     $("#editr").append("<div style='color: red'>You have to login first to vote!</div>");
     return
   }
   var votes;
   votes = parseInt($("#vnumber").html());
-  updateVoteDB('direction')
+  updateVoteDB(direction)
 }
 
 function updateVoteDB(vote) {
   var uid = '<%=@uid%>';
   var mrs_id = '<%=@mrs_id%>';
   var vote = vote;
-  
+  var id = '<%=@meeting_id%>';
+
   $.ajax({
             url:        "../meetings/updateVoteDB",
             type:       "GET",
-            data:       {uid: uid, mrs_id:mrs_id, vote:vote},
+            data:       {uid: uid, mrs_id:mrs_id, vote:vote, id: id},
             datatype:   "json",
             complete:   function (xhr, status) {
                         }, 
