@@ -35,22 +35,14 @@
 	<table class='vote' id='editr'>
 		<% @meeting.restaurants.each do |rest|%>
 		  <tr>
-        <% if @inGroup %>
         <td class="arrow-up" id="uparrow" onclick="changevote('up', '<%=@user%>')"></td>
-        <% else %>
-        <td></td>
-        <% end %>
         <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
       </tr>
       <tr>
         <td class="votenumber" id="vnumber"><%=@votes%></td>
       </tr>
       <tr>
-        <% if @inGroup %>
-          <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
-        <% else %>
-          <td></td>
-        <% end %>
+        <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
       </tr>
         
 		<% end %>
@@ -63,8 +55,9 @@
 <script>
 function changevote(direction, user){
   var direction = direction;
-  if (! user) { 
-    $("#editr").append("<div style='color: red'>You have to login first to vote!</div>");
+  var member = <%=@inGroup%>
+  if (! user || ! member) { 
+    $("#editr").append("<div style='color: red'>You have to login or be the group's member to vote!</div>");
     return
   }
   var votes;
