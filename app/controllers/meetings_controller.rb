@@ -17,6 +17,8 @@ class MeetingsController < ApplicationController
 
                               #ActiveRecord::RecordNotFound (Couldn't find Meeting with 'id'=updateVoteDB):
                               #app/controllers/meetings_controller.rb:159:in `set_meeting'
+    logger.info("$$$$$$$$$$$$$$$$$$$$$$$")
+    logger.info(@meeting_id)
     @user = params[:user]
     @uid = User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
@@ -62,21 +64,21 @@ class MeetingsController < ApplicationController
     mrs.each do |mm|
       umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mm.id)
       next if umv.empty?
-      votes = votes + umv.vote_counts
+      votes = votes + umv.first.vote_counts
     end
     return votes
   end
 
-  def updateUMVdb
+  def updateVoteDB
     uid = params[:uid]
     mrs_id = params[:mrs_id]
     vote = params[:vote] == 'up' ? 1 : -1
     id = params[:id]
-    umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mrs_id)
-    if umv.empty?
+    umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mrs_id).first
+    if umv.nil?
       umv = UserMrsVotecounts.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)
     else
-      umv.vote_counts = umv.first.vote_counts.to_i + vote
+      umv.vote_counts = umv.vote_counts.to_i + vote
     end
     umv.save
   end

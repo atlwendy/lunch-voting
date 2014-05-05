@@ -71,7 +71,7 @@ function updateVoteDB(vote) {
   var id = '<%=@meeting_id%>';
 
   $.ajax({
-            url:        "../meetings/updateVoteDB",
+            url:        "../meetings/" + id + "/" + "updateVoteDB",
             type:       "GET",
             data:       {uid: uid, mrs_id:mrs_id, vote:vote, id: id},
             datatype:   "json",
@@ -96,7 +96,7 @@ function updateVoteDB(vote) {
                                  }
                               }
                             }
-                            $("#vnumber").html(votes);
+                            $("#vnumber").html(counts);
                           }                
                           else {
                             alert("Something went wrong. Please contact your admin")
