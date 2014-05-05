@@ -11,6 +11,9 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
     @user = params[:user]
+    @uid = User.where('email = ?', @user).first.id
+    mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
+    @mrs_id = mrs.empty? ? 0 : mrs.first.id
     @votes = getVotes(params[:id], params[:user])
   end
 
@@ -58,7 +61,16 @@ class MeetingsController < ApplicationController
   end
 
   def updateUMVdb
-    user = params[:user]
+    uid = params[:uid]
+    mrs_id = params[:mrs_id]
+    vote = params[:vote] == 'up' ? 1 : -1
+    umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mrs_id)
+    if umv.empty?
+      umv = UserMrsVotecounts.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)
+    else
+      umv.vote_counts = umv.first.vote_counts.to_i + vote
+    end
+    umv.save
   end
 
   def getUsers(emails)

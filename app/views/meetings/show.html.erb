@@ -60,27 +60,50 @@ function changevote(direction, user){
   }
   var votes;
   votes = parseInt($("#vnumber").html());
-  if (direction == 'up') {
-    ++votes;
-    $("#uparrow").addClass('arrow-uped').removeClass('arrow-up');
-    if ($("#downarrow").hasClass('arrow-downed')) {
-      $("#downarrow").addClass('arrow-down').removeClass('arrow-downed');
-    }
-    updateVoteDB('up');
-  }
-  else {
-    if (votes > 0) {
-     --votes;
-     $("#downarrow").addClass('arrow-downed').removeClass('arrow-down');
-     if ($("#uparrow").hasClass('arrow-uped')) {
-        $("#uparrow").addClass('arrow-up').removeClass('arrow-uped');
-     }
-    }
-  }
-  $("#vnumber").html(votes);
+  updateVoteDB('direction')
 }
 
 function updateVoteDB(vote) {
-
+  var uid = '<%=@uid%>';
+  var mrs_id = '<%=@mrs_id%>';
+  var vote = vote;
+  
+  $.ajax({
+            url:        "../meetings/updateVoteDB",
+            type:       "GET",
+            data:       {uid: uid, mrs_id:mrs_id, vote:vote},
+            datatype:   "json",
+            complete:   function (xhr, status) {
+                        }, 
+            success:    function(data, textStatus, xhr){
+                          if (data) {
+                            counts = parseInt($("#vnumber").html());
+                            if (vote == 'up') {
+                              ++counts;
+                              $("#uparrow").addClass('arrow-uped').removeClass('arrow-up');
+                              if ($("#downarrow").hasClass('arrow-downed')) {
+                                $("#downarrow").addClass('arrow-down').removeClass('arrow-downed');
+                              }
+                            }
+                            else {
+                              if (counts > 0) {
+                                --counts;
+                                $("#downarrow").addClass('arrow-downed').removeClass('arrow-down');
+                                if ($("#uparrow").hasClass('arrow-uped')) {
+                                  $("#uparrow").addClass('arrow-up').removeClass('arrow-uped');
+                                 }
+                              }
+                            }
+                            $("#vnumber").html(votes);
+                          }                
+                          else {
+                            alert("Something went wrong. Please contact your admin")
+                          }
+                        },
+            error:      function(request, status, error){
+                            console.log(error)
+                            console.log(status)
+                        },
+            });
 }
 </script>
