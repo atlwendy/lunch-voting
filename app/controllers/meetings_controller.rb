@@ -10,19 +10,12 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
-    @meeting_id = params[:id] #if I don't have this, I get error message as:
-                              #Parameters: {"uid"=>"4", "mrs_id"=>"14", "vote"=>"up", "id"=>"updateVoteDB"}
-                              #Meeting Load (0.2ms)  SELECT  "meetings".* FROM "meetings"  WHERE "meetings"."id" = ? LIMIT 1  [["id", 0]]
-                              #Completed 404 Not Found in 3ms
-
-                              #ActiveRecord::RecordNotFound (Couldn't find Meeting with 'id'=updateVoteDB):
-                              #app/controllers/meetings_controller.rb:159:in `set_meeting'
-    logger.info("$$$$$$$$$$$$$$$$$$$$$$$")
-    logger.info(@meeting_id)
+    @meeting_id = params[:id] 
     @user = params[:user]
-    @uid = User.where('email = ?', @user).first.id
+    @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @mrs_id = mrs.empty? ? 0 : mrs.first.id
+    @inGroup = is_user_invited?(@user, @meeting_id)
     @votes = getVotes(params[:id], params[:user])
   end
 
@@ -55,14 +48,21 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def is_user_invited?(user, mid)
+    if Meeting.find(mid).users.include?(User.find_by_email(user))
+      return true
+    end
+    return false
+  end
+
   def getVotes(meeting_id, user)
     restaurants = Meeting.find(meeting_id).restaurants
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', meeting_id)
-    uid = User.find_by_email(user).id
+    #uid = User.find_by_email(user).id
     return 0 if mrs.empty?
     votes = 0
     mrs.each do |mm|
-      umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mm.id)
+      umv = UserMrsVotecounts.where('mrs_id = ?', mm.id)
       next if umv.empty?
       votes = votes + umv.first.vote_counts
     end

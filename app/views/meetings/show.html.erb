@@ -35,14 +35,22 @@
 	<table class='vote' id='editr'>
 		<% @meeting.restaurants.each do |rest|%>
 		  <tr>
+        <% if @inGroup %>
         <td class="arrow-up" id="uparrow" onclick="changevote('up', '<%=@user%>')"></td>
+        <% else %>
+        <td></td>
+        <% end %>
         <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
       </tr>
       <tr>
         <td class="votenumber" id="vnumber"><%=@votes%></td>
       </tr>
       <tr>
-        <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
+        <% if @inGroup %>
+          <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
+        <% else %>
+          <td></td>
+        <% end %>
       </tr>
         
 		<% end %>
