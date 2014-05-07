@@ -14,9 +14,22 @@ class MeetingsController < ApplicationController
     @user = params[:user]
     @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
-    @mrs_id = mrs.empty? ? 0 : mrs.first.id
     @inGroup = is_user_invited?(@user, @meeting_id)
-    @votes = getVotes(params[:id], params[:user])
+    @votes = getVotes(@mrs_id)
+    @allrests = getAllrests(@meeting)
+  end
+
+  def getAllrests(meeting)
+    meeting_mrs = Hash.new
+    rests = meeting.restaurants
+    rests.each do |r|
+      mrs_id = MeetingRestaurantSelection.where('meeting_id = ? AND restaurant_id = ?', meeting.id, r.id).first.id
+      meeting_mrs[r] = [getVotes(mrs_id), mrs_id]
+    end
+    return meeting_mrs
+  end
+
+  def getMrsId(meeting, rest)
   end
 
   # GET /meetings/new
@@ -55,18 +68,10 @@ class MeetingsController < ApplicationController
     return false
   end
 
-  def getVotes(meeting_id, user)
-    restaurants = Meeting.find(meeting_id).restaurants
-    mrs = MeetingRestaurantSelection.where('meeting_id = ?', meeting_id)
-    #uid = User.find_by_email(user).id
-    return 0 if mrs.empty?
+  def getVotes(mrs_id)
     votes = 0
-    mrs.each do |mm|
-      umv = UserMrsVotecounts.where('mrs_id = ?', mm.id)
-      next if umv.empty?
-      votes = votes + umv.first.vote_counts
-    end
-    return votes
+    umvs = UserMrsVotecounts.where('mrs_id = ?', mrs_id)
+    return umvs.empty? ? 0 : umvs.map{|x| votes=votes+x.vote_counts}[0]
   end
 
   def updateVoteDB
@@ -113,10 +118,7 @@ class MeetingsController < ApplicationController
     restaurants = getRest(params[:restaurantname])
     @meeting.users = users + @meeting.users
     @meeting.restaurants = restaurants + @meeting.restaurants
-    logger.info("$$$$$$$$$$$$$$$$$$$$$$$$")
-    @meeting.users.each do |u|
-      logger.info(u.email)
-    end
+   
     respond_to do |format|
       if @meeting.update(meeting_params)  
         UserMailer.meeting_update(@meeting.users, meeting_url(@meeting)).deliver      

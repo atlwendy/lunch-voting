@@ -33,16 +33,18 @@
 	<strong>:</strong>
 </div>
 	<table class='vote' id='editr'>
-		<% @meeting.restaurants.each do |rest|%>
+    <% number = 0 %>
+		<% @allrests.each_pair do |key, value|%>
+      <% number = number + 1 %>
 		  <tr>
-        <td class="arrow-up" id="uparrow" onclick="changevote('up', '<%=@user%>')"></td>
-        <td rowspan="3" class="restname"><%= link_to rest.name, rest%></td>
+        <td class="arrow-up" id='<%="uparrow#{number}" %>' onclick="changevote('up', '<%=@user%>', <%=number.to_s%>, <%=value[1]%>)"></td>
+        <td rowspan="3" class="restname"><%= link_to key.name, key%></td>
       </tr>
       <tr>
-        <td class="votenumber" id="vnumber"><%=@votes%></td>
+        <td class="votenumber" id='<%="vnumber#{number}"%>'><%=value[0]%></td>
       </tr>
       <tr>
-        <td class="arrow-down" id="downarrow" onclick="changevote('down', '<%=@user%>')"></td>
+        <td class="arrow-down" id='<%="downarrow#{number}" %>' onclick="changevote('down', '<%=@user%>', <%=number.to_s%>,  <%=value[1]%>)"></td>
       </tr>
         
 		<% end %>
@@ -53,21 +55,20 @@
 <%= link_to 'Back', meetings_path %>
 
 <script>
-function changevote(direction, user){
+function changevote(direction, user, norder, mrs_id){
   var direction = direction;
   var member = <%=@inGroup%>
   if (! user || ! member) { 
     $("#editr").append("<div style='color: red'>You have to login or be the group's member to vote!</div>");
     return
   }
-  var votes;
-  votes = parseInt($("#vnumber").html());
-  updateVoteDB(direction)
+  
+  updateVoteDB(direction, norder, mrs_id);
 }
 
-function updateVoteDB(vote) {
+function updateVoteDB(vote, norder, mrs_id) {
   var uid = '<%=@uid%>';
-  var mrs_id = '<%=@mrs_id%>';
+  var mrs_id = mrs_id;
   var vote = vote;
   var id = '<%=@meeting_id%>';
 
@@ -80,24 +81,24 @@ function updateVoteDB(vote) {
                         }, 
             success:    function(data, textStatus, xhr){
                           if (data) {
-                            counts = parseInt($("#vnumber").html());
+                            counts = parseInt($("#vnumber" + norder).html());
                             if (vote == 'up') {
                               ++counts;
-                              $("#uparrow").addClass('arrow-uped').removeClass('arrow-up');
-                              if ($("#downarrow").hasClass('arrow-downed')) {
-                                $("#downarrow").addClass('arrow-down').removeClass('arrow-downed');
+                              $("#uparrow"+norder).addClass('arrow-uped').removeClass('arrow-up');
+                              if ($("#downarrow"+norder).hasClass('arrow-downed')) {
+                                $("#downarrow"+norder).addClass('arrow-down').removeClass('arrow-downed');
                               }
                             }
                             else {
                               if (counts > 0) {
                                 --counts;
-                                $("#downarrow").addClass('arrow-downed').removeClass('arrow-down');
-                                if ($("#uparrow").hasClass('arrow-uped')) {
-                                  $("#uparrow").addClass('arrow-up').removeClass('arrow-uped');
+                                $("#downarrow"+norder).addClass('arrow-downed').removeClass('arrow-down');
+                                if ($("#uparrow"+norder).hasClass('arrow-uped')) {
+                                  $("#uparrow"+norder).addClass('arrow-up').removeClass('arrow-uped');
                                  }
                               }
                             }
-                            $("#vnumber").html(counts);
+                            $("#vnumber"+norder).html(counts);
                           }                
                           else {
                             alert("Something went wrong. Please contact your admin")
