@@ -74,7 +74,7 @@ class MeetingsController < ApplicationController
 
   def getVotes(mrs_id)
     votes = 0
-    umvs = UserMrsVotecounts.where('mrs_id = ?', mrs_id)
+    umvs = Vote.where('mrs_id = ?', mrs_id)
     return umvs.empty? ? 0 : umvs.map{|x| votes=votes+x.vote_counts}[0]
   end
 
@@ -83,9 +83,9 @@ class MeetingsController < ApplicationController
     mrs_id = params[:mrs_id]
     vote = params[:vote] == 'up' ? 1 : -1
     id = params[:id]
-    umv = UserMrsVotecounts.where('user_id = ? AND mrs_id = ?', uid, mrs_id).first
+    umv = Vote.where('user_id = ? AND mrs_id = ?', uid, mrs_id).first
     if umv.nil?
-      umv = UserMrsVotecounts.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)
+      umv = Vote.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)
     else
       umv.vote_counts = umv.vote_counts.to_i + vote
     end
