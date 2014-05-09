@@ -1,29 +1,25 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
-  # GET /meetings
-  # GET /meetings.json
   def index
     @meetings = Meeting.all.order('date')
   end
 
-  # GET /meetings/1
-  # GET /meetings/1.json
   def show
     @meeting_id = params[:id] 
     @user = params[:user]
     @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @inGroup = is_user_invited?(@user, @meeting_id)
-    @allrests = getAllrests(@meeting)
+    @allrests = get_all_restaurants(@meeting)
   end
 
-  def getAllrests(meeting)
+  def get_all_restaurants(meeting)
     meeting_mrs = Hash.new
     rests = meeting.restaurants
     rests.each do |r|
       mrs_id = MeetingRestaurantSelection.where('meeting_id = ? AND restaurant_id = ?', meeting.id, r.id).first.id
-      votes = getVotes(mrs_id)
+      votes = get_votes(mrs_id)
       if votes == 0
         upordown = nil
       elsif votes > 0
@@ -31,29 +27,22 @@ class MeetingsController < ApplicationController
       else
         upordown = 'down'
       end
-      meeting_mrs[r] = [getVotes(mrs_id), mrs_id, upordown]
+      meeting_mrs[r] = [get_votes(mrs_id), mrs_id, upordown]
     end
     return meeting_mrs
   end
 
-  def getMrsId(meeting, rest)
-  end
-
-  # GET /meetings/new
   def new
     @meeting = Meeting.new
   end
 
-  # GET /meetings/1/edit
   def edit
   end
 
-  # POST /meetings
-  # POST /meetings.json
   def create
     @meeting = Meeting.new(meeting_params)
-    users = getUsers(params[:emailaddress])
-    restaurants = getRest(params[:restaurantname])
+    users = get_users(params[:emailaddress])
+    restaurants = get_restaurant(params[:restaurantname])
     @meeting.users = users
     @meeting.restaurants = restaurants
     respond_to do |format|
@@ -72,13 +61,13 @@ class MeetingsController < ApplicationController
     return Meeting.find(mid).users.include?(User.find_by_email(user)) ? true : false
   end
 
-  def getVotes(mrs_id)
+  def get_votes(mrs_id)
     votes = 0
     umvs = Vote.where('mrs_id = ?', mrs_id)
     return umvs.empty? ? 0 : umvs.map{|x| votes=votes+x.vote_counts}[0]
   end
 
-  def updateVoteDB
+  def update_vote
     uid = params[:uid]
     mrs_id = params[:mrs_id]
     vote = params[:vote] == 'up' ? 1 : -1
@@ -92,7 +81,7 @@ class MeetingsController < ApplicationController
     umv.save
   end
 
-  def getUsers(emails)
+  def get_users(emails)
     return [] if emails.nil?
     users = []
     emails.each do |e|
@@ -103,7 +92,7 @@ class MeetingsController < ApplicationController
     return users
   end
 
-  def getRest(rest)
+  def get_restaurant(rest)
     return [] if rest.nil?
     rests = []
     rest.each do |r|
@@ -118,8 +107,8 @@ class MeetingsController < ApplicationController
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
   def update
-    users = getUsers(params[:emailaddress])
-    restaurants = getRest(params[:restaurantname])
+    users = get_users(params[:emailaddress])
+    restaurants = get_restaurant(params[:restaurantname])
     @meeting.users = users + @meeting.users
     @meeting.restaurants = restaurants + @meeting.restaurants
    

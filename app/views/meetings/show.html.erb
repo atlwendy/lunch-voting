@@ -33,28 +33,30 @@
 	<strong>:</strong>
 </div>
 	<table class='vote' id='editr'>
-    <% number = 0 %>
-		<% @allrests.each_pair do |key, value|%>
-      <% number = number + 1 %>
+    <% @allrests.each_pair do |key, value|%>
+      <%
+      mrs_id = value[1]
+      vote_count = value[0]
+      direction = value[2] || 'down'
+      up_arrow_class = direction == 'down' ? 'arrow-up' : 'arrow-uped'
+      down_arrow_class = direction == 'up' ? 'arrow-down' : 'arrow-downed'
+      %>
 		  <tr>
-        <% if value[2].nil? or value[2] == 'down'%>
-        <td class="arrow-up" id='<%="uparrow#{number}" %>' onclick="changevote('up', '<%=@user%>', <%=number.to_s%>, <%=value[1]%>)"></td>
-        <% elsif value[2] == 'up' %>
-        <td class="arrow-uped" id='<%="uparrow#{number}" %>' onclick="changevote('up', '<%=@user%>', <%=number.to_s%>, <%=value[1]%>)"></td>
-        <% end %>
+        <td class="<%=up_arrow_class%>" 
+          id='<%="uparrow#{mrs_id}" %>' 
+          onclick="changeVote('up', <%=mrs_id%>)">
+        </td>
         <td rowspan="3" class="restname"><%= link_to key.name, key%></td>
       </tr>
       <tr>
-        <td class="votenumber" id='<%="vnumber#{number}"%>'><%=value[0]%></td>
+        <td class="votenumber" id='<%="vnumber#{mrs_id}"%>'><%=vote_count%></td>
       </tr>
       <tr>
-        <% if value[2].nil? or value[2] == 'up'%>
-        <td class="arrow-down" id='<%="downarrow#{number}" %>' onclick="changevote('down', '<%=@user%>', <%=number.to_s%>,  <%=value[1]%>)"></td>
-        <% elsif value[2] == 'down' %>
-        <td class="arrow-downed" id='<%="downarrow#{number}" %>' onclick="changevote('down', '<%=@user%>', <%=number.to_s%>,  <%=value[1]%>)"></td>
-        <% end %>
+        <td class="<%=down_arrow_class%>" 
+          id='<%="downarrow#{mrs_id}" %>' 
+          onclick="changeVote('down', <%=mrs_id%>)">
+        </td>
       </tr>
-        
 		<% end %>
 	</table>
 		
@@ -63,7 +65,9 @@
 <%= link_to 'Back', meetings_path %>
 
 <script>
-function changevote(direction, user, norder, mrs_id){
+
+var user = '<%= @user %>';
+function changeVote(direction, mrs_id){
   var direction = direction;
   var member = <%=@inGroup%>
   if (! user || ! member) { 
@@ -71,51 +75,58 @@ function changevote(direction, user, norder, mrs_id){
     return
   }
   
-  updateVoteDB(direction, norder, mrs_id);
+  updateVote(direction, mrs_id);
 }
 
-function updateVoteDB(vote, norder, mrs_id) {
+function updateVote(vote, mrs_id) {
   var uid = '<%=@uid%>';
-  var mrs_id = mrs_id;
-  var vote = vote;
   var id = '<%=@meeting_id%>';
-
+  var url = "../meetings/" + id + "/" + "update_vote";
   $.ajax({
-            url:        "../meetings/" + id + "/" + "updateVoteDB",
-            type:       "GET",
-            data:       {uid: uid, mrs_id:mrs_id, vote:vote, id: id},
-            datatype:   "json",
-            complete:   function (xhr, status) {
-                        }, 
-            success:    function(data, textStatus, xhr){
-                          if (data) {
-                            counts = parseInt($("#vnumber" + norder).html());
-                            if (vote == 'up') {
-                              ++counts;
-                              $("#uparrow"+norder).addClass('arrow-uped').removeClass('arrow-up');
-                              if ($("#downarrow"+norder).hasClass('arrow-downed')) {
-                                $("#downarrow"+norder).addClass('arrow-down').removeClass('arrow-downed');
-                              }
-                            }
-                            else {
-                              //if (counts > 0) {
-                                --counts;
-                                $("#downarrow"+norder).addClass('arrow-downed').removeClass('arrow-down');
-                                if ($("#uparrow"+norder).hasClass('arrow-uped')) {
-                                  $("#uparrow"+norder).addClass('arrow-up').removeClass('arrow-uped');
-                                 }
-                              //}
-                            }
-                            $("#vnumber"+norder).html(counts);
-                          }                
-                          else {
-                            alert("Something went wrong. Please contact your admin")
-                          }
-                        },
-            error:      function(request, status, error){
-                            console.log(error)
-                            console.log(status)
-                        },
-            });
+    url: url,
+    type: "GET",
+    data: {
+      uid: uid, 
+      mrs_id: mrs_id, 
+      vote: vote, 
+      id: id
+    },
+    datatype: "json",
+    success: function(data, textStatus, xhr){
+      if (data) {
+        var counts = Number($("#vnumber" + mrs_id).html());
+        if (vote == 'up') {
+          counts++;
+          voteUp(mrs_id);
+        }
+        else {
+          counts--;
+          voteDown(mrs_id);
+        }
+        $("#vnumber"+mrs_id).html(counts);
+      }                
+      else {
+        alert("Something went wrong. Please contact your admin")
+      }
+    },
+    error: function(request, status, error){
+      console.log(error)
+      console.log(status)
+    },
+  });
+}
+
+function voteUp(mrsId){
+  $("#uparrow"+mrsId).addClass('arrow-uped').removeClass('arrow-up');
+  if ($("#downarrow"+mrsId).hasClass('arrow-downed')) {
+    $("#downarrow"+mrsId).addClass('arrow-down').removeClass('arrow-downed');
+  }
+}
+
+function voteDown(mrsId){
+  $("#downarrow"+mrsId).addClass('arrow-downed').removeClass('arrow-down');
+  if ($("#uparrow"+mrsId).hasClass('arrow-uped')) {
+    $("#uparrow"+mrsId).addClass('arrow-up').removeClass('arrow-uped');
+  }
 }
 </script>

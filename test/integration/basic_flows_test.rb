@@ -12,7 +12,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
  teardown do
    Capybara.use_default_driver
  end
-=begin
+
   test "edit meeting members" do
     visit('/meetings')
     click_link('Show')
@@ -70,7 +70,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_content?("xyz@abc.com")
     assert page.has_content?("canton cooks")
   end
-=end
+
   test "create meeting" do
     Capybara.current_driver = Capybara.javascript_driver
     visit("/meetings/new")
@@ -80,7 +80,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_field?("temail", :with=>"xyz@abc.com")
     click_button('Add member')
     assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
-    #assert_equal page.find("#thisid").value, "xyz@abc.com"
+    
     fill_in 'trest', with: 'canton cooks'
     assert page.has_field?('trest', :with=>'canton cooks')
     click_button('Add restaurant')
@@ -90,23 +90,19 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_content?('Test Lunch')
     assert page.has_content?("xyz@abc.com")
     assert page.has_content?("canton cooks")
-    #find("#uparrow1").click
-    #assert page.has_content?("You have to login")
-
+    
     uri = URI.parse(current_url)
-    puts uri
     newuri = "#{uri}?user=xyz@abc.com"
     visit(newuri)
-    puts newuri
     find("#uparrow1").click
-    #puts page.body
+    
     votes = page.all('table td#vnumber1').map(&:text)
-    votes.include?('1')
-    #assert_equal page.evaluate_script('document.getELementById("vnumber1").value'), '1'
-    #assert_equal page.evaluate_script('document.getElementById("vnumber1").value'), 1
+    assert votes.include?('1')    
+
     find("#downarrow1").click
     votes = page.all('table td#vnumber1').map(&:text)
     assert_equal votes, ['0']
+
   end
 
 end

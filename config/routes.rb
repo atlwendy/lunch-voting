@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'meetings/:id/submit_members' => 'meetings#submit_members'
   get 'meetings/:id/select_restaurants' => 'meetings#select_restaurants', as: :select_restaurants
   post 'meetings/:id/submit_restaurants' => 'meetings#submit_restaurants'
-  get 'meetings/:id/updateVoteDB' => 'meetings#updateVoteDB', as: :updateVoteDB
+  get 'meetings/:id/update_vote' => 'meetings#update_vote', as: :update_vote
 
   resources :users
 
