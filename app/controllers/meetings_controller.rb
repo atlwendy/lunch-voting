@@ -15,7 +15,6 @@ class MeetingsController < ApplicationController
     @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @inGroup = is_user_invited?(@user, @meeting_id)
-    @votes = getVotes(@mrs_id)
     @allrests = getAllrests(@meeting)
   end
 
@@ -24,7 +23,15 @@ class MeetingsController < ApplicationController
     rests = meeting.restaurants
     rests.each do |r|
       mrs_id = MeetingRestaurantSelection.where('meeting_id = ? AND restaurant_id = ?', meeting.id, r.id).first.id
-      meeting_mrs[r] = [getVotes(mrs_id), mrs_id]
+      votes = getVotes(mrs_id)
+      if votes == 0
+        upordown = nil
+      elsif votes > 0
+        upordown = 'up'
+      else
+        upordown = 'down'
+      end
+      meeting_mrs[r] = [getVotes(mrs_id), mrs_id, upordown]
     end
     return meeting_mrs
   end
@@ -62,10 +69,7 @@ class MeetingsController < ApplicationController
   end
 
   def is_user_invited?(user, mid)
-    if Meeting.find(mid).users.include?(User.find_by_email(user))
-      return true
-    end
-    return false
+    return Meeting.find(mid).users.include?(User.find_by_email(user)) ? true : false
   end
 
   def getVotes(mrs_id)

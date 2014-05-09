@@ -37,14 +37,22 @@
 		<% @allrests.each_pair do |key, value|%>
       <% number = number + 1 %>
 		  <tr>
+        <% if value[2].nil? or value[2] == 'down'%>
         <td class="arrow-up" id='<%="uparrow#{number}" %>' onclick="changevote('up', '<%=@user%>', <%=number.to_s%>, <%=value[1]%>)"></td>
+        <% elsif value[2] == 'up' %>
+        <td class="arrow-uped" id='<%="uparrow#{number}" %>' onclick="changevote('up', '<%=@user%>', <%=number.to_s%>, <%=value[1]%>)"></td>
+        <% end %>
         <td rowspan="3" class="restname"><%= link_to key.name, key%></td>
       </tr>
       <tr>
         <td class="votenumber" id='<%="vnumber#{number}"%>'><%=value[0]%></td>
       </tr>
       <tr>
+        <% if value[2].nil? or value[2] == 'up'%>
         <td class="arrow-down" id='<%="downarrow#{number}" %>' onclick="changevote('down', '<%=@user%>', <%=number.to_s%>,  <%=value[1]%>)"></td>
+        <% elsif value[2] == 'down' %>
+        <td class="arrow-downed" id='<%="downarrow#{number}" %>' onclick="changevote('down', '<%=@user%>', <%=number.to_s%>,  <%=value[1]%>)"></td>
+        <% end %>
       </tr>
         
 		<% end %>
@@ -90,13 +98,13 @@ function updateVoteDB(vote, norder, mrs_id) {
                               }
                             }
                             else {
-                              if (counts > 0) {
+                              //if (counts > 0) {
                                 --counts;
                                 $("#downarrow"+norder).addClass('arrow-downed').removeClass('arrow-down');
                                 if ($("#uparrow"+norder).hasClass('arrow-uped')) {
                                   $("#uparrow"+norder).addClass('arrow-up').removeClass('arrow-uped');
                                  }
-                              }
+                              //}
                             }
                             $("#vnumber"+norder).html(counts);
                           }                
