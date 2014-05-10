@@ -138,16 +138,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @users = @meeting.users
     @allusers = User.all
-    @alluseremails = get_user_emails(@allusers)
-  end
-
-  def get_user_emails(users)
-    all_emails = []
-    users.each do |user|
-      next if user.email.nil?
-      all_emails.push(user.email)
-    end
-    return all_emails
+    @alluseremails = User.pluck(:email) #get_user_emails(@allusers)
   end
 
   def submit_members
@@ -160,7 +151,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @restaurants = @meeting.restaurants
     @allrests = Restaurant.all
-    @all_restaurant_names = Restaurant.all.select(:name).map(&:name)
+    @all_restaurant_names = Restaurant.pluck(:name)
   end
 
   def submit_restaurants
