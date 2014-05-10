@@ -138,11 +138,21 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @users = @meeting.users
     @allusers = User.all
+    @alluseremails = get_user_emails(@allusers)
+  end
+
+  def get_user_emails(users)
+    all_emails = []
+    users.each do |user|
+      next if user.email.nil?
+      all_emails.push(user.email)
+    end
+    return all_emails
   end
 
   def submit_members
     meeting = Meeting.find(params[:id])
-    meeting.users = User.where({id: params[:user_id]})
+    meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress])
     redirect_to meeting
   end
   
@@ -150,11 +160,12 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @restaurants = @meeting.restaurants
     @allrests = Restaurant.all
+    @all_restaurant_names = Restaurant.all.select(:name).map(&:name)
   end
 
   def submit_restaurants
     meeting = Meeting.find(params[:id])
-    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]})
+    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]}) + get_restaurant(params[:restaurantname])
     redirect_to meeting
   end
 

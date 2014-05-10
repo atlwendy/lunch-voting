@@ -8,5 +8,32 @@
     </label>
   <% end %>
 
+<div class="field" id="restaurant">
+    <table class="rest">
+      <tr>
+        <td><label for="Restaurant">Please enter new restaurant option(s): &nbsp </label></td>
+        <td><input class="text" type="text" name="rtt" id="trest"></input>
+          <input class="button restb" name="morerest" type="button" value="Add restaurant"></input>
+        </td>
+      </tr>
+    </table>
+  </div>
+
   <%=submit_tag "Save" %>
 <% end %>
+
+<script>
+$(".restb").click(function() {
+  var ivalue = $(this).parents('tr').find("[name=rtt]")
+  var rvalue = ivalue.val();
+  var names = '<%=@all_restaurant_names%>'
+
+  if (names.indexOf(rvalue) > -1) {
+  	$('#restaurant').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"This restaurant exists already!"+"</p>")
+  }
+  else {
+  	$('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' id='addedrest' value='"+rvalue+"'></input></td></tr>");
+  	ivalue.val("");
+  }
+})
+</script>

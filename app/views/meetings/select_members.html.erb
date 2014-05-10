@@ -8,5 +8,46 @@
     </label>
   <% end %>
 
+<div class="field" id="member">
+	<table class="logincontent">
+    <tr>
+        <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
+        <td><input class="text" type="text" name="email" id="temail"></input>
+
+        <input class="button intermitbutton" name="addmore" type="button" value="Add member" id="addmember"></input></td>
+		</tr>
+	</table>
+  </div>
+
   <%=submit_tag "Save" %>
 <% end %>
+
+<script>
+$(".intermitbutton").click(function() {
+	var commonvalue = $(this).parents('tr').find("[name=email]")
+  	var thisemailaddress = commonvalue.val();
+  	var all_existing_emails = '<%=@alluseremails%>'
+  	if (validateEmail(thisemailaddress)) {
+    	$("#invalidemail").remove();
+    	if (all_existing_emails.indexOf(thisemailaddress) > -1) {
+    		$('#member').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"This email address exists already!"+"</p>")
+    	}
+    	else {
+	  		$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='addeduser' value='"+thisemailaddress+"'></input></td></tr>"); 	
+	  	}
+  	}
+  	else {
+    	$('#member').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"Invalid email address!"+"</p>");
+  	}
+  	commonvalue.val("");
+})
+
+function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  if( !emailReg.test( $email ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+</script>
