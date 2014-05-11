@@ -31,6 +31,7 @@
     <% end %>
   </div>
 
+<% if @meeting.new_record? %>
   <% if not @meeting.users.empty? %>
     <div class="field" id="emember">
       <label for='emember address'>Current members:</label>
@@ -75,6 +76,7 @@
       </tr>
     </table>
   </div>
+<% end %>
 
   <div class="actions">
     <%= f.submit %>

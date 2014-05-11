@@ -14,19 +14,43 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
  end
 
   test "edit meeting members" do
+    Capybara.current_driver = Capybara.javascript_driver
     visit('/meetings')
     click_link('Show')
     assert_equal current_path, meeting_path(@meeting)
     assert page.has_content?('First Lunch')
-    click_link('edit')
+    click_link('edit member')
     assert_equal current_path, 
      "#{meeting_path(@meeting)}/select_members"
     assert page.has_content?('Bob')
     assert page.has_content?('Annie')
     check('Bob')
+    fill_in 'temail', with: 'xyz@abc.com'
+    assert page.has_field?("temail", :with=>"xyz@abc.com")
+    click_button('Add member')
+    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
     click_button('Save')
     assert_equal current_path, meeting_path(@meeting)
     assert page.has_content?('Bob')
+    assert page.has_content?('xyz@abc.com')
+  end
+
+  test "edit restaurants" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit('/meetings')
+    click_link('Show')
+    click_link('edit restaurant')
+    assert_equal current_path, "#{meeting_path(@meeting)}/select_restaurants"
+    assert page.has_content?('Chipotle')
+    check('Chipotle')
+    fill_in 'trest', with: 'canton cooks'
+    assert page.has_field?('trest', :with=>'canton cooks')
+    click_button('Add restaurant')
+    assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
+    click_button('Save')
+    assert_equal current_path, meeting_path(@meeting)
+    assert page.has_content?('Chipotle')
+    assert page.has_content?('canton cooks')
   end
 
   test "edit user" do
@@ -56,19 +80,21 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
     assert_equal current_path, edit_meeting_path(@meeting)
     assert page.has_field?("title", :with=>"First Lunch")
-    fill_in 'temail', with: 'xyz@abc.com'
-    assert page.has_field?("temail", :with=>"xyz@abc.com")
-    click_button('Add member')
-    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
+    fill_in 'title', with: 'editing First Lunch'
+    # fill_in 'temail', with: 'xyz@abc.com'
+    # assert page.has_field?("temail", :with=>"xyz@abc.com")
+    # click_button('Add member')
+    # assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
     #assert_equal page.find("#thisid").value, "xyz@abc.com"
-    fill_in 'trest', with: 'canton cooks'
-    assert page.has_field?('trest', :with=>'canton cooks')
-    click_button('Add restaurant')
-    assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
+    # fill_in 'trest', with: 'canton cooks'
+    # assert page.has_field?('trest', :with=>'canton cooks')
+    # click_button('Add restaurant')
+    # assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
     click_button('Update Meeting')
     assert_equal current_path, meeting_path(@meeting)
-    assert page.has_content?("xyz@abc.com")
-    assert page.has_content?("canton cooks")
+    assert page.has_content?('editing First Lunch')
+    # assert page.has_content?("xyz@abc.com")
+    # assert page.has_content?("canton cooks")
   end
 
   test "create meeting" do

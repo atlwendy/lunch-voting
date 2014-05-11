@@ -11,7 +11,7 @@ class MeetingsController < ApplicationController
     @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @inGroup = is_user_invited?(@user, @meeting_id)
-    @allrests = get_all_restaurants(@meeting)
+    @allrests = Hash[get_all_restaurants(@meeting).sort_by{|k, v| v[0]}.reverse]
   end
 
   def get_all_restaurants(meeting)
