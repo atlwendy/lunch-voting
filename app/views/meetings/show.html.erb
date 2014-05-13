@@ -1,3 +1,4 @@
+<% provide(:title, "Show meeting") %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -44,7 +45,7 @@
         up_arrow_class = 'arrow-uped'
       end
       if my_vote && my_vote.vote_counts < 0 then
-        up_arrow_class = 'arrow-downed'
+        down_arrow_class = 'arrow-downed'
       end
       %>
       <tr>

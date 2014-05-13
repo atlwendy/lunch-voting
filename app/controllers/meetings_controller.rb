@@ -8,10 +8,12 @@ class MeetingsController < ApplicationController
   def show
     @meeting_id = params[:id] 
     @meeting = Meeting.find(@meeting_id)
-    @user = params[:user]
-    @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
+    @user = current_user
+    @uid = @user.nil? ? 0 : User.where('email = ?', @user.email).first.id
+    logger.info("$$$$$$$$$$$$$$$UID$$$$$$$$$")
+    logger.info(@uid)
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
-    @inGroup = is_user_invited?(@user, @meeting_id)
+    @inGroup = is_user_invited?(@user.email, @meeting_id)
   end
 
   def get_all_restaurants(meeting)

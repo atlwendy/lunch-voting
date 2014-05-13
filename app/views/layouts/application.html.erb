@@ -8,7 +8,8 @@
 </head>
 <body>
 	<% if signed_in? %>
-		<p style="float:right"><%=current_user%></p>
+		<p style="float:right"><strong>Currently logged in as: </strong><%=current_user.username%></p><br>
+		<p style="float:right"><%= link_to "Sign out", signout_path, method: "delete" %></p>
 	<% end %>
 
 <%= yield %>
