@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512025329) do
+ActiveRecord::Schema.define(version: 20140513025029) do
 
   create_table "meeting_memberships", force: true do |t|
     t.integer  "meeting_id"
@@ -57,11 +57,14 @@ ActiveRecord::Schema.define(version: 20140512025329) do
     t.datetime "updated_at"
     t.string   "email"
     t.string   "password_digest"
+    t.string   "remember_token"
   end
+
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"
-    t.integer  "mrs_id"
+    t.integer  "meeting_restaurant_selection_id"
     t.integer  "vote_counts"
     t.datetime "created_at"
     t.datetime "updated_at"

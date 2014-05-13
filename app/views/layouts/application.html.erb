@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lunchvoting</title>
+  <title>Lunchvoting | <%=yield(:title)%></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<% if signed_in? %>
+		<p style="float:right"><%=current_user%></p>
+	<% end %>
 
 <%= yield %>
 

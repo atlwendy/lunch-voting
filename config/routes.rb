@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   resources :restaurants
 
-  get '/' => 'meetings#index'
+  #get '/' => 'meetings#index'
+  root 'sessions#new'
 
   resources :meetings 
   get 'meetings/:id/select_members' => 'meetings#select_members', as: :select_members
@@ -14,6 +15,10 @@ Rails.application.routes.draw do
   get 'meetings/:id/update_vote' => 'meetings#update_vote', as: :update_vote
 
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signup', to: 'users#new', via: 'get'
+  match '/signin', to: 'sessions#new', via: 'get'
+  match '/signout', to:'sessions#destroy', via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

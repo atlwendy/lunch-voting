@@ -7,11 +7,11 @@ class MeetingsController < ApplicationController
 
   def show
     @meeting_id = params[:id] 
+    @meeting = Meeting.find(@meeting_id)
     @user = params[:user]
     @uid = @user.nil? ? 0 : User.where('email = ?', @user).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @inGroup = is_user_invited?(@user, @meeting_id)
-    @allrests = Hash[get_all_restaurants(@meeting).sort_by{|k, v| v[0]}.reverse]
   end
 
   def get_all_restaurants(meeting)
@@ -63,7 +63,7 @@ class MeetingsController < ApplicationController
 
   def get_votes(mrs_id)
     votes = 0
-    umvs = Vote.where('mrs_id = ?', mrs_id)
+    umvs = Vote.where('meeting_restaurant_selection_id = ?', mrs_id)
     return umvs.empty? ? 0 : umvs.map{|x| votes=votes+x.vote_counts}[0]
   end
 
@@ -72,9 +72,9 @@ class MeetingsController < ApplicationController
     mrs_id = params[:mrs_id]
     vote = params[:vote] == 'up' ? 1 : -1
     id = params[:id]
-    umv = Vote.where('user_id = ? AND mrs_id = ?', uid, mrs_id).first
+    umv = Vote.where('user_id = ? AND meeting_restaurant_selection_id = ?', uid, mrs_id).first
     if umv.nil?
-      umv = Vote.new(:user_id=>uid, :mrs_id=>mrs_id, :vote_counts=>1)
+      umv = Vote.new(:user_id=>uid, :meeting_restaurant_selection_id=>mrs_id, :vote_counts=>1)
     else
       umv.vote_counts = umv.vote_counts.to_i + vote
     end
@@ -86,7 +86,7 @@ class MeetingsController < ApplicationController
     users = []
     emails.each do |e|
       u = User.where({email: e})
-      u = u.empty? ? User.new(:email=>e, :username=>e) : u.first
+      u = u.empty? ? User.new(:email=>e, :username=>e, :password=>"lunchvoting") : u.first
       users.push(u)
     end
     return users
