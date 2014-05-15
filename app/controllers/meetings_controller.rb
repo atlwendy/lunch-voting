@@ -10,8 +10,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(@meeting_id)
     @user = current_user
     @uid = @user.nil? ? 0 : User.where('email = ?', @user.email).first.id
-    logger.info("$$$$$$$$$$$$$$$UID$$$$$$$$$")
-    logger.info(@uid)
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @inGroup = is_user_invited?(@user.email, @meeting_id)
   end
@@ -76,7 +74,7 @@ class MeetingsController < ApplicationController
     id = params[:id]
     umv = Vote.where('user_id = ? AND meeting_restaurant_selection_id = ?', uid, mrs_id).first
     if umv.nil?
-      umv = Vote.new(:user_id=>uid, :meeting_restaurant_selection_id=>mrs_id, :vote_counts=>1)
+      umv = Vote.new(:user_id=>uid, :meeting_restaurant_selection_id=>mrs_id, :vote_counts=>vote)
     else
       umv.vote_counts = umv.vote_counts.to_i + vote
     end
@@ -170,6 +168,6 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:title, :description, :date)
+    #  params.require(:meeting).permit(:title, :description, :date)
     end
 end
