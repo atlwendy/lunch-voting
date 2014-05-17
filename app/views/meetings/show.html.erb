@@ -34,7 +34,7 @@
 	<strong>:</strong>
 </div>
 	<table class='vote' id='editr'>
-    <% @meeting.meeting_restaurant_selections.each do |mrs| %>
+    <% @meeting_mrs.each do |mrs| %>
       <%
       vote_count = mrs.vote_count
       my_vote = mrs.votes.find {|v| v.user_id == @uid }
