@@ -11,6 +11,7 @@ class MeetingsController < ApplicationController
     @user = current_user
     @uid = @user.nil? ? 0 : User.where('email = ?', @user.email).first.id
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
+    @meeting_mrs = @meeting.meeting_restaurant_selections.sort_by{|x| x.vote_count}.reverse
     @inGroup = is_user_invited?(@user.email, @meeting_id)
   end
 
@@ -42,6 +43,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     users = get_users(params[:emailaddress])
+    logger.info "#{users}"
     restaurants = get_restaurant(params[:restaurantname])
     @meeting.users = users
     @meeting.restaurants = restaurants
@@ -144,6 +146,11 @@ class MeetingsController < ApplicationController
   def submit_members
     meeting = Meeting.find(params[:id])
     meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress])
+    if meeting.save
+      logger.info "Save succeeded"
+    else
+      logger.info "Save failed"
+    end
     redirect_to meeting
   end
   
