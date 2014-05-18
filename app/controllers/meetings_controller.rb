@@ -48,9 +48,10 @@ class MeetingsController < ApplicationController
     @meeting.restaurants = restaurants
     respond_to do |format|
       if @meeting.save
+        UserMailer.invite(users, meeting_url(@meeting)).deliver
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
-        UserMailer.invite(users, meeting_url(@meeting)).deliver
+        
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }

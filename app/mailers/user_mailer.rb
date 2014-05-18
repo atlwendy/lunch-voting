@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def invite(users, url)
   	users.each do |u|
   		@user = u.email
-      @url = url + "?" + "user=" + u.email
+      @url = url
   		mail(to: @user, subject: 'Invite to join in lunch voting')
   	end
   end
