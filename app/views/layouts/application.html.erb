@@ -11,8 +11,7 @@
 		<p style="float:right"><strong>Currently logged in as: </strong><%=current_user.username%></p><br>
 		<p style="float:right"><%= link_to "Sign out", signout_path, method: "delete" %></p>
 	<% end %>
-
-<%= yield %>
+	<%= yield %>
 
 </body>
 </html>

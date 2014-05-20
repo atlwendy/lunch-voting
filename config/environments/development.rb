@@ -40,4 +40,7 @@ Rails.application.configure do
    :address => "localhost",
    :port => 25
 }
+
+  config.action_mailer.perform_deliveries = true 
+  config.action_mailer.raise_delivery_errors = true
 end

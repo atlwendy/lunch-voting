@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+  before_action :login_required
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   def index
