@@ -16,4 +16,12 @@ class UserTest < ActiveSupport::TestCase
   	# newuser.save
   	# assert_equal newuser.errors.messages[:password][0], "is too short (minimum is 6 characters)" 
   end
+
+  test "create remember token" do
+    newuser = User.new
+    newuser.email = 'x@abc.com'
+    newuser.password = 'thisisatest'
+    newuser.save
+    assert_not_nil newuser[:remember_token]
+  end
 end

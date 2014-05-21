@@ -3,6 +3,7 @@
 one:
   username: Bob
   email: bob@bob.com
+  password_digest: $2a$10$IITWw/sUO0pP502YJf0/9eL3E4E69NO6A9zv879zknezejLF7B/W2
 
 two:
   username: Annie

@@ -90,12 +90,16 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
   test "create meeting" do
     Capybara.current_driver = Capybara.javascript_driver
     visit("/meetings/new")
+    assert page.has_content?("Sign in")
+    fill_in 'session_email', with: 'bob@bob.com'
+    fill_in 'session_password', with: 'testbob'
+    click_button('Sign in')
 
     fill_in 'title', with: 'Test Lunch'
-    fill_in 'temail', with: 'xyz@abc.com'
-    assert page.has_field?("temail", :with=>"xyz@abc.com")
+    fill_in 'temail', with: 'bob@bob.com'
+    assert page.has_field?("temail", :with=>"bob@bob.com")
     click_button('Add member')
-    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'xyz@abc.com'
+    assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'bob@bob.com'
     
     fill_in 'trest', with: 'canton cooks'
     assert page.has_field?('trest', :with=>'canton cooks')
@@ -104,12 +108,12 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
  
     click_button('Create Meeting')
     assert page.has_content?('Test Lunch')
-    assert page.has_content?("xyz@abc.com")
+    assert page.has_content?("Bob")
     assert page.has_content?("canton cooks")
     
-    uri = URI.parse(current_url)
-    newuri = "#{uri}?user=xyz@abc.com"
-    visit(newuri)
+    # uri = URI.parse(current_url)
+    # newuri = "#{uri}?user=xyz@abc.com"
+    # visit(uri)
     find("#uparrow1").click
     
     votes = page.all('table td#vnumber1').map(&:text)
