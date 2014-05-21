@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def login_required
-  	redirect_to signin_url, notice: "Please sign in." unless signed_in?
+  	unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+    end
   end
 end

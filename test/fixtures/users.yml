@@ -2,6 +2,8 @@
 
 one:
   username: Bob
+  email: bob@bob.com
 
 two:
   username: Annie
+  email: annie@annie.com

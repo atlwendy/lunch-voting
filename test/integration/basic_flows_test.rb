@@ -113,7 +113,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     find("#uparrow1").click
     
     votes = page.all('table td#vnumber1').map(&:text)
-    assert votes.include?('1')    
+    assert_equal votes,['1']    
 
     find("#downarrow1").click
     votes = page.all('table td#vnumber1').map(&:text)
