@@ -4,23 +4,22 @@ require 'test_helper'
 class BasicFlowsTest < ActionDispatch::IntegrationTest
   fixtures :all
 
- setup do
-   @meeting = meetings(:one)
-   @user = users(:two)
- end
+  setup do
+    @meeting = meetings(:one)
+    @user = users(:two)
+  end
 
- teardown do
-   Capybara.use_default_driver
- end
+  teardown do
+    Capybara.use_default_driver
+  end
+
+  
 
   test "edit meeting members" do
     Capybara.current_driver = Capybara.javascript_driver
     visit('/meetings')
 
-    assert page.has_content?("Sign in")
-    fill_in 'session_email', with: 'bob@bob.com'
-    fill_in 'session_password', with: 'testbob'
-    click_button('Sign in')
+    user_signin
 
     click_link('Show')
     assert_equal current_path, meeting_path(@meeting)
@@ -45,10 +44,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = Capybara.javascript_driver
     visit('/meetings')
 
-    assert page.has_content?("Sign in")
-    fill_in 'session_email', with: 'bob@bob.com'
-    fill_in 'session_password', with: 'testbob'
-    click_button('Sign in')
+    user_signin
 
     click_link('Show')
     click_link('edit restaurant')
@@ -69,10 +65,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = Capybara.javascript_driver
     visit('/users')
 
-    assert page.has_content?("Sign in")
-    fill_in 'session_email', with: 'bob@bob.com'
-    fill_in 'session_password', with: 'testbob'
-    click_button('Sign in')
+    user_signin
 
     click_link('Show')
     assert_equal current_path, user_path(@user)
@@ -103,10 +96,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
   test "edit meeting" do
     Capybara.current_driver = Capybara.javascript_driver
     visit('/meetings')
-    assert page.has_content?("Sign in")
-    fill_in 'session_email', with: 'bob@bob.com'
-    fill_in 'session_password', with: 'testbob'
-    click_button('Sign in')
+    user_signin
 
     click_link('Edit')
 
@@ -122,10 +112,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
   test "create meeting" do
     Capybara.current_driver = Capybara.javascript_driver
     visit("/meetings/new")
-    assert page.has_content?("Sign in")
-    fill_in 'session_email', with: 'bob@bob.com'
-    fill_in 'session_password', with: 'testbob'
-    click_button('Sign in')
+    user_signin
 
     fill_in 'title', with: 'Test Lunch'
     fill_in 'temail', with: 'bob@bob.com'

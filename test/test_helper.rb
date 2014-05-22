@@ -24,6 +24,14 @@ end
 
 Capybara.match = :first
 
+def user_signin
+    Capybara.current_driver = Capybara.javascript_driver
+    assert page.has_content?("Sign in")
+    fill_in 'session_email', with: 'bob@bob.com'
+    fill_in 'session_password', with: 'testbob'
+    click_button('Sign in')
+end
+
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection
