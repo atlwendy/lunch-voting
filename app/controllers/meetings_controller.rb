@@ -81,7 +81,9 @@ class MeetingsController < ApplicationController
     else
       umv.vote_counts = umv.vote_counts.to_i + vote
     end
-    umv.save  
+    umv.save
+    meeting_mrs = Meeting.find(id).meeting_restaurant_selections.sort_by{|x| x.vote_count}.reverse
+    render :partial=>"restaurant_list", :locals=>{:meeting_mrs=>meeting_mrs, :uid=>uid} 
   end
 
   def get_users(emails)

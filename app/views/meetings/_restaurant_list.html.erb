@@ -1,8 +1,8 @@
 <table class='vote' id='editr'>
-    <% @meeting_mrs.each do |mrs| %>
+    <% meeting_mrs.each do |mrs| %>
       <%
       vote_count = mrs.vote_count
-      my_vote = mrs.votes.find {|v| v.user_id == @uid }
+      my_vote = mrs.votes.find {|v| v.user_id.to_i == uid.to_i }
       up_arrow_class = 'arrow-up'
       down_arrow_class = 'arrow-down'
 
@@ -13,6 +13,7 @@
         down_arrow_class = 'arrow-downed'
       end
       %>
+
       <tr>
         <td class="<%= up_arrow_class %>"
           id='<%= "uparrow#{mrs.id}" %>' 

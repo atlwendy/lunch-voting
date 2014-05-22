@@ -34,7 +34,9 @@
 	<strong>:</strong>
 </div>
 
-	<%= render "restaurant_list"%>
+<div id = "restaurant_table">
+	<%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
+</div>
 		
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
@@ -69,21 +71,7 @@ function updateVote(vote, mrs_id) {
     },
     datatype: "json",
     success: function(data, textStatus, xhr){
-      if (data) {
-        var counts = Number($("#vnumber" + mrs_id).html());
-        if (vote == 'up') {
-          counts++;
-          voteUp(mrs_id);
-        }
-        else {
-          counts--;
-          voteDown(mrs_id);
-        }
-        $("#vnumber"+mrs_id).html(counts);
-      }                
-      else {
-        alert("Something went wrong. Please contact your admin")
-      }
+      $("#restaurant_table").html(data)
     },
     error: function(request, status, error){
       console.log(error)
