@@ -81,7 +81,7 @@ class MeetingsController < ApplicationController
     else
       umv.vote_counts = umv.vote_counts.to_i + vote
     end
-    umv.save
+    umv.save  
   end
 
   def get_users(emails)

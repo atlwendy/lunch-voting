@@ -33,43 +33,8 @@
 	(<%= link_to 'edit restaurant', :select_restaurants%>)
 	<strong>:</strong>
 </div>
-	<table class='vote' id='editr'>
-    <% @meeting_mrs.each do |mrs| %>
-      <%
-      vote_count = mrs.vote_count
-      my_vote = mrs.votes.find {|v| v.user_id == @uid }
-      up_arrow_class = 'arrow-up'
-      down_arrow_class = 'arrow-down'
 
-      if my_vote && my_vote.vote_counts > 0 then
-        up_arrow_class = 'arrow-uped'
-      end
-      if my_vote && my_vote.vote_counts < 0 then
-        down_arrow_class = 'arrow-downed'
-      end
-      %>
-      <tr>
-        <td class="<%= up_arrow_class %>"
-          id='<%= "uparrow#{mrs.id}" %>' 
-          onclick="changeVote('up', <%= mrs.id %>)">
-        </td>
-        <td rowspan="3" class="restname">
-          <%= mrs.restaurant.name %>
-        </td>
-      </tr>
-      <tr>
-        <td class="votenumber" id='<%="vnumber#{mrs.id}"%>'>
-          <%= vote_count %>
-        </td>
-      </tr>
-      <tr>
-        <td class="<%= down_arrow_class %>"
-          id='<%= "downarrow#{mrs.id}" %>' 
-          onclick="changeVote('down', <%= mrs.id %>)">
-        </td>
-      </tr>
-    <% end %>
-	</table>
+	<%= render "restaurant_list"%>
 		
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
