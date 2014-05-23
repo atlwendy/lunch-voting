@@ -16,7 +16,6 @@
 
       <tr>
         <td class="<%= up_arrow_class %>"
-          id='<%= "uparrow#{mrs.id}" %>' 
           onclick="changeVote('up', <%= mrs.id %>)">
         </td>
         <td rowspan="3" class="restname">
@@ -24,13 +23,12 @@
         </td>
       </tr>
       <tr>
-        <td class="votenumber" id='<%="vnumber#{mrs.id}"%>'>
+        <td class="votenumber">
           <%= vote_count %>
         </td>
       </tr>
       <tr>
         <td class="<%= down_arrow_class %>"
-          id='<%= "downarrow#{mrs.id}" %>' 
           onclick="changeVote('down', <%= mrs.id %>)">
         </td>
       </tr>

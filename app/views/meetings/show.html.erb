@@ -80,17 +80,4 @@ function updateVote(vote, mrs_id) {
   });
 }
 
-function voteUp(mrsId){
-  $("#uparrow"+mrsId).addClass('arrow-uped').removeClass('arrow-up');
-  if ($("#downarrow"+mrsId).hasClass('arrow-downed')) {
-    $("#downarrow"+mrsId).addClass('arrow-down').removeClass('arrow-downed');
-  }
-}
-
-function voteDown(mrsId){
-  $("#downarrow"+mrsId).addClass('arrow-downed').removeClass('arrow-down');
-  if ($("#uparrow"+mrsId).hasClass('arrow-uped')) {
-    $("#uparrow"+mrsId).addClass('arrow-up').removeClass('arrow-uped');
-  }
-}
 </script>
