@@ -21,7 +21,7 @@
   (<%= link_to 'edit member', :select_members %>)
   <strong>:</strong>
   <ul>
-  <% @meeting.users.each do |user| %>
+  <% @meeting.users.sort_by{|x| x.username}.each do |user| %>
   <li><%= link_to user.username, user %></li>
   <% end %>
   </ul>

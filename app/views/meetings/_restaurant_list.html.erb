@@ -5,18 +5,25 @@
       my_vote = mrs.votes.find {|v| v.user_id.to_i == uid.to_i }
       up_arrow_class = 'arrow-up'
       down_arrow_class = 'arrow-down'
+      already_voted_up = my_vote && my_vote.vote_counts > 0
+      already_voted_down = my_vote && my_vote.vote_counts < 0
 
-      if my_vote && my_vote.vote_counts > 0 then
+      if already_voted_up then
         up_arrow_class = 'arrow-uped'
       end
-      if my_vote && my_vote.vote_counts < 0 then
+      if already_voted_down then
         down_arrow_class = 'arrow-downed'
       end
       %>
 
       <tr>
-        <td class="<%= up_arrow_class %>"
-          onclick="changeVote('up', <%= mrs.id %>)">
+        <% if already_voted_up %>
+          <td class="<%= up_arrow_class %>"
+            onclick="alert('You have already up voted!')">
+        <% else %>
+          <td class="<%= up_arrow_class %>"
+            onclick="changeVote('up', <%= mrs.id %>)">
+        <% end %>
         </td>
         <td rowspan="3" class="restname">
           <%= mrs.restaurant.name %>
@@ -28,9 +35,14 @@
         </td>
       </tr>
       <tr>
-        <td class="<%= down_arrow_class %>"
-          onclick="changeVote('down', <%= mrs.id %>)">
-        </td>
+        <% if already_voted_down %>
+          <td class="<%= down_arrow_class %>"
+            onclick="alert('You have already down voted!')">
+        <% else %>
+          <td class="<%= down_arrow_class %>"
+            onclick="changeVote('down', <%= mrs.id %>)">
+          </td>
+        <% end %>
       </tr>
     <% end %>
 	</table>

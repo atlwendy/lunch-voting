@@ -45,7 +45,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     users = get_users(params[:emailaddress])
     restaurants = get_restaurant(params[:restaurantname])
-    @meeting.users = users
+    @meeting.users = users.push(current_user)
     @meeting.restaurants = restaurants
     respond_to do |format|
       if @meeting.save
