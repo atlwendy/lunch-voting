@@ -15,15 +15,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title %>
     <%= f.text_field :title, id:"title" %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :description %>
     <%= f.text_field :description %>
   </div>
   <div class="field" id="date">
-    <%= f.label :date %><br>
+    <%= f.label :date %>
     <% if @meeting.date.nil? %>
       <%= f.text_field :date, :value=>Date.today %>
     <% else %>
@@ -77,10 +77,7 @@
     </table>
   </div>
 <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= f.submit "Create Meeting", class: "btn btn-large btn-primary" %>
 <% end %>
 
 <script>

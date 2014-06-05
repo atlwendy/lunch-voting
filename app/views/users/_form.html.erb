@@ -1,6 +1,7 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
+<%= render 'shared/error_messages' %>
+  <%# if @user.errors.any? %>
+  <!--   <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
@@ -8,8 +9,8 @@
         <li><%= message %></li>
       <% end %>
       </ul>
-    </div>
-  <% end %>
+    </div> -->
+  <%# end %>
 
   <div class="field">
     <%= f.label :username %><br>
@@ -27,7 +28,6 @@
     <%= f.label :password_confirmation %><br>
     <%= f.password_field :password_confirmation %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit "Create User", class: "btn btn-large btn-primary" %>
+  
 <% end %>

@@ -5,13 +5,16 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= render "layouts/header" %>
 </head>
 <body>
 	<% if signed_in? %>
 		<p style="float:right"><strong>Currently logged in as: </strong><%=current_user.username%></p><br>
 		<p style="float:right"><%= link_to "Sign out", signout_path, method: "delete" %></p>
 	<% end %>
-	<%= yield %>
+	<div style="padding: 50px 0 0 20px">
+		<%= yield %>
+	</div>
 
 </body>
 </html>

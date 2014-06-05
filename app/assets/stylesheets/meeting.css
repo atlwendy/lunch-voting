@@ -23,6 +23,7 @@
 	border-right: 7px solid transparent;
 	
 	border-top: 7px solid gray;
+	position: absolute;
 }
 
 .arrow-downed {
@@ -32,6 +33,7 @@
 	border-right: 7px solid transparent;
 	
 	border-top: 7px solid orange;
+	position: absolute;
 }
 
 table {

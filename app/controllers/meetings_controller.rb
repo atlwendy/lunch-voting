@@ -3,7 +3,8 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   def index
-    @meetings = Meeting.all.order('date')
+    @meetings = []
+    Meeting.all.order('date').each{|x| @meetings.push(x) if x.users.include?(current_user)}
   end
 
   def show

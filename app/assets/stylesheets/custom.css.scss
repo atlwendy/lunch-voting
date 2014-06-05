@@ -1,0 +1,35 @@
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
+table.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid gray;
+    &:last-child {
+      border-bottom: 1px solid gray;
+    }
+  }
+}
+
+a#logo {
+	padding-top: 10px;
+	font-size: 18px;
+}
+
+button.btn,
+input[type="submit"].btn {
+	display: block;
+}
