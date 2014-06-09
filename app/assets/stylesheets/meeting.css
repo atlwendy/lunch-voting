@@ -36,15 +36,17 @@
 	position: absolute;
 }
 
-table {
+table.restname {
 	border: none;
+	border-collapse: separate;
+	border-spacing: 3px;
 }
 
 td.restname {
 	font-size: 15px;
-	margin-left: 5px;
+	padding-left: 10px;
 }
 
 .votenumber {
-	padding-top: 5px;
+	padding: 5px 0 0 3px;
 }
