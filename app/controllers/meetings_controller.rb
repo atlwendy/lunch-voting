@@ -2,6 +2,8 @@ class MeetingsController < ApplicationController
   before_action :login_required
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
+  layout 'menu'
+  
   def index
     @meetings = []
     Meeting.all.order('date').each{|x| @meetings.push(x) if x.users.include?(current_user)}

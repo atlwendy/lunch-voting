@@ -23,7 +23,7 @@
 	border-right: 7px solid transparent;
 	
 	border-top: 7px solid gray;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 .arrow-downed {
@@ -49,4 +49,8 @@ td.restname {
 
 .votenumber {
 	padding: 5px 0 0 3px;
+}
+
+.container {
+	margin-top: 20px;
 }

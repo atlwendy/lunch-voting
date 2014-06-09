@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" %>
 <%= javascript_include_tag  "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"%>
 
+
 <%= form_for(@meeting) do |f| %>
   <% if @meeting.errors.any? %>
     <div id="error_explanation">
@@ -27,7 +28,7 @@
     <% if @meeting.date.nil? %>
       <%= f.text_field :date, :value=>Date.today %>
     <% else %>
-      <%= f.text_field :date, :value=>f.object.date.to_date %>
+      <%= f.text_field :date%>
     <% end %>
   </div>
 
@@ -77,16 +78,17 @@
     </table>
   </div>
 <% end %>
-<%= f.submit "Create Meeting", class: "btn btn-large btn-primary" %>
+<%= f.submit "Save Meeting", class: "btn btn-large btn-primary" %>
 <% end %>
 
 <script>
 $(function() {
         $( "#meeting_date" ).click(function() {
-			datepicker();
+			datetimepicker();
           });
 });
-$("#meeting_date").datepicker({ dateFormat: 'yy-mm-dd' });
+//$("#meeting_date").dateFormatpicker({ dateFormat: 'yy-mm-dd' });
+$("#meeting_date").datetimepicker({format:'Y-m-d H:i'});
 
 $(".intermitbutton").click(function() {
 	var commonvalue = $(this).parents('tr').find("[name=email]")

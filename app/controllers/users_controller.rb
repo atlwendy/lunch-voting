@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :login_required, except: [:new]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  layout :resolve_layout
+
   # GET /users
   # GET /users.json
   def index
@@ -74,4 +76,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :email, :password)
     end
+
+    def resolve_layout
+    case action_name
+    when 'new'
+      'sessions'
+    else
+      'menu'
+    end
+  end
 end

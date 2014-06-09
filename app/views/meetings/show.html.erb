@@ -13,7 +13,7 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @meeting.date %>
+  <%= @meeting.date.in_time_zone %>
 </p>
 
 <p>
@@ -38,7 +38,7 @@
 	<%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
 </div>
 		
-
+<br>
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
 <%= link_to 'Back', meetings_path %>
 

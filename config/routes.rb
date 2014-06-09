@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :restaurants
 
   #get '/' => 'meetings#index'
-  root 'sessions#new'
+  #root 'sessions#new'
+  root 'sessions#frontpage'
 
   resources :meetings 
   get 'meetings/:id/select_members' => 'meetings#select_members', as: :select_members
