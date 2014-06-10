@@ -33,7 +33,7 @@
 	border-right: 7px solid transparent;
 	
 	border-top: 7px solid orange;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 table.restname {
