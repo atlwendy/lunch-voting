@@ -55,3 +55,12 @@ input[type="submit"].btn {
 .container {
   background-color: #fff;
 }
+.nav { 
+  li { 
+    a {
+      &:hover {
+        color: #000;
+        }
+      }
+    }
+}
