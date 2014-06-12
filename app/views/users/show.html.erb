@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<p class="show">
   <strong>Username:</strong>
   <%= @user.username %>
+  <br ><br >
   <strong>Email:</strong>
   <%= @user.email %>
+  <br ><br >
   <strong>Meetings:</strong>
-  <ul>
+  <ul class="users">
   <% @user.meetings.each do |meeting| %>
     <li>
       <%= link_to meeting.title, meeting %> on

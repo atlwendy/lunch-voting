@@ -33,3 +33,25 @@ button.btn,
 input[type="submit"].btn {
 	display: block;
 }
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid gray;
+    &:last-child {
+      border-bottom: 1px solid gray;
+    }
+  }
+}
+
+.navbar-inner {
+  background: none !important;
+  background-color: #fff !important;
+  border-color: #252525;
+}
+.container {
+  background-color: #fff;
+}

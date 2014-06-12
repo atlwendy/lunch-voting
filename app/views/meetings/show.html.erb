@@ -17,12 +17,18 @@
 </p>
 
 <p>
-  <strong>Members</strong> 
+  <strong>Members</strong>
+  <% if @inGroup %> 
   (<%= link_to 'edit member', :select_members %>)
+  <% end %>
   <strong>:</strong>
   <ul>
   <% @meeting.users.sort_by{|x| x.username}.each do |user| %>
-  <li><%= link_to user.username, user %></li>
+    <% if @inGroup %>
+      <li><%= link_to user.username, user %></li>
+    <% else %>
+      <li><%= user.username %>
+    <% end %>
   <% end %>
   </ul>
 </p>
@@ -30,7 +36,9 @@
 <p>
   <div id="editr">
 	<strong>Restaurants</strong>
+  <% if @inGroup %>
 	(<%= link_to 'edit restaurant', :select_restaurants%>)
+  <% end %>
 	<strong>:</strong>
 </div>
 
