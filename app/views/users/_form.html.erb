@@ -11,23 +11,23 @@
       </ul>
     </div> -->
   <%# end %>
-
+<div style="padding-top: 20px">
   <div class="field">
-    <%= f.label :username %><br>
+    <%= f.label :username %>
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br>
+    <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
-  <%= f.submit "Create User", class: "btn btn-large btn-primary" %>
-  
+  <%= f.submit "Save User", class: "btn btn-large btn-primary" %>
+</div>  
 <% end %>

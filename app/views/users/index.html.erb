@@ -1,8 +1,12 @@
-<h1>Listing users</h1>
+<% provide(:title, "User index") %>
 
-<table class="table table-striped table-bordered">
+<div class="listing">
+<span class="listingh">Listing users for <%=current_user.username%></span>
+<br>
+
+<table class="tlisting table table-striped table-bordered">
   <thead>
-    <tr>
+    <tr class="thead">
       <th>Username</th>
       <th>Email</th>
       <th colspan="3"></th>
@@ -25,3 +29,5 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+
+</div>
