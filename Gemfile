@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem "therubyracer"
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '2.3.2.0'
+gem 'sprockets', '2.11.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -36,6 +38,8 @@ gem 'selenium-webdriver'
 gem 'database_cleaner'
 
 gem 'bcrypt-ruby', '3.1.2'
+
+gem 'yelpster'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
