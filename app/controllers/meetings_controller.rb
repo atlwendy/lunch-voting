@@ -1,3 +1,4 @@
+include Yelp::V1::Review::Request
 class MeetingsController < ApplicationController
   before_action :login_required
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
@@ -39,6 +40,7 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = Meeting.new
+    @id = Meeting.maximum("id") + 1
   end
 
   def edit
@@ -47,7 +49,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     users = get_users(params[:emailaddress])
-    restaurants = get_restaurant(params[:restaurantname])
+    restaurants = get_restaurant(params[:restaurantname]) + add_default_restaurants(params[:restaurant_name])
     @meeting.users = users.push(current_user)
     @meeting.restaurants = restaurants
     respond_to do |format|
@@ -62,6 +64,25 @@ class MeetingsController < ApplicationController
       end
     end
   end
+
+  def add_default_restaurants(restaurants)
+    r = []
+    restaurants.each do |rr|
+      rt = Restaurant.find_by_name(rr.name)
+      if rt.nil?
+        cr = Restaurant.new
+        cr['name'] = rr.name
+        cr['address'] = rr.address
+        cr['url'] = rr.url
+        cr.save
+        r.push(cr)
+      else
+        r.push(rt)
+      end
+    end
+    return r
+  end
+
 
   def is_user_invited?(user, mid)
     return Meeting.find(mid).users.include?(User.find_by_email(user)) ? true : false
@@ -113,8 +134,7 @@ class MeetingsController < ApplicationController
 
   def get_default_restaurants
     client = Yelp::Client.new
-    include Yelp::V1::Review::Request
-
+    
     request = GeoPoint.new(
              :term => "restaurants",
              :latitude => params[:lati],
@@ -130,8 +150,9 @@ class MeetingsController < ApplicationController
       info['rating'] = business['reviews'][0]['rating']
       info['url'] = business['url']
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
+      @defaultrests.push(info)
     end
-    render json: @defaultrests
+    render json: @defaultrests.to_json
   end
 
   # PATCH/PUT /meetings/1
