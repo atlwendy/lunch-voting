@@ -111,6 +111,28 @@ class MeetingsController < ApplicationController
     return rests
   end
 
+  def get_default_restaurants
+    client = Yelp::Client.new
+    include Yelp::V1::Review::Request
+
+    request = GeoPoint.new(
+             :term => "restaurants",
+             :latitude => params[:lati],
+             :longitude => params[:longi]
+              )
+    response = client.search(request)
+    @defaultrests = []
+    response['businesses'].each do |business|
+      info = Hash.new
+      info['name'] = business['name']
+      info['distance'] = business['distance']
+      info['is_closed'] = business['is_closed']
+      info['rating'] = business['reviews'][0]['rating']
+      info['url'] = business['url']
+      info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
+    end
+    render json: @defaultrests
+  end
 
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json

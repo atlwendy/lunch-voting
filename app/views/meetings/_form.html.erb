@@ -67,6 +67,16 @@
     </div>
   <% end %>
 
+ <div class="field" id="default">
+  <% if not @defaultrests.nil? %>
+  <% @defaultrests.each do |rest| %>
+    <label><%=check_box_tag 'restaurant[]', 
+      rest.name%>
+      <%= rest.name %>
+    </label>
+  <% end %>
+  <% end %>
+</div>
 
   <div class="field" id="restaurant">
     <table class="rest">
@@ -83,6 +93,32 @@
 <% end %>
 
 <script>
+
+$(document).ready(function(){
+  console.log('ready');
+  navigator.geolocation.getCurrentPosition(function(position){
+    console.log(position.coords.latitude);
+    $.ajax({
+      url: "../meetings/get_default_restaurants",
+      type: "GET",
+      data: {
+        lati: position.coords.latitude, 
+        longi: position.coords.longitude 
+        
+      },
+      datatype: "json",
+      success: function(data, textStatus, xhr){
+        $("#defaultrests").html(data)
+      },
+      error: function(request, status, error){
+        console.log(error)
+        console.log(status)
+      },
+    });
+    
+  })
+})
+
 $(function() {
         $( "#meeting_date" ).click(function() {
 			datetimepicker();
@@ -119,5 +155,7 @@ function validateEmail($email) {
     return true;
   }
 }
+
+
 
 </script>
