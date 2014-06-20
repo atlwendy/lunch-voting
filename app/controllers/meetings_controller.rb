@@ -40,7 +40,7 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = Meeting.new
-    @id = Meeting.maximum("id") + 1
+    @id = Meeting.all.empty? ? 1 : Meeting.maximum("id") + 1
   end
 
   def edit
