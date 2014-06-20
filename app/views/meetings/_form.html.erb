@@ -67,7 +67,7 @@
     </div>
   <% end %>
 
- <div class="field" id="default">
+ <div class="field checkbox" id="default">
   <% if not @defaultrests.nil? %>
   <% @defaultrests.each do |rest| %>
     <label><%=check_box_tag 'restaurant[]', rest.name%>
