@@ -56,7 +56,9 @@ class MeetingsController < ApplicationController
     @meeting.restaurants = restaurants
     respond_to do |format|
       if @meeting.save
-        UserMailer.invite(users, meeting_url(@meeting)).deliver
+        @meeting.users.each do |u|  
+          UserMailer.invite(u, meeting_url(@meeting)).deliver      
+        end
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
         
@@ -168,8 +170,10 @@ class MeetingsController < ApplicationController
     @meeting.restaurants = restaurants + @meeting.restaurants
    
     respond_to do |format|
-      if @meeting.update(meeting_params)  
-        UserMailer.meeting_update(@meeting.users, meeting_url(@meeting)).deliver      
+      if @meeting.update(meeting_params)
+        @meeting.users.each do |u|  
+          UserMailer.meeting_update(u, meeting_url(@meeting)).deliver      
+        end
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
