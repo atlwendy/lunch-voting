@@ -111,8 +111,9 @@ $(document).ready(function(){
         //var parsed_data = $.parseJSON(data);
         $.each(data, function(index,value) {
             //alert(value.name);
-            generate_checkbox_list(JSON.stringify(value), value.name);
-            console.log(JSON.stringify(value), value.name);
+            generate_checkbox_list(JSON.stringify(value), value);
+            console.log(JSON.stringify(value), value.name, value.url);
+            $(".yelplink").popover();
         });
       },
       error: function(request, status, error){
@@ -124,7 +125,10 @@ $(document).ready(function(){
   })
 })
 
-function generate_checkbox_list(jobject, name) {
+function generate_checkbox_list(jobject, value) {
+    var name = value.name;
+    var url = value.url;
+    var rating = value.rating;
   
     $("#default").append(
       '<label>'
@@ -136,11 +140,30 @@ function generate_checkbox_list(jobject, name) {
       +
       '/>'
       +
+      '<a class="yelplink" href='
+      +
+      url
+      + 
+      ' data-content='
+      + '"'
+      +
+      name + '"'
+      +
+      ' data-placement="bottom" data-original-title=' 
+      + '"Rating on Yelp is: ' +  
+      rating + '"'
+      +
+      ' data-trigger="hover">' 
+      + 
       name
+      +
+      '</a>'
       +
       '</label>');
   
 }
+
+$(".yelplink").popover();
 
 $(function() {
         $( "#meeting_date" ).click(function() {

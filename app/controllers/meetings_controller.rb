@@ -49,7 +49,11 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     users = get_users(params[:emailaddress])
-    restaurants = get_restaurant(params[:restaurantname]) + add_default_restaurants(params[:restaurant_name])
+    rn = params[:restaurant_name]
+    input_restaurants = get_restaurant(params[:restaurantname])
+    logger.info("##$$$$$$$$$$$$$$$$$$$$$$$#")
+    logger.info(input_restaurants)
+    restaurants = rn.nil? ? input_restaurants :  input_restaurants + add_default_restaurants(rn)
     @meeting.users = users.push(current_user)
     @meeting.restaurants = restaurants
     respond_to do |format|
@@ -153,6 +157,7 @@ class MeetingsController < ApplicationController
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
       @defaultrests.push(info)
     end
+    @defaultrests.sort_by!{|x| x['distance']}
     render json: @defaultrests.to_json
   end
 
