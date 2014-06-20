@@ -68,10 +68,13 @@ span.listingh {
 
 table.tlisting {
 	margin-top: 30px;
-	width: 50%;
+	width: 70%;
 	font-family: Arial,Helvetica,sans-serif;
 }
 
 tr.thead th{
 	text-align: center;
+	font-weight: bolder;
+	font-size: 1.2em;
+	background-color: #e4eaed;
 }

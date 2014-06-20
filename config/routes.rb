@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'meetings/:id/get_default_restaurants' => 'meetings#get_default_restaurants', as: :get_default_restaurants
   
   resources :users
+  resources :restaurants
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'

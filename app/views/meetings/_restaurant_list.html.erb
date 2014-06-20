@@ -26,7 +26,11 @@
         <% end %>
         </td>
         <td rowspan="3" class="restname">
-          <%= mrs.restaurant.name %>
+          <% if not mrs.restaurant.url.nil? %>
+            <%= link_to mrs.restaurant.name, mrs.restaurant.url %>
+          <% else %>
+            <%= mrs.restaurant.name %>
+          <% end %>
         </td>
       </tr>
       <tr>

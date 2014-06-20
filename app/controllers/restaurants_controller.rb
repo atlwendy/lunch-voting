@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  layout "menu"
 
   # GET /restaurants
   # GET /restaurants.json

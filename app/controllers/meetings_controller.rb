@@ -51,8 +51,6 @@ class MeetingsController < ApplicationController
     users = get_users(params[:emailaddress])
     rn = params[:restaurant_name]
     input_restaurants = get_restaurant(params[:restaurantname])
-    logger.info("##$$$$$$$$$$$$$$$$$$$$$$$#")
-    logger.info(input_restaurants)
     restaurants = rn.nil? ? input_restaurants :  input_restaurants + add_default_restaurants(rn)
     @meeting.users = users.push(current_user)
     @meeting.restaurants = restaurants
@@ -78,7 +76,7 @@ class MeetingsController < ApplicationController
         cr = Restaurant.new
         cr['name'] = rr['name']
         cr['address'] = rr['address']
-        cr['url'] = rr['url']
+        cr['url'] = rr['url'].gsub("=>", ":")
         cr.save
         r.push(cr)
       else
@@ -149,7 +147,7 @@ class MeetingsController < ApplicationController
     @defaultrests = []
     response['businesses'].each do |business|
       info = Hash.new
-      info['name'] = business['name']
+      info['name'] = business['name'].gsub("'", "")
       info['distance'] = business['distance']
       info['is_closed'] = business['is_closed']
       info['rating'] = business['reviews'][0]['rating']

@@ -51,7 +51,7 @@
         <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
         <td><input class="text" type="text" name="email" id="temail"></input>
 
-        <input class="button intermitbutton" name="addmore" type="button" value="Add member" id="addmember"></input></td>
+        <input class=" button intermitbutton btn" name="addmore" type="button" value="Add member" id="addmember"></input></td>
 		</tr>
 	</table>
   </div>
@@ -68,21 +68,15 @@
   <% end %>
 
  <div class="field checkbox" id="default">
-  <% if not @defaultrests.nil? %>
-  <% @defaultrests.each do |rest| %>
-    <label><%=check_box_tag 'restaurant[]', rest.name%>
-      <%= rest.name %>
-    </label>
-  <% end %>
-  <% end %>
+  <label>A list of default restaurants based on your current location (sorted by distance):</label>
 </div>
 
   <div class="field" id="restaurant">
     <table class="rest">
       <tr>
-        <td><label for="Restaurant">Please enter new restaurant option(s): &nbsp </label></td>
+        <td><label for="Restaurant">Or you can enter new restaurant option(s): &nbsp </label></td>
         <td><input class="text" type="text" name="rtt" id="trest"></input>
-          <input class="button restb" name="morerest" type="button" value="Add restaurant"></input>
+          <input class="button restb btn" name="morerest" type="button" value="Add restaurant"></input>
         </td>
       </tr>
     </table>
@@ -144,13 +138,9 @@ function generate_checkbox_list(jobject, value) {
       +
       url
       + 
-      ' data-content='
-      + '"'
-      +
-      name + '"'
-      +
-      ' data-placement="bottom" data-original-title=' 
-      + '"Rating on Yelp is: ' +  
+      
+      ' data-placement="bottom" data-content=' 
+      + '"Rating on Yelp is ' +  
       rating + '"'
       +
       ' data-trigger="hover">' 
@@ -163,7 +153,6 @@ function generate_checkbox_list(jobject, value) {
   
 }
 
-$(".yelplink").popover();
 
 $(function() {
         $( "#meeting_date" ).click(function() {

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = []
+    @users = [current_user]
     User.all.order('username').each{|x| @users.push(x) if not (x.meetings & current_user.meetings).empty?}
   end
 
