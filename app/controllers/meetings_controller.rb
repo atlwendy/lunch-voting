@@ -67,13 +67,14 @@ class MeetingsController < ApplicationController
 
   def add_default_restaurants(restaurants)
     r = []
-    restaurants.each do |rr|
-      rt = Restaurant.find_by_name(rr.name)
+    restaurants.each do |rx|
+      rr = eval(rx.gsub(":", "=>"))
+      rt = Restaurant.find_by_name(rr['name'])
       if rt.nil?
         cr = Restaurant.new
-        cr['name'] = rr.name
-        cr['address'] = rr.address
-        cr['url'] = rr.url
+        cr['name'] = rr['name']
+        cr['address'] = rr['address']
+        cr['url'] = rr['url']
         cr.save
         r.push(cr)
       else
