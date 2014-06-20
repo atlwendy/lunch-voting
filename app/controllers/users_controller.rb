@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :login_required, except: [:new]
+  before_action :login_required, except: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   layout :resolve_layout
