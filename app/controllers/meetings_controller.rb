@@ -7,7 +7,7 @@ class MeetingsController < ApplicationController
   
   def index
     @meetings = []
-    Meeting.all.order('date').each{|x| @meetings.push(x) if x.users.include?(current_user)}
+    Meeting.all.order('date').reverse.each{|x| @meetings.push(x) if x.users.include?(current_user)}
   end
 
   def show
