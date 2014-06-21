@@ -9,7 +9,7 @@
   <br ><br >
   <strong>Meetings:</strong>
   <ul class="users">
-  <% @user.meetings.each do |meeting| %>
+  <% @meeting.each do |meeting| %>
     <li>
       <%= link_to meeting.title, meeting %> on
       <%= meeting.date.to_s(:short) %>

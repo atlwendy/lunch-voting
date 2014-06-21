@@ -15,6 +15,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @meeting = []
+    @user.meetings.each do |m|
+      if current_user.meetings.include?(m)
+        @meeting.push(m)
+      end
+    end
   end
 
   # GET /users/new
@@ -79,11 +85,11 @@ class UsersController < ApplicationController
     end
 
     def resolve_layout
-    case action_name
-    when 'new'
-      'sessions'
-    else
-      'menu'
+      case action_name
+      when 'new'
+        'sessions'
+      else
+        'menu'
+      end
     end
-  end
 end
