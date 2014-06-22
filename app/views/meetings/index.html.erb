@@ -1,6 +1,6 @@
 <% provide(:title, "Meeting index") %>
 
-<div class="listing">
+<div class="listing" style="margin-bottom: 10px">
 <span class="listingh">Listing meetings for <%=current_user.username%></span>
 <br>
 
@@ -28,7 +28,6 @@
   </tbody>
 </table>
 
-<br>
-
 <%= link_to 'New Meeting', new_meeting_path %>
+<br >
 </div>
