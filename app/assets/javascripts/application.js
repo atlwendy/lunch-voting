@@ -3,6 +3,7 @@
 //= require jquery.datetimepicker
 //= require bootstrap
 //= require turbolinks
+//= require spin
 //= require_tree .
 
 $(function(){

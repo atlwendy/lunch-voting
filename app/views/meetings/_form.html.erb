@@ -38,10 +38,12 @@
       </div>
     </div>
     <br />
+
+    <% if @meeting.new_record? %>
     <div class="infosection">
       <h5>Add New Member</h5>
       <div class="newmemberfields">
-        <% if @meeting.new_record? %>
+        
           <% if not @meeting.users.empty? %>
             <div class="field" id="emember">
               <label for='emember address'>Current members:</label>
@@ -82,11 +84,11 @@
             </div>
           <% end %>
   
-          <div class="field checkbox" id="default" style="border-bottom:solid 1px #eee">
+          <div class="field checkbox" id="default" style="border-bottom:solid 2px #eee">
            <label>A list of default restaurants based on your current location (sorted by distance):</label>
           </div>
           
-          <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 1px #eee">
+          <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 2px #eee">
            <label>Or you can get a list of nearby restaurant based on following address</label>
            <label>Address:</label>
            <input class="text" type="text" id="address"></input>
@@ -95,7 +97,7 @@
            <label>State: </label>
            <input class="text" type="text" id="state"></input>
            <br >
-           <input class="button btn inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input>
+           <input class="button btn inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input><span id="spin"></span>
           </div>
           <br >
   
@@ -213,6 +215,28 @@ $(".inputaddress").click(function() {
   var city = $("#city").val();
   var state = $("#state").val();
 
+  var opts = {
+    lines: 10, // The number of lines to draw
+    length: 5, // The length of each line
+    width: 2, // The line thickness
+    radius: 6, // The radius of the inner circle
+    corners: 1, // Corner roundness (0..1)
+    rotate: 0, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    color: '#000', // #rgb or #rrggbb or array of colors
+    speed: 1, // Rounds per second
+    trail: 60, // Afterglow percentage
+    shadow: true, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    top: 2, // Top position relative to parent
+    left: '30%' // Left position relative to parent
+  };
+  var target = document.getElementById('spin');
+  var spinner = new Spinner(opts)
+  spinner.spin(target);
+
   if (!address || !city || !state) {
     alert("You have to provide address, city and state to do the search");
   }
@@ -232,6 +256,8 @@ $(".inputaddress").click(function() {
             console.log(JSON.stringify(value), value.name, value.url);
             $(".yelplink").popover();
         });
+        spinner.stop();
+
       },
       error: function(request, status, error){
         console.log(error)
@@ -256,7 +282,5 @@ function validateEmail($email) {
     return true;
   }
 }
-
-
 
 </script>
