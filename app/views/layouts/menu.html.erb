@@ -8,13 +8,8 @@
   <%= render "layouts/header" %>
 </head>
 <body>
-	<% if signed_in? %>
-		<p style="float:right"><strong>Currently logged in as: </strong><%=current_user.username%></p><br>
-		<p style="float:right"><%= link_to "Sign out", signout_path, method: "delete" %></p>
-	<% end %>
-	<div style="padding: 80px 0 0 20px">
+	<div style="padding: 100px 0 0 20px">
 		<%= yield %>
 	</div>
-
 </body>
 </html>

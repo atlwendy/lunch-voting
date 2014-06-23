@@ -1,12 +1,22 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	  <div class="navbar-inner">
 	    <div class="container">
 	      <img alt="Where to eat?" src=<%=image_path("wheretoeat_header.png")%>>
+	      <% if signed_in? %>
+	      	<div id="customer-info">
+	      		<div id="welcome">Welcome</div>
+	      		<div id="customer-name"><%=current_user.username%></div>
+	      		<div id="logout"><%= link_to "Sign out", signout_path, method: "delete", :class=>"btn-small" %></div>
+	      	</div>
+	      <% end %>
 	      <nav>
+	      	
 	        <ul class="nav pull-right">
 	          <li><%= link_to "Home", root_path %></li>
 	          <li><%#= link_to "Help", help_path %></li>
 	          <% if signed_in? %>
+					
 		            <li><%= link_to "Users", users_path %></li>
 		            <li><%= link_to "Meetings", meetings_path %></li>
 		            <li><%= link_to "Restaurants", restaurants_path %></li>
@@ -19,7 +29,7 @@
 	            	    <li><%= link_to "Settings", edit_user_path(	current_user) %></li>
 	            	    <li class="divider"></li>
 	            	    <li>
-	            	      <%= link_to "Sign out", signout_path, method: "	delete" %>
+	            	      <%= link_to "Sign out", signout_path, method: "delete" %>
 	            	    </li>
 	            	  </ul>
 	            	</li>
@@ -35,4 +45,4 @@
 $('.dropdown-toggle').dropdown();
 });
 	  </script>
-  </header>
+  </div>

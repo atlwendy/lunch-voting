@@ -1,0 +1,25 @@
+#customer-info {
+	padding: 15px 260px 0 0;
+	color: #8a9499;
+	text-align: right;
+	float: right;
+	font-size: 11px;
+	line-height: 1.2em;
+}
+
+#customer-info #welcome {
+	display: inline;
+	vertical-align: 6px;
+}
+
+#customer-info #customer-name {
+	display: inline;
+	vertical-align: 6px;
+}
+
+#customer-info #logout {
+	display: inline;
+	vertical-align: 6px;
+	padding-left: 5px;
+	text-decoration: underline;
+}

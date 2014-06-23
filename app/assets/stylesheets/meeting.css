@@ -1,3 +1,4 @@
+
 .arrow-up {
 	width: 0; 
 	height: 0; 
@@ -77,4 +78,30 @@ tr.thead th{
 	font-weight: bolder;
 	font-size: 1.2em;
 	background-color: #e4eaed;
+}
+
+.infosection {	
+	width: 50%;
+	border: 1px solid #dbdbdb;
+	padding-bottom: 20px;
+}
+
+.infosection h5 {
+	margin-top: 0px;
+	background-color: #eee;
+	background-position: 24px 15px;
+	border-bottom: 1px solid #dbdbdb;
+	font-size: 1.2em;
+	color: #636466;
+	font-weight: bold;
+	padding: 1em 0 1em 2em;
+}
+.basicinfofields {
+	padding-left: 30px;
+}
+.newmemberfields {
+	padding-left: 30px;
+}
+.inputaddress {
+	margin-bottom: 20px;
 }

@@ -122,7 +122,7 @@ class MeetingsController < ApplicationController
     emails.each do |e|
       u = User.where({email: e})
       u = u.empty? ? User.new(:email=>e, :username=>e, :password=>"lunchvoting") : u.first
-      users.push(u)
+      users.push(u) if not users.include?(u)
     end
     return users
   end
