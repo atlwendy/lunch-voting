@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post 'meetings/:id/submit_restaurants' => 'meetings#submit_restaurants'
   get 'meetings/:id/update_vote' => 'meetings#update_vote', as: :update_vote
   get 'meetings/:id/get_default_restaurants' => 'meetings#get_default_restaurants', as: :get_default_restaurants
-  
+  get 'meetings/:id/search_restaurants_from_input_address' =>'meetings#search_restaurants_from_input_address', as: :search_restaurants_from_input_address
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'

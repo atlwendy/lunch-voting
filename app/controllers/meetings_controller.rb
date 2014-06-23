@@ -147,6 +147,24 @@ class MeetingsController < ApplicationController
              :longitude => params[:longi]
               )
     response = client.search(request)
+    
+    render json: parse_restaurant_list(response).to_json
+  end
+
+  def search_restaurants_from_input_address
+    client = Yelp::Client.new
+    
+    request = Location.new(
+      :address => params[:address],
+      :city => params[:city],
+      :state => params[:state],
+      :radius => 5,
+      :term => "restaurants" )
+    response = client.search(request)
+    render json: parse_restaurant_list(response).to_json
+  end
+
+  def parse_restaurant_list(response)
     @defaultrests = []
     response['businesses'].each do |business|
       info = Hash.new
@@ -159,7 +177,7 @@ class MeetingsController < ApplicationController
       @defaultrests.push(info)
     end
     @defaultrests.sort_by!{|x| x['distance']}
-    render json: @defaultrests.to_json
+    return @defaultrests
   end
 
   # PATCH/PUT /meetings/1

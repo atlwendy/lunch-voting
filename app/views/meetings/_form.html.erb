@@ -69,6 +69,18 @@
 
  <div class="field checkbox" id="default">
   <label>A list of default restaurants based on your current location (sorted by distance):</label>
+ </div>
+
+ <div class="field checkbox" id="userinputaddress">
+  <label>Or you can get a list of nearby restaurant based on following address</label>
+  <label>Address:</label>
+  <input class="text" type="text" id="address"></input>
+  <label>City: </label>
+  <input class="text" type="text" id="city"></input>
+  <label>State: </label>
+  <input class="text" type="text" id="state"></input>
+  <br >
+  <input class="button btn inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list"></input>
 </div>
 
   <div class="field" id="restaurant">
@@ -105,7 +117,7 @@ $(document).ready(function(){
         //var parsed_data = $.parseJSON(data);
         $.each(data, function(index,value) {
             //alert(value.name);
-            generate_checkbox_list(JSON.stringify(value), value);
+            generate_checkbox_list(JSON.stringify(value), value, "#default");
             console.log(JSON.stringify(value), value.name, value.url);
             $(".yelplink").popover();
         });
@@ -119,12 +131,12 @@ $(document).ready(function(){
   })
 })
 
-function generate_checkbox_list(jobject, value) {
+function generate_checkbox_list(jobject, value, elementid) {
     var name = value.name;
     var url = value.url;
     var rating = value.rating;
   
-    $("#default").append(
+    $(elementid).append(
       '<label>'
       +
       '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" data-type="json" value='
@@ -173,6 +185,41 @@ $(".intermitbutton").click(function() {
     $('#member').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"Invalid email address!"+"</p>");
   }
   commonvalue.val("");
+})
+
+$(".inputaddress").click(function() {
+  var id = <%=@id %>
+  var url = "../meetings/" + id + "/search_restaurants_from_input_address"
+  var address = $("#address").val();
+  var city = $("#city").val();
+  var state = $("#state").val();
+
+  if (!address || !city || !state) {
+    alert("You have to provide address, city and state to do the search");
+  }
+
+  $.ajax({
+      url: url,
+      type: "GET",
+      data: {
+        address: address,
+        city: city,
+        state: state
+      },
+      datatype: "json",
+      success: function(data, textStatus, xhr){
+        $.each(data, function(index,value) {
+            generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
+            console.log(JSON.stringify(value), value.name, value.url);
+            $(".yelplink").popover();
+        });
+      },
+      error: function(request, status, error){
+        console.log(error)
+        console.log(status)
+      },
+    });
+
 })
 
 $(".restb").click(function() {
