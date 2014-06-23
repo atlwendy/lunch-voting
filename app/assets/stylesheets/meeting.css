@@ -105,3 +105,49 @@ tr.thead th{
 .inputaddress {
 	margin-bottom: 20px;
 }
+
+h1 {
+font-size: 38px;
+letter-spacing: -0.75px;
+color: rgba(0,0,0,0.95);
+font-family: "Whitney",helvetica,arial,sans-serif;
+margin: 0;
+padding: 0;
+padding-bottom: 9px;
+line-height: 1.1;
+font-weight: 700;
+}
+
+.content {
+	border-radius: 3px;
+	padding: 18px;
+	padding-bottom: 0;
+	border-bottom: 1px solid transparent;
+	background-color: #fff;
+	margin-bottom: 18px;
+	border: 1px solid #ddd; 
+	width: 70%;
+}
+
+#event-content {
+	position: relative;
+	z-index: 100;
+	padding-top: 18px;
+}
+.dividedList{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+h3 {
+font-size: 20px;
+padding-bottom: 6px;
+line-height: 1.2;
+letter-spacing: -0.25px;
+}
+.timetext {
+	color: #888;
+	margin: 0;
+padding: 0;
+margin-bottom: 18px;
+}

@@ -2,21 +2,15 @@
 
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @meeting.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @meeting.description %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @meeting.date.in_time_zone %>
-</p>
-
+<div class="content">
+  <h1><%= @meeting.title %></h1>
+  <h5><%= @meeting.description %></h5>
+  <div id="event-content">
+    <ul class="dividedList">
+      <li id="when">
+        <span class="glyphicon glyphicon-calendar"></span>
+        <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+        <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
 <p>
   <strong>Members</strong>
   <% if @inGroup %> 
@@ -47,6 +41,7 @@
 	<%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
 </div>
 		
+</div>
 <br>
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
 <%= link_to 'Back', meetings_path %>
