@@ -1,12 +1,16 @@
 <p id="notice" style="margin-top: 10px"><%= notice %></p>
 
-<p class="show">
-  <strong>Username:</strong>
-  <%= @user.username %>
-  <br ><br >
-  <strong>Email:</strong>
-  <%= @user.email %>
-  <br ><br >
+<% provide(:title, @user.username) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.username %>
+      </h1>
+    </section>
+  </aside>
+</div>
   <strong>Meetings:</strong>
   <ul class="users">
   <% @meeting.each do |meeting| %>
