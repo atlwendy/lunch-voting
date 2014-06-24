@@ -107,15 +107,15 @@ tr.thead th{
 }
 
 h1 {
-font-size: 38px;
-letter-spacing: -0.75px;
-color: rgba(0,0,0,0.95);
-font-family: "Whitney",helvetica,arial,sans-serif;
-margin: 0;
-padding: 0;
-padding-bottom: 9px;
-line-height: 1.1;
-font-weight: 700;
+	font-size: 38px;
+	letter-spacing: -0.75px;
+	color: rgba(0,0,0,0.95);
+	font-family: "Whitney",helvetica,arial,sans-serif;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 9px;
+	line-height: 1.1;
+	font-weight: 700;
 }
 
 .content {
@@ -126,7 +126,7 @@ font-weight: 700;
 	background-color: #fff;
 	margin-bottom: 18px;
 	border: 1px solid #ddd; 
-	width: 70%;
+	width: 50%;
 }
 
 #event-content {
@@ -156,34 +156,77 @@ h3 {
 }
 
 .dividedList>li {
-padding: 18px 0 0;
-border-top: 1px solid #eee;
+	padding: 18px 0 0;
+	border-top: 1px solid #eee;
+	margin: 0;
+}
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
 }
 
 .figureset:after, .figureset-right:after {
-visibility: hidden;
-display: block;
-font-size: 0;
-content: ".";
-clear: both;
-height: 0;
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: ".";
+	clear: both;
+	height: 0;
 }
 
 .figureset-description {
-width: auto;
-padding-left: 13.5px;
-display: table-cell;
-vertical-align: top;
+	width: auto;
+	padding-left: 53.5px;
+	display: table-cell;
+	vertical-align: top;
 }
 
 h6 {
-font-size: 16px;
-padding-bottom: 0;
-line-height: 1.4;
-text-transform: uppercase;
-font-variant: small-caps;
-font-weight: 400;
-color: rgba(0,0,0,0.95);
-font-family: "Whitney",helvetica,arial,sans-serif;
-margin: 0;
+	font-size: 12px;
+	padding-bottom: 0;
+	line-height: 1.4;
+	font-weight: 400;
+	color: rgba(0,0,0,0.95);
+	font-family: "Whitney",helvetica,arial,sans-serif;
+	margin: 0;
+}
+.avatarimage {
+	width: 50px !important;
+	height: 50px !important;
+	vertical-align: top;
+	display: table cell;
+	border: none;
+	float: left;
+	height: 35px;
+	overflow: hidden;
+	text-align: center;
+}
+.imagebrg {
+	padding: 5px 0 5px;
+	background: #eee;
+	min-width: 30px;
+	text-align: center;
+	overflow: hidden;
+}
+.groupmember {
+	margin: 20px 0;
+	background-color: #eee;
+	width: 50%;
+}
+.groupmemberheader {
+	background-color: #ddd;
+	padding: 10px;
+}
+.listmeetings {
+	padding: 18px;
+	padding-bottom: 0;
+	border-bottom: 1px solid transparent;
+	list-style: none;
+}
+li.meeting-divider {
+	border-bottom: solid #a2a1a1 1px; 
+	margin-bottom: 10px;
+}
+ul.listmeetings>li:last-child {
+	border: none;
 }

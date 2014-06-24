@@ -1,26 +1,41 @@
-<p id="notice" style="margin-top: 10px"><%= notice %></p>
-
 <% provide(:title, @user.username) %>
+
+<p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
+
+
+<div class="content" style="border: none;">
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.username %>
-      </h1>
+      
+        <div class="figureset">
+          <div class="avatarimage imagebrg"><%= gravatar_for @user %></div>
+            <div class="figureset-description">
+              <h5><%= link_to @user.username, user_path(@user) %></h5>
+              <h6><%= @user.email %></h6>
+            </div>
+          </div>
+        </div>
     </section>
   </aside>
 </div>
-  <strong>Meetings:</strong>
-  <ul class="users">
+
+<div class="groupmember">
+  <div class="groupmemberheader">
+    <h3> Member of <%=@meeting.size%> meetings </h3>
+  </div>
+  <ul class="listmeetings">
   <% @meeting.each do |meeting| %>
-    <li>
-      <%= link_to meeting.title, meeting %> on
-      <%= meeting.date.to_s(:short) %>
+    <li class="meeting-divider">
+      <h3><%= meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+      <p class="timetext"><%= meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      <%= link_to meeting.title, meeting %>
     </li>
+
   <% end %>
   </ul>
 </p>
 
+</div>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
