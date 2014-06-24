@@ -154,4 +154,36 @@ h3 {
 .editinh3 {
 	font-size: 16px;
 }
+
+.dividedList>li {
+padding: 18px 0 0;
+border-top: 1px solid #eee;
+}
+
+.figureset:after, .figureset-right:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: ".";
+clear: both;
+height: 0;
+}
+
+.figureset-description {
+width: auto;
+padding-left: 13.5px;
+display: table-cell;
+vertical-align: top;
+}
+
+h6 {
+font-size: 16px;
+padding-bottom: 0;
+line-height: 1.4;
+text-transform: uppercase;
+font-variant: small-caps;
+font-weight: 400;
+color: rgba(0,0,0,0.95);
+font-family: "Whitney",helvetica,arial,sans-serif;
+margin: 0;
 }
