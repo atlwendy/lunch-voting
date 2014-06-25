@@ -41,9 +41,8 @@
 </div>
 <br>
 <%= link_to raw('<i class="icon icon-pencil"></i>'), edit_meeting_path(@meeting) %> |
-<%= link_to raw('<i class="icon icon-trash"></i>'), confirm: 'Are you sure?', method: :delete %> |
+<%= link_to raw('<i class="icon icon-trash"></i>'), @meeting, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to raw('<i class="icon icon-arrow-left"></i>'), meetings_path %>
-
 <script>
 
 var user = '<%= @user %>';
