@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def index
     @users = []
     User.all.order('username').each{|x| @users.push(x) if not (x.meetings & current_user.meetings).empty?}
-    @users = [current_user] if @users.empty?
+    @users = @users - [current_user] if not @users.empty?
   end
 
   # GET /users/1
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
         @meeting.push(m)
       end
     end
+    @meeting = @meeting.sort_by{|x| x['date']}.reverse
   end
 
   # GET /users/new

@@ -1,27 +1,44 @@
 <% provide(:title, "User index") %>
 
 <div class="listing table-responsive">
-<span class="listingh">Listing lunch buddies for <%=current_user.username%></span>
-<br>
-
-<ul class="dividedList">
-  <% @users.each do |user| %>
-    <li>
-      <div class="figureset">
-        <%#= link_to gravatar_for(user), user, :class=>"avatarimage" %>
-        <%# gurl = gravatar_url(user) %>
-        <a href=<%=user_path(user)%> class="avatarimage" style="display:block; background-image: url(<%=gravatar_url(user)%>)"></a>
-        <div class="figureset-description">
-          <h5><%= link_to user.username, user_path(user) %></h5>
-          <h6><%= user.email %></h6>
-          <div></div>
+  <% if @users.empty? %>
+    <div class="emptyuser">
+    <span class="listingh">No lunch buddy for <%=current_user.username%> yet....</span>
+    <h3>Haven't had lunch meet with anybody yet? Start to invite your friends over now!</h3>
+    <%=link_to "Create a new meeting", new_meeting_path, :class=>"btn" %>
+    <br>
+    </div>
+  <% else %>
+    <div class="buddiestopbar">
+      <div class="leftentity">
+        <div class="contentwrapper">
+          <h1>Lunch buddies for <%=current_user.username%></h1>
+          <h3>people that you went to eat with or will be eating with</h3>
         </div>
       </div>
-    </li>
+    </div>
+    <br>
+
+    <div class="listingbox">
+     <ul class="dividedList">
+      <% @users.each do |user| %>
+        <li>
+          <div class="figureset">
+            <%#= link_to gravatar_for(user), user, :class=>"avatarimage" %>
+            <%# gurl = gravatar_url(user) %>
+            <a href=<%=user_path(user)%> class="avatarimage" style="display:block; background-image: url(<%=  gravatar_url  (user)%>)"></a>
+            <div class="figureset-description">
+              <h5><%= link_to user.username, user_path(user) %></h5>
+              <h6><%= user.email %></h6>
+              <div></div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+      <br >
+     </ul>
+    </div>
   <% end %>
-  <br >
-</div>
-</ul>
 
 <!-- <table class="tlisting table table-striped table-bordered">
   <thead>

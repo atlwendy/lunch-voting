@@ -1,8 +1,29 @@
 <% provide(:title, "Meeting index") %>
 
 <div class="listing table-responsive" style="margin-bottom: 10px">
-<span class="listingh">Listing meetings for <%=current_user.username%></span>
+  <div class="buddiestopbar">
+      <div class="leftentity">
+        <div class="contentwrapper">
+          <h1><%=current_user.username%> meeting schedules</h1>
+          <h3>when and where is your meeting takes place</h3>
+        </div>
+      </div>
+    </div>
+
 <br>
+
+<div class="listingbox">
+  <ul class="listmeetings">
+  <% @meetings.each do |meeting| %>
+    <li class="meeting-divider">
+      <h3><%= meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+      <p class="timetext"><%= meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      <%= link_to meeting.title, meeting %>
+      <p class="timetext"><%=meeting.description%></p>
+    </li>
+
+  <% end %>
+  </ul>
 
 <table class="tlisting table table-striped table-bordered">
   <thead>

@@ -41,10 +41,12 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     @id = Meeting.all.empty? ? 1 : Meeting.maximum("id") + 1
+    @new = true
   end
 
   def edit
     @id = params[:id]
+    @new = false
   end
 
   def create
@@ -174,6 +176,7 @@ class MeetingsController < ApplicationController
       info['rating'] = business['reviews'][0]['rating']
       info['url'] = business['url']
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
+      info['photo_url'] = business['photo_url']
       @defaultrests.push(info)
     end
     @defaultrests.sort_by!{|x| x['distance']}
@@ -187,7 +190,8 @@ class MeetingsController < ApplicationController
     restaurants = get_restaurant(params[:restaurantname])
     @meeting.users = users + @meeting.users
     @meeting.restaurants = restaurants + @meeting.restaurants
-   
+    @new = false
+    
     respond_to do |format|
       if @meeting.update(meeting_params)
         @meeting.users.each do |u|  

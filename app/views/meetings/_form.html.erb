@@ -123,8 +123,10 @@
 <script>
 
 $(document).ready(function(){
-  var id = <%=@id %>
-  var url = "../meetings/" + id + "/get_default_restaurants"
+  var id = <%=@id %>;
+  var url = "../meetings/" + id + "/get_default_restaurants";
+  var action = <%=@new %>;
+  if (action) {
   navigator.geolocation.getCurrentPosition(function(position){
     $.ajax({
       url: url,
@@ -150,6 +152,7 @@ $(document).ready(function(){
     });
     
   })
+}
 })
 
 function generate_checkbox_list(jobject, value, elementid) {
