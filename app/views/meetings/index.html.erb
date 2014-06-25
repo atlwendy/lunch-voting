@@ -16,7 +16,7 @@
   <ul class="listmeetings">
   <% @meetings.each do |meeting| %>
     <li class="meeting-divider">
-      <h3><%= meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+      <h3><%= link_to meeting.date.in_time_zone.strftime("%a, %b %d, %Y"), meeting, :class=>"meetingtime" %></h3>
       <p class="timetext"><%= meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
       <span style="display:inline"><%= link_to meeting.title, meeting %> 
         <p style="display:inline; margin-right:10px"><%#= link_to raw('<i class="icon-trash icon-white"></i>'), meeting, confirm: 'Are you sure?', method: :delete %>
