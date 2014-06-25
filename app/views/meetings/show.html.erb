@@ -2,15 +2,13 @@
 
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
-<span class="glyphicon glyphicon-search"></span>
-
 <div class="content">
   <h1><%= @meeting.title %></h1>
   <h5><%= @meeting.description %></h5>
   <div id="event-content">
     <ul class="dividedList">
       <li id="when">
-        <span class="glyphicon glyphicon-calendar"></span>
+        <i class="icon icon-calendar"></i>
         <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
         <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
 
@@ -42,8 +40,9 @@
 		
 </div>
 <br>
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>
+<%= link_to raw('<i class="icon icon-pencil"></i>'), edit_meeting_path(@meeting) %> |
+<%= link_to raw('<i class="icon icon-trash"></i>'), confirm: 'Are you sure?', method: :delete %> |
+<%= link_to raw('<i class="icon icon-arrow-left"></i>'), meetings_path %>
 
 <script>
 
