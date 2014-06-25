@@ -12,28 +12,40 @@
     </div> -->
   <%# end %>
 <div style="padding-top: 20px">
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+  <div class="infosection">
+    <h5 >Basic info</h5>
+    <div class="basicinfofields">
+      <div class="field">
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+      </div>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
+  <br >
 
   <% if not @user.email.nil? %>
-  <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">change</a>
+  <div class="infosection">
+    <h5>Image</h5>
+    <div class="newmemberfields">
+      <%= gravatar_for @user %>
+      <a href="http://gravatar.com/emails">change</a>
+    </div>
+  </div>
   <% end %>
   <br >
+  </div>
   <%= f.submit class: "btn btn-large btn-primary" %>
 </div>  
 <% end %>
