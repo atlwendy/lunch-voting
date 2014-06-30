@@ -26,7 +26,12 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if not params[:invitation_token].nil?
+      @user = User.new(:invitation_token => params[:invitation_token])
+      @user.email = @user.invitation.recipient_email if @user.invitation
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit

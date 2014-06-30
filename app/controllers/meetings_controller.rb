@@ -123,8 +123,17 @@ class MeetingsController < ApplicationController
     users = []
     emails.each do |e|
       u = User.where({email: e})
-      u = u.empty? ? User.new(:email=>e, :username=>e, :password=>"lunchvoting") : u.first
-      users.push(u) if not users.include?(u)
+      if u.empty?
+        # send invitation
+        invite = Invitation.new(:recipient_email=>e)
+        #@invitation = Invitation.new(invitation_params)
+        invite.save
+        InvitationMailer.send_invitation(invite, signup_url(invite.token)).deliver
+      else
+        users.push(u) unless users.include?(u)
+      end
+      #u = u.empty? ? User.new(:email=>e, :username=>e) : u.first
+      #users.push(u) if not users.include?(u)
     end
     return users
   end
