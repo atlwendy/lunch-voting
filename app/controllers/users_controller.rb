@@ -4,16 +4,12 @@ class UsersController < ApplicationController
 
   layout :resolve_layout
 
-  # GET /users
-  # GET /users.json
   def index
     @users = []
     User.all.order('username').each{|x| @users.push(x) if not (x.meetings & current_user.meetings).empty?}
     @users = @users - [current_user] if not @users.empty?
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @meeting = []
     @user.meetings.each do |m|
@@ -24,7 +20,6 @@ class UsersController < ApplicationController
     @meeting = @meeting.sort_by{|x| x['date']}.reverse
   end
 
-  # GET /users/new
   def new
     if not params[:invitation_token].nil?
       @user = User.new(:invitation_token => params[:invitation_token])
@@ -33,13 +28,10 @@ class UsersController < ApplicationController
       @user = User.new
     end
   end
-
-  # GET /users/1/edit
+ 
   def edit
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
 
@@ -55,8 +47,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
+ 
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -69,8 +60,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
+  
   def destroy
     @user.destroy
     respond_to do |format|
@@ -87,7 +77,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password)
+      params.require(:user).permit(:username, :email, :password, :invitation_token)
     end
 
     def resolve_layout
