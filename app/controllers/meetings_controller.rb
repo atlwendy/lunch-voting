@@ -129,9 +129,8 @@ class MeetingsController < ApplicationController
       if u.empty?
         # send invitation
         invite = Invitation.new(:recipient_email=>e, :sender_id=>id)
-        #@invitation = Invitation.new(invitation_params)
         invite.save
-        InvitationMailer.send_invitation(invite, signup_url,invite.token).deliver
+        InvitationMailer.send_invitation(current_user, invite, signup_url,invite.token).deliver
       else
         users.push(u.first) unless users.include?(u.first)
       end
