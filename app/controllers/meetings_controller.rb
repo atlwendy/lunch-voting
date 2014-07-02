@@ -51,7 +51,9 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
-    users = get_users(params[:emailaddress])
+    tid = ActiveRecord::Base.connection.execute "select last_value from meetings_id_seq"
+    id = tid[0]['last_value'].to_i + 1
+    users = get_users(params[:emailaddress], id)
     rn = params[:restaurant_name]
     input_restaurants = get_restaurant(params[:restaurantname])
     restaurants = rn.nil? ? input_restaurants :  input_restaurants + add_default_restaurants(rn)
@@ -82,6 +84,7 @@ class MeetingsController < ApplicationController
         cr['name'] = rr['name']
         cr['address'] = rr['address']
         cr['url'] = rr['url'].gsub("=>", ":")
+        cr['photo_url'] = rr['photo_url'].gsub("=>", ":")
         cr.save
         r.push(cr)
       else
@@ -118,19 +121,19 @@ class MeetingsController < ApplicationController
     render :partial=>"restaurant_list", :locals=>{:meeting_mrs=>meeting_mrs, :uid=>uid} 
   end
 
-  def get_users(emails)
+  def get_users(emails, id=0)
     return [] if emails.nil?
     users = []
     emails.each do |e|
       u = User.where({email: e})
       if u.empty?
         # send invitation
-        invite = Invitation.new(:recipient_email=>e)
+        invite = Invitation.new(:recipient_email=>e, :sender_id=>id)
         #@invitation = Invitation.new(invitation_params)
         invite.save
-        InvitationMailer.send_invitation(invite, signup_url(invite.token)).deliver
+        InvitationMailer.send_invitation(invite, signup_url,invite.token).deliver
       else
-        users.push(u) unless users.include?(u)
+        users.push(u.first) unless users.include?(u.first)
       end
       #u = u.empty? ? User.new(:email=>e, :username=>e) : u.first
       #users.push(u) if not users.include?(u)
@@ -144,7 +147,7 @@ class MeetingsController < ApplicationController
     rest.each do |r|
       rr = Restaurant.where({name: r})
       rr = rr.empty? ? Restaurant.new(:name=>r) : rr.first
-      rests.push(rr)
+      rests.push(rr) unless rests.include?(rr)
     end
     return rests
   end
@@ -192,10 +195,8 @@ class MeetingsController < ApplicationController
     return @defaultrests
   end
 
-  # PATCH/PUT /meetings/1
-  # PATCH/PUT /meetings/1.json
   def update
-    users = get_users(params[:emailaddress])
+    users = get_users(params[:emailaddress], params[:id])
     restaurants = get_restaurant(params[:restaurantname])
     @meeting.users = users + @meeting.users
     @meeting.restaurants = restaurants + @meeting.restaurants
@@ -215,8 +216,6 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # DELETE /meetings/1
-  # DELETE /meetings/1.json
   def destroy
     @meeting.destroy
     respond_to do |format|
@@ -234,12 +233,13 @@ class MeetingsController < ApplicationController
 
   def submit_members
     meeting = Meeting.find(params[:id])
-    meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress])
+    meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress], params[:id])
     redirect_to meeting
   end
   
   def select_restaurants
-    @meeting = Meeting.find(params[:id])
+    @id = params[:id]
+    @meeting = Meeting.find(@id)
     @restaurants = @meeting.restaurants
     @allrests = Restaurant.all
     @all_restaurant_names = Restaurant.pluck(:name)

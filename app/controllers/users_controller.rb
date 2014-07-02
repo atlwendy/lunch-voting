@@ -38,8 +38,23 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        if not params[:user][:invitation_token].nil?
+          logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+          logger.info("invitation token is not nil")
+          sid = @user.invitation.sender_id
+          if sid.to_i > 0
+            meeting = Meeting.find_by_id(sid)
+            meeting.users.push(@user)
+            meeting.save
+            format.html { redirect_to meeting, notice: 'User was successfully created.'}
+          else
+            format.html { redirect_to @user, notice: 'User was successfully created.' }
+            format.json { render :show, status: :created, location: @user }
+          end
+        else
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        end
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }

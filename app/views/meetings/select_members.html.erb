@@ -1,4 +1,5 @@
-<h1>Select users </h1>
+<div class="listing">
+<span class="listingh">Select users </span>
 
 <%=form_tag 'submit_members' do %>
   <% @allusers.each do |user| %>
@@ -19,7 +20,7 @@
 	</table>
   </div>
 
-  <%=submit_tag "Save" %>
+  <%=submit_tag "Save", :class=>'btn' %>
 <% end %>
 
 <script>
