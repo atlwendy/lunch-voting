@@ -3,9 +3,11 @@ class Restaurant < ActiveRecord::Base
   has_many :meetings, :through => :meeting_restaurant_selections
 
   before_save :capitalize_name, :url_add_http
+  validates_uniqueness_of :name, scope: [:url]
 
   def capitalize_name
-  	self.name.capitalize!
+  	#self.name.capitalize!
+    self.name.split.map(&:capitalize).join(' ')
   end
 
   def url_add_http

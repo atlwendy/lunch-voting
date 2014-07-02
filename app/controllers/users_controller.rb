@@ -39,8 +39,6 @@ class UsersController < ApplicationController
       if @user.save
         sign_in @user
         if not params[:user][:invitation_token].nil?
-          logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-          logger.info("invitation token is not nil")
           sid = @user.invitation.sender_id
           if sid.to_i > 0
             meeting = Meeting.find_by_id(sid)

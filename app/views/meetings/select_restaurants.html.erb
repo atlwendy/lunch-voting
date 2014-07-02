@@ -4,10 +4,11 @@
 <div style="padding-top: 20px">
   <div class="infosection">
         <h5>Add Restaurants</h5>
-        <div class="newmemberfields">
-          <div class="field" id="erest" style="border-bottom:solid 1px #eee">
+        <%=form_tag 'submit_restaurants' do %>
+        <div class="newmemberfields" style="border-bottom:solid 1px #eee">
+          <div class="field" id="erest" >
             <label for='erest address'>Current Restaurant Selections:</label>
-              <%=form_tag 'submit_restaurants' do %>
+              
                 <% @allrests.each do |rest| %>
                   <label><%=check_box_tag 'restaurant_id[]', 
                     rest.id, @restaurants.include?(rest) %>
@@ -15,8 +16,9 @@
                   </label>
                 <% end %>
           </div>
+        </div>
 
-        <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 2px #eee">
+        <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 2px #eee; padding-left: 20px">
            <label>Or you can get a list of nearby restaurant based on following address</label>
            <label>Address:</label>
            <input class="text" type="text" id="address"></input>
@@ -29,7 +31,7 @@
         </div>
           <br >
   
-        <div class="field" id="restaurant" style="margin-top: 5px">
+        <div class="field" id="restaurant" style="margin-top: 5px; padding-left: 20px">
           <table class="rest">
             <tr>
               <td><label for="Restaurant">Or you can enter new restaurant option(s): &nbsp </label></td>
@@ -41,7 +43,6 @@
               <input class="button restb btn" name="morerest" type="button" value="Add restaurant"></input>              
         </div>
       </div>
-    </div>
     <br />
 <%= submit_tag "Save", class: "btn btn-large btn-primary" %>
 <% end %>
@@ -149,14 +150,14 @@ function generate_checkbox_list(jobject, value, elementid) {
     $(elementid).append(
       '<label>'
       +
-      '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" data-type="json" value='
+      '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" style="margin-left: 20px" data-type="json" value='
       + "'"
       +
       jobject + "'"
       +
       '/>'
       +
-      '<a class="yelplink" href='
+      '<a class="yelplink" style="padding-left: 6px" href='
       +
       url
       + 

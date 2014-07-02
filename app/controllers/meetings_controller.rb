@@ -75,10 +75,11 @@ class MeetingsController < ApplicationController
   end
 
   def add_default_restaurants(restaurants)
+    return [] if restaurants.nil?
     r = []
     restaurants.each do |rx|
       rr = eval(rx.gsub(":", "=>"))
-      rt = Restaurant.find_by_name(rr['name'])
+      rt = Restaurant.where("lower(name)=?", rr['name'].downcase).first
       if rt.nil?
         cr = Restaurant.new
         cr['name'] = rr['name']
@@ -140,12 +141,13 @@ class MeetingsController < ApplicationController
     return users
   end
 
-  def get_restaurant(rest)
+  def get_restaurant(rest, yelp=false)
     return [] if rest.nil?
     rests = []
     rest.each do |r|
-      rr = Restaurant.where({name: r})
-      rr = rr.empty? ? Restaurant.new(:name=>r) : rr.first
+      rname = yelp ? r['name'] : r
+      rr = Restaurant.where("lower(name)=?", rname.downcase)
+      rr = rr.empty? ? Restaurant.new(:name=>rname) : rr.first
       rests.push(rr) unless rests.include?(rr)
     end
     return rests
@@ -246,7 +248,7 @@ class MeetingsController < ApplicationController
 
   def submit_restaurants
     meeting = Meeting.find(params[:id])
-    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]}) + get_restaurant(params[:restaurantname])
+    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]}) + add_default_restaurants(params[:restaurant_name]) + get_restaurant(params[:restaurantname], false)
     redirect_to meeting
   end
 
