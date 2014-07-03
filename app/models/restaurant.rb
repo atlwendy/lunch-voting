@@ -7,7 +7,7 @@ class Restaurant < ActiveRecord::Base
 
   def capitalize_name
   	#self.name.capitalize!
-    self.name.split.map(&:capitalize).join(' ')
+    self.name = self.name.split.map(&:capitalize!).join(' ')
   end
 
   def url_add_http
