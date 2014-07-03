@@ -228,14 +228,23 @@ class MeetingsController < ApplicationController
   def select_members
     @meeting = Meeting.find(params[:id])
     @users = @meeting.users
-    @allusers = User.all
+    @allusers = []
+    User.all.order('username').each{|x| @allusers.push(x) if not (x.meetings & current_user.meetings).empty?}
     @alluseremails = User.pluck(:email) #get_user_emails(@allusers)
   end
 
   def submit_members
     meeting = Meeting.find(params[:id])
+    send_updates(meeting.users.pluck(:id), params[:user_id], meeting)
     meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress], params[:id])
     redirect_to meeting
+  end
+
+  def send_updates(old_ids, new_ids, meeting)
+    newadded = new_ids.collect{|x| x.to_i} - old_ids
+    return if newadded.empty?
+    url = meeting_path(meeting)
+    newadded.each{|x| UserMailer.newlyadded_members(url, x, current_user).deliver}
   end
   
   def select_restaurants

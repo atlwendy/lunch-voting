@@ -1,31 +1,42 @@
-<div class="listing">
-<span class="listingh">Select users </span>
+<div style="padding-top: 20px">
 
-<%=form_tag 'submit_members' do %>
-  <% @allusers.each do |user| %>
-    <label><%=check_box_tag 'user_id[]', 
-      user.id, @users.include?(user) %>
-      <%= user.username %>
-    </label>
-  <% end %>
-
-<div class="field" id="member">
-	<table class="logincontent">
-    <tr>
-        <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
-        <td><input class="text" type="text" name="email" id="temail"></input>
-
-        <input class="button intermitbutton" name="addmore" type="button" value="Add member" id="addmember"></input></td>
-		</tr>
-	</table>
+  <%=form_tag 'submit_members' do %>
+  <div class="infosection">
+    <h5>Add/Remove Members</h5>
+    <div class="newmemberfields" style="border-bottom:solid 1px #eee">
+      <div class="field" id="erest" >
+        <label for='erest address'>Current Users:</label>
+        <% @allusers.each do |user| %>
+          <label><%=check_box_tag 'user_id[]', 
+            user.id, @users.include?(user) %>
+            <%= user.username %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  
+    <div class="field" id="member" style="margin-top: 5px; padding-left: 20px">
+    	<table class="logincontent">
+        <tr>
+          <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
+        </tr>
+        <tr>
+          <td><input class="text" type="text" name="email" id="temail"></input>
+          </td>
+        </tr>
+      </table>
+      <input class="button intermitbutton btn" name="addmore" type="button" value=  " Add member" id="addmember"></input></td>
+    		
+    </div>
   </div>
-
-  <%=submit_tag "Save", :class=>'btn' %>
-<% end %>
+  <br>
+    <%=submit_tag "Save", :class=>'btn btn-primary btn-large' %>
+  <% end %>
+</div>
 
 <script>
 $(".intermitbutton").click(function() {
-	var commonvalue = $(this).parents('tr').find("[name=email]")
+	var commonvalue = $("#temail")
   	var thisemailaddress = commonvalue.val();
   	var all_existing_emails = '<%=@alluseremails%>'
   	if (validateEmail(thisemailaddress)) {

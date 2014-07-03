@@ -2,9 +2,10 @@
 <span class="listingh">Select restaurants </span> -->
 
 <div style="padding-top: 20px">
+  <%=form_tag 'submit_restaurants' do %>
   <div class="infosection">
-        <h5>Add Restaurants</h5>
-        <%=form_tag 'submit_restaurants' do %>
+        <h5>Add/Remove Restaurants</h5>
+        
         <div class="newmemberfields" style="border-bottom:solid 1px #eee">
           <div class="field" id="erest" >
             <label for='erest address'>Current Restaurant Selections:</label>
@@ -44,8 +45,9 @@
         </div>
       </div>
     <br />
-<%= submit_tag "Save", class: "btn btn-large btn-primary" %>
-<% end %>
+  <%= submit_tag "Save", class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
 
 
 
