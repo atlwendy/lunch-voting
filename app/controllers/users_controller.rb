@@ -21,8 +21,9 @@ class UsersController < ApplicationController
   end
 
   def new
-    if not params[:invitation_token].nil?
-      @user = User.new(:invitation_token => params[:invitation_token])
+    itken = params[:invitation_token] || @invitation_token
+    if not itken.nil?
+      @user = User.new(:invitation_token => itken)
       @user.email = @user.invitation.recipient_email if @user.invitation
     else
       @user = User.new
@@ -54,6 +55,7 @@ class UsersController < ApplicationController
           format.json { render :show, status: :created, location: @user }
         end
       else
+        @invitation_token =  params[:user][:invitation_token]
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
