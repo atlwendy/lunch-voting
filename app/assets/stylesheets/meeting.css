@@ -283,3 +283,27 @@ line-height: 18px;
 .meetingtime {
 	color: #888;
 }
+.mainname {
+	float: left;
+	padding: 0 15px;
+	min-height: 1px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 62.5%;
+}
+.addresses {
+	float: left;
+	padding: 0 15px;
+	min-height: 1px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 37.5%;
+	margin-top: 3px;
+}
+address {
+	display: block;
+	font-style: normal;
+}
+}

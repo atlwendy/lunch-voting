@@ -15,22 +15,35 @@
   <% @restaurants.each do |restaurant| %>
     <li class="meeting-divider">
           <div class="figureset">
-            <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="display:block;">
-              <% if restaurant['photo_url'].nil? %>
-                <i class="icon icon-cutlery"></i>
-              <% else %>
-              <img alt=<%=restaurant['name']%> height="80" width="90" src=<%=restaurant['photo_url']%>>
-              <% end %>
-            </a>
-            <div class="figureset-description">
-              <h5><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
-              <h6>
-                <% if restaurant.url.nil? %>
-                  <%=link_to "Add a url for this restaurant", edit_restaurant_path(restaurant) %>
+            <div class="mainname">
+              <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="  display:block;">
+                <% if restaurant['photo_url'].nil? %>
+                  <i class="icon icon-cutlery"></i>
                 <% else %>
-                  <%= link_to restaurant.url, restaurant.url %></h6>
+                <img alt=<%=restaurant['name']%> height="80" width="90" src=<%=restaurant[  'photo_url']%>>
                 <% end %>
-              <div></div>
+              </a>
+              <div class="figureset-description">
+                <h5><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
+                <h6>
+                  <% if restaurant.url.nil? %>
+                    <%=link_to "Add a url for this restaurant", edit_restaurant_path( restaurant) %>
+                  <% else %>
+                    <%= link_to restaurant.url, restaurant.url %></h6>
+                  <% end %>
+                <div></div>
+              </div>
+            </div>
+
+            <div class="addresses">
+              <% if not restaurant['address'].nil? %>
+              <i class="icon icon-map-marker"></i>
+              <address>
+                <%=restaurant['address'].split(',')[0] %>
+                <br >
+                <%=restaurant['address'].split(',')[1..-1].reject!{|c| c == " "}.join(',')%>
+              </address>
+              <% end %>
             </div>
           </div>
         </li>
@@ -40,3 +53,12 @@
 
 
 <%= link_to 'New Restaurant', new_restaurant_path %>
+<script>
+$(document).ready(function () {
+   //Convert address tags to google map links
+   $('address').each(function () {
+      var link = "<a style='color: #555' href='http://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).html() + "</a>";
+      $(this).html(link);
+   });
+});
+</script>
