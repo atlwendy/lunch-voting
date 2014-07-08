@@ -41,7 +41,7 @@
               <address>
                 <%=restaurant['address'].split(',')[0] %>
                 <br >
-                <%=restaurant['address'].split(',')[1..-1].reject!{|c| c == " "}.join(',')%>
+                <%=restaurant['address'].split(',')[1..-1].reject!{|c| c == " "}.join(',')%> <% unless restaurant['address'].split(',')[1..-1].nil? %>
               </address>
               <% end %>
             </div>
