@@ -86,6 +86,7 @@ class MeetingsController < ApplicationController
         cr['address'] = rr['address']
         cr['url'] = rr['url'].gsub("=>", ":")
         cr['photo_url'] = rr['photo_url'].gsub("=>", ":")
+        cr['yelp_rating'] = rr['rating']
         cr.save
         r.push(cr)
       else

@@ -1,6 +1,27 @@
 <p style="margin-top: 10px" id="notice"><%= notice %></p>
 
-<ul class="listmeetings">
+<div class="rbox">
+  <h1 class="rheadername"><%=link_to @restaurant['name'], @restaurant['url'] %></h1>
+  <br >
+  <h3>Yelp rating: <%=@restaurant['yelp_rating'] %></h3>
+  <div class="map-container">
+    <div class="mapbox-map">
+    </div>
+    <div class="mapbox-text">
+      <address>
+        <% splitarray = @restaurant['address'].split(',')%>
+        <%=splitarray[0] %>
+        <br >
+        <% if not splitarray[1..-1].nil? %>
+        <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
+        <% end %>
+      </address>
+    </div>
+  </div>
+</div>
+
+
+<!-- <ul class="listmeetings">
   
     <li class="meeting-divider">
           <div class="figureset">
@@ -26,7 +47,7 @@
         </li>
 
   
-  </ul>
+  </ul> -->
 
 <%= link_to raw('<i class="icon icon-pencil"></i>'), edit_restaurant_path(@restaurant) %> |
 <%= link_to raw('<i class="icon icon-trash"></i>'), @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %> |
