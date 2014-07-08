@@ -89,7 +89,7 @@ class MeetingsController < ApplicationController
         cr.save
         r.push(cr)
       else
-        r.push(rt)
+        r.push(rt) unless r.include?(rt)
       end
     end
     return r
