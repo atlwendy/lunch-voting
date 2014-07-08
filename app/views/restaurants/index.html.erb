@@ -39,9 +39,12 @@
               <% if not restaurant['address'].nil? %>
               <i class="icon icon-map-marker"></i>
               <address>
-                <%=restaurant['address'].split(',')[0] %>
+                <% splitarray = restaurant['address'].split(',')%>
+                <%=splitarray[0] %>
                 <br >
-                <%=restaurant['address'].split(',')[1..-1].reject!{|c| c == " "}.join(',')%> <% unless restaurant['address'].split(',')[1..-1].nil? %>
+                <% if not splitarray[1..-1].nil? %>
+                <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
+                <% end %>
               </address>
               <% end %>
             </div>
