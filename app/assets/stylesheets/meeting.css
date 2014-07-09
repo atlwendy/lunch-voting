@@ -320,8 +320,13 @@ address {
 	font-size: 16px;
 	line-height: 1.3125em;
 }
-h1.rheadername{
+.rheadername{
 	display: block;
+	color: #000;
+	text-decoration: underline;
+}
+.rheadername a {
+	color: #000;
 }
 .map-container {
 	display: table-cell;
