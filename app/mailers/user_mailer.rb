@@ -19,4 +19,10 @@ class UserMailer < ActionMailer::Base
     @current_user = current_user
     mail(to: @user.email, subject: 'Invite to join in lunch voting')
   end
+
+  def password_reset(url, user)
+    @user = user
+    @url = url
+    mail(to: @user.email, subject: 'Password Reset')
+  end
 end

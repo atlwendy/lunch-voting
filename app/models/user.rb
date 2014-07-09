@@ -8,13 +8,20 @@ class User < ActiveRecord::Base
   					format: {with: VALID_EMAIL_REGEX },
   					uniqueness: { case_sensitive: false }
   before_save { self.email = email.downcase }
-  before_create :create_remember_token
+  #before_create :create_remember_token
+  before_create {generate_token(:remember_token)}
   
   has_secure_password
   #validates :password, length: { minimum: 6 }
 
-  def User.new_remember_token
-    SecureRandom.urlsafe_base64
+  # def User.new_remember_token
+  #   SecureRandom.urlsafe_base64
+  # end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 
   def User.digest(token)
@@ -28,6 +35,8 @@ class User < ActiveRecord::Base
   def invitation_token=(token)
     self.invitation = Invitation.find_by_token(token)
   end
+
+
 
   private
 

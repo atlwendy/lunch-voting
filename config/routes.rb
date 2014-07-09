@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+
   resources :invitations
 
   resources :votes
 
   resources :restaurants
+
+  resources :password_resets
 
   #get '/' => 'meetings#index'
   #root 'sessions#new'

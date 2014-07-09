@@ -1,0 +1,21 @@
+<div class="listing">
+	<span style="color: green"><%=flash[:notice] %></span>
+	<span style="color: red"><%=flash[:error] %></span>
+	
+	<h3>Forgot password </h3>
+	
+	<div style="border-top: solid 1px #ccc; width: 50%;">
+	
+		<p>	Please enter your email address and we will send you an email about how to 	reset 	your password.
+		</p>
+		
+		<%= form_tag password_resets_path, :method => :post do %>
+		  <div class="field">
+		    <%= label_tag :email %>
+		    <%= text_field_tag :email, params[:email] %>
+		  </div>
+		  <div class="actions"><%= submit_tag "Reset Password", :class=>'btn' %></div>
+		<% end %>
+	
+	</div>
+</div>
