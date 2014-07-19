@@ -231,7 +231,9 @@ class MeetingsController < ApplicationController
     @users = @meeting.users
     @allusers = []
     User.all.order('username').each{|x| @allusers.push(x) if not (x.meetings & current_user.meetings).empty?}
-    @alluseremails = User.pluck(:email) #get_user_emails(@allusers)
+    #@alluseremails = User.pluck(:email) #get_user_emails(@allusers)
+    @alluseremails = []
+    @alluseremails = @allusers.map{|x| @alluseremails.push(x.email)}
   end
 
   def submit_members

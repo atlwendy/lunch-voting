@@ -32,6 +32,11 @@ def user_signin
     click_button('Sign in')
 end
 
+def show_one_meeting
+  meeting = Meeting.where("title = 'First Lunch'").first
+  id = meeting.id
+  visit("/meetings/#{id}")
+end
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection

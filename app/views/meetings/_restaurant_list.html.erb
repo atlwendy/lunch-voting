@@ -18,10 +18,10 @@
 
       <tr>
         <% if already_voted_up %>
-          <td class="<%= up_arrow_class %>"
+          <td class="<%= up_arrow_class %>" id="tupa"
             onclick="alert('You have already up voted!')">
         <% else %>
-          <td class="<%= up_arrow_class %>"
+          <td class="<%= up_arrow_class %>" id="tupa"
             onclick="changeVote('up', <%= mrs.id %>)">
         <% end %>
         </td>
@@ -40,10 +40,10 @@
       </tr>
       <tr>
         <% if already_voted_down %>
-          <td class="<%= down_arrow_class %>"
+          <td class="<%= down_arrow_class %>" id="tdowna"
             onclick="alert('You have already down voted!')">
         <% else %>
-          <td class="<%= down_arrow_class %>"
+          <td class="<%= down_arrow_class %>" id="tdowna"
             onclick="changeVote('down', <%= mrs.id %>)">
           </td>
         <% end %>
