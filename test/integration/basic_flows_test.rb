@@ -6,7 +6,8 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
   setup do
     @meeting = meetings(:one)
-    @user = users(:two)
+    @user = users(:one)
+    @user2 = users(:two)
   end
 
   teardown do
@@ -63,50 +64,49 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = Capybara.javascript_driver
     visit("/signin")
     user_signin
-    user = User.where("username='Bob'").first
-    visit("/users/#{user.id}")
-    sleep(3)
-    assert_equal current_path, user_path(user)
+    visit("/users/#{@user.id}")
+    
+    assert_equal current_path, user_path(@user)
     assert page.has_content?('Bob')
     click_link('Edit')
-    assert_equal current_path, edit_user_path(user)
+    assert_equal current_path, edit_user_path(@user)
     fill_in 'user_username', with: 'Marty'
-    sleep 3
+    
     click_button('Update User')
-    sleep 2
-    assert_equal current_path, user_path(user)
+    
+    assert_equal current_path, user_path(@user)
     assert page.has_content?('Marty')
   end
 
-  # test "link to meeting from user" do
-  #   @user.meetings = [@meeting]
-  #   visit("/users/#{@user.id}")
+  test "link to meeting from user" do
+    @user.meetings = [@meeting]
+    visit("/users/#{@user.id}")
 
-  #   assert page.has_content?("Sign in")
-  #   fill_in 'session_email', with: 'bob@bob.com'
-  #   fill_in 'session_password', with: 'testbob'
-  #   click_button('Sign in')
+    assert page.has_content?("Sign in")
+    fill_in 'session_email', with: 'bob@bob.com'
+    fill_in 'session_password', with: 'testbob'
+    click_button('Sign in')
 
-  #   click_link('First Lunch')
-  #   assert_equal current_path, meeting_path(@meeting)
-  # end
+    click_link('First Lunch')
+    assert_equal current_path, meeting_path(@meeting)
+  end
 
   test "edit meeting" do
     Capybara.current_driver = Capybara.javascript_driver
-    meeting = Meeting.where("title = 'First Lunch'").first
-    id = meeting.id
-    visit("/meetings/#{id}")
+    
+    #visit("/meetings/#{@meeting.id}")
+    visit(meeting_path(@meeting))
     user_signin
 
-    page.find(:xpath, "//a[@href='/meetings/#{id}/edit']").click
+    page.find(:xpath, "//a[@href='/meetings/#{@meeting.id}/edit']").click
 
-    assert_equal current_path, edit_meeting_path(meeting)
+    assert_equal current_path, edit_meeting_path(@meeting)
     assert page.has_field?("title", :with=>"First Lunch")
     fill_in 'title', with: 'editing First Lunch'
     
     click_button('Update Meeting')
 
-    assert_equal current_path, meeting_path(meeting)
+    assert_equal current_path, meeting_path(@meeting)
     assert page.has_content?('editing First Lunch')
   end
 
