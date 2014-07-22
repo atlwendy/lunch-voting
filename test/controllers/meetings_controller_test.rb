@@ -4,6 +4,8 @@ class MeetingsControllerTest < ActionController::TestCase
   setup do
     @meeting = meetings(:one)
     @user = users(:one)
+    @user['remember_token'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709'
+    @user.save
   end
 
   def current_user

@@ -136,7 +136,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     # visit(uri)
     find("#tupa").click
     #page.all('#tupa')[0].click
-    sleep(3)
+    sleep(1)
 
     votes = page.all('.votenumber').map(&:text)
     assert_equal find(".votenumber").text, "1"
@@ -144,8 +144,10 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert_equal votes,['1']    
 
     find("#tdowna").click
+    sleep(1)
     votes = page.all('table td.votenumber').map(&:text)
     assert_equal votes, ['0']
+    assert_equal find(".votenumber").text, "0"
 
   end
 
