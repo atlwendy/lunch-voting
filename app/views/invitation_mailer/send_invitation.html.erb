@@ -14,15 +14,15 @@
 			
 		
 				<p style="font-size: 11px;">
-				<%=@current_user.username%>(<%=@current_user.email%>) would like to 		invite you to join in a lunch voting. 
+				<%=@current_user.username%>(<%=@current_user.email%>) would like to invite you to join in a lunch voting. 
 				</p>
 		
-				<button type="button" 
+				<div  
 				style="min-width: 100px;
 		  				margin: 10px 5px;
 		  				padding:8px 10px;
 		  				background-color: #bfbebe;
-		  				background: linear-gradient(to bottom, #747879 5%, #bfbebe 		100%) repeat scroll 0 0 #747879;
+		  				background: linear-gradient(to bottom, #747879 5%, #bfbebe 100%) repeat scroll 0 0 #747879;
 		  				text-align:center;
 		  				white-space:nowrap;
 		  				font: 500 14px Arial;
@@ -31,7 +31,7 @@
 		  				border: 0;
 		  				border-radius: 5px;
 		  				cursor:pointer;
-		  				text-decoration:none;"><a href=<%=@signup_url%>></a>Get 		started!</button>
+		  				text-decoration:none;"><a style="text-decoration: none; color: #fff" href=<%=@signup_url%>>Get started!</a></div>
 		
 				<p style="font-size: 11px; ">
 				Happy lunch!
