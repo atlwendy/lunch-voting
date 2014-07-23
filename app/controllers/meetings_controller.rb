@@ -174,6 +174,7 @@ class MeetingsController < ApplicationController
       :address => params[:address],
       :city => params[:city],
       :state => params[:state],
+      :zipcode => params[:zipcode],
       :radius => 5,
       :term => "restaurants" )
     response = client.search(request)
@@ -181,6 +182,7 @@ class MeetingsController < ApplicationController
   end
 
   def parse_restaurant_list(response)
+    return [response['message']['text']] if response['businesses'].empty?
     @defaultrests = []
     response['businesses'].each do |business|
       info = Hash.new
@@ -197,6 +199,7 @@ class MeetingsController < ApplicationController
     return @defaultrests
   end
 
+  
   def update
     users = get_users(params[:emailaddress], params[:id])
     restaurants = get_restaurant(params[:restaurantname])

@@ -96,6 +96,8 @@
            <input class="text" type="text" id="city"></input>
            <label>State: </label>
            <input class="text" type="text" id="state"></input>
+           <label>Zip code: </label>
+           <input class="text" type="text" id="zipcode"></input>
            <br >
            <input class="button btn inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input><span id="spin"></span>
           </div>
@@ -142,7 +144,7 @@ $(document).ready(function(){
         $.each(data, function(index,value) {
             //alert(value.name);
             generate_checkbox_list(JSON.stringify(value), value, "#default");
-            console.log(JSON.stringify(value), value.name, value.url);
+            //console.log(JSON.stringify(value), value.name, value.url);
             $(".yelplink").popover();
         });
       },
@@ -218,6 +220,7 @@ $(".inputaddress").click(function() {
   var address = $("#address").val();
   var city = $("#city").val();
   var state = $("#state").val();
+  var zipcode = $("#zipcode").val();
 
   var opts = {
     lines: 10, // The number of lines to draw
@@ -241,8 +244,8 @@ $(".inputaddress").click(function() {
   var spinner = new Spinner(opts)
   spinner.spin(target);
 
-  if (!address || !city || !state) {
-    alert("You have to provide address, city and state to do the search");
+  if (!address && !city && !state && !zipcode) {
+    alert("You have to provide address, city, state or zip code to do the search");
   }
 
   $.ajax({
@@ -251,15 +254,22 @@ $(".inputaddress").click(function() {
       data: {
         address: address,
         city: city,
-        state: state
+        state: state,
+        zipcode: zipcode
       },
       datatype: "json",
       success: function(data, textStatus, xhr){
-        $.each(data, function(index,value) {
-            generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
-            console.log(JSON.stringify(value), value.name, value.url);
-            $(".yelplink").popover();
-        });
+        console.log(data);
+        if (data.length == 1) {
+          $("#userinputaddress").append("<div style='color: red'>" + data[0] + ". Please try more specific search </div>");
+        }
+        else {
+          $.each(data, function(index,value) {
+              generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
+              console.log(JSON.stringify(value), value.name, value.url);
+              $(".yelplink").popover();
+          });
+        }
         spinner.stop();
 
       },
