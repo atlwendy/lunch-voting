@@ -36,13 +36,13 @@
             </div>
 
             <div class="addresses">
-              <% if not restaurant['address'].nil? %>
+              <% if not restaurant['address'].blank? %>
               <i class="icon icon-map-marker"></i>
               <address>
                 <% splitarray = restaurant['address'].split(',')%>
                 <%=splitarray[0] %>
                 <br >
-                <% if not splitarray[1..-1].nil? %>
+                <% if not splitarray[1..-1].blank? %>
                 <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
                 <% end %>
               </address>

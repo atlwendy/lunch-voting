@@ -6,6 +6,7 @@ class MeetingsControllerTest < ActionController::TestCase
     @user = users(:one)
     @user['remember_token'] = 'da39a3ee5e6b4b0d3255bfef95601890afd80709'
     @user.save
+    @user2 = users(:two)
   end
 
   def current_user
@@ -60,11 +61,11 @@ class MeetingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # test "should post submitted members" do
-  #   assert_difference("Meeting.find(#{@meeting.id}).users.size", 1) do
-  #     post :submit_members, id: @meeting, user_id: [@user.id]
-  #   end
-  #   assert_redirected_to @meeting
-  # end
+  test "should post submitted members" do
+    assert_difference("Meeting.find(#{@meeting.id}).users.size", 1) do
+      post :submit_members, id: @meeting, user_id: [@user.id, @user2.id]
+    end
+    assert_redirected_to @meeting
+  end
 
 end

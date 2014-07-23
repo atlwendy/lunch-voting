@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        if not params[:user][:invitation_token].empty?
+        if not params[:user][:invitation_token].blank?
           sid = @user.invitation.sender_id
           if sid.to_i > 0
             meeting = Meeting.find_by_id(sid)

@@ -15,7 +15,7 @@
           <%=splitarray[0] %>
   
           <br >
-          <% if not splitarray[1..-1].nil? %>
+          <% if not splitarray[1..-1].blank? %>
           <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
           <% end %>
         

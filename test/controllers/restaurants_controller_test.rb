@@ -18,7 +18,7 @@ class RestaurantsControllerTest < ActionController::TestCase
 
   test "should create restaurant" do
     assert_difference('Restaurant.count') do
-      post :create, restaurant: { address: @restaurant.address, name: @restaurant.name, url: @restaurant.url }
+      post :create, restaurant: { address: @restaurant.address, name: @restaurant.name + '2', url: @restaurant.url }
     end
 
     assert_redirected_to restaurant_path(assigns(:restaurant))
