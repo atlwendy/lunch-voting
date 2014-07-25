@@ -11,7 +11,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def url_add_http
-  	if not self.url.nil?
+  	if not self.url.blank?
   		if not self.url.include?("http")
   			self.url = "http://" + self.url
   		end
