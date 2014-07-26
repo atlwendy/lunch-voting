@@ -21,4 +21,9 @@ class SessionsController < ApplicationController
     	redirect_to root_url
 	end
 
+	def frontpage
+		return if current_user.nil?
+		redirect_to :action=>'index', :controller=>'meetings'
+	end
+
 end

@@ -1,8 +1,8 @@
-<div class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar navbar-inverse nav-justified" style="margin-bottom: 0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	  <div class="navbar-inner">
 	    <div class="container">
-	      <img alt="Where to eat?" src=<%=image_path("wheretoeat_header.png")%>>
+	    	<%=link_to image_tag("wheretoeat_header.png"), root_path %>
 	      <% if signed_in? %>
 	      	<div id="customer-info">
 	      		<div id="welcome">Welcome</div>
@@ -12,7 +12,7 @@
 	      <% end %>
 	      <nav>
 	      	
-	        <ul class="nav pull-right">
+	        <ul class="nav navbar-nav">
 	          <li><%= link_to "Home", root_path %></li>
 	          <li><%#= link_to "Help", help_path %></li>
 	          <% if signed_in? %>
