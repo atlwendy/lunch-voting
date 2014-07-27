@@ -19,7 +19,7 @@
   <ul>
   <% @meeting.users.sort_by{|x| x.username}.each do |user| %>
     <% if @inGroup %>
-      <li><%= link_to user.username, user %></li>
+      <li class="userlink"><%= link_to user.username, user %></li>
     <% else %>
       <li><%= user.username %>
     <% end %>
