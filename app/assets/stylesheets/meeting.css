@@ -44,7 +44,7 @@ table.restname {
 }
 
 td.restname {
-	font-size: 15px;
+	font-size: 20px;
 	padding-left: 10px;
 }
 
@@ -58,6 +58,10 @@ td.restname {
 span.listingh {
 	font-size: 1.875em;
 	padding-bottom: 10px;
+}
+.pagecontent {
+	background-color: #f4f4f4;
+	padding: 0 0 0 20px;
 }
 .listing {
 	padding-top: 5px;
@@ -126,7 +130,7 @@ h1 {
 	background-color: #fff;
 	margin-bottom: 18px;
 	border: 1px solid #ddd; 
-	width: 50%;
+	width: 90%;
 }
 
 #event-content {
@@ -140,7 +144,7 @@ h1 {
 	margin: 0;
 }
 h3 {
-	font-size: 20px;
+	font-size: 25px;
 	padding-bottom: 6px;
 	line-height: 1.2;
 	letter-spacing: -0.25px;
@@ -152,7 +156,10 @@ h3 {
 	margin-bottom: 18px;
 }
 .editinh3 {
-	font-size: 16px;
+	font-size: 22px;
+}
+.userlink a {
+	font-size: 20px;
 }
 
 .dividedList>li {
@@ -163,6 +170,70 @@ h3 {
 li {
 	display: list-item;
 	text-align: -webkit-match-parent;
+}
+
+.date-indicator {
+    color: #AAA;
+    text-shadow: 1px 1px 0px #FFF;
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 0px 0px 8px;
+}
+.detail-container {
+    background-color: #FFF !important;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    background-clip: padding-box;
+    display: block;
+    list-style: none outside none;
+    margin: 0px 0px 18px;
+    padding: 0px;
+    font-size: 18px;
+    min-height: 120px;
+    height: auto;
+    overflow: auto;
+}
+.unit {
+	float: left;
+}
+.sizetime {
+	width: 28%;
+	color: #888;
+	padding-left: 28px;
+	padding-top: 28px;
+	font-size: 19px;
+	font-weight: 400;
+}
+.sizemain {
+	width: 60%;
+	padding: 8px 0 0 5px;
+	font-size: 33px;
+	font-weight: 400;
+}
+.sizemain a {
+	color: rgba(0, 0, 0, 0.67);
+}
+.title {
+	line-height: 1.2;
+	color: #888;
+}
+.title a {
+	margin-bottom: 5px;
+}
+.description {
+	font-size: 18px;
+	font-weight: 800;
+	padding-top: 10px;
+	margin-bottom: 10px;
+	color: #333;
+}
+.peoplecount {
+	font-size: 25px;
+	padding-top: 10px;
+	margin-bottom: 20px;
 }
 
 .figureset:after, .figureset-right:after {
@@ -274,9 +345,9 @@ line-height: 18px;
 	padding: 0px;
 }
 .listingbox {
-	box-shadow: 0 1px 1px rgba(0,0,0,0.03),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	/*box-shadow: 0 1px 1px rgba(0,0,0,0.03),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);*/
 	display: block;
-	width: 70%;
+	width: 90%;
 	margin-bottom: 10px;
 	position: relative;
 }

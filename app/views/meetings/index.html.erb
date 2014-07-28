@@ -15,16 +15,35 @@
 <div class="listingbox">
   <ul class="listmeetings">
   <% @meetings.each do |meeting| %>
-    <li class="meeting-divider">
-      <h3><i class="icon icon-calendar"></i>  <%= link_to meeting.date.in_time_zone.strftime("%a, %b %d, %Y"), meeting, :class=>"meetingtime" %></h3>
+    <li class="date-indicator">
+      <%= link_to meeting.date.in_time_zone.strftime("%a, %b %d, %Y"), meeting, :class=>"meetingtime" %>
+    </li>
+      <li >
+        <div class="detail-container">
+        <div class="unit sizetime">
+          <%= meeting.date.in_time_zone.strftime("%l:%M %p") %>
+        </div>
+        <div class="unit sizemain">
+          <div class="title">
+            <%= link_to meeting.title, meeting %> 
+          </div>
+          <div class="description">
+            <%=meeting.description %>
+          </div>
+          <div class='peoplecount'>
+            <%=meeting.users.count %> are going
+          </div>
+        </div>
+      </div>
+      </li>
+      <!-- <h3><i class="icon icon-calendar"></i>  <%= link_to meeting.date.in_time_zone.strftime("%a, %b %d, %Y"), meeting, :class=>"meetingtime" %></h3>
       <p class="timetext"><%= meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
       <span style="display:inline"><%= link_to meeting.title, meeting %> 
         <p style="display:inline; margin-right:10px"><%#= link_to raw('<i class="icon-trash icon-white"></i>'), meeting, confirm: 'Are you sure?', method: :delete %>
         </p>
       </span>
-      <p class="timetext"><%=meeting.description%>
+      <p class="timetext"><%=meeting.description%> -->
      <%#= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
 
   <% end %>
   </ul>
