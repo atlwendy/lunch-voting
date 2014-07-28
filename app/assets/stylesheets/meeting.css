@@ -60,8 +60,7 @@ span.listingh {
 	padding-bottom: 10px;
 }
 .pagecontent {
-	background-color: #f4f4f4;
-	padding: 0 0 0 20px;
+	padding: 0px 20px 20px 20px;
 }
 
 .listing {
@@ -458,7 +457,6 @@ address {
 }
 
 #header {
-	background-color: #fff;
 }
 
 body {
@@ -466,6 +464,30 @@ body {
 	padding: 0px;
 }
 
+.lunch-date {
+	 background-color: #ddd;
+	 border-radius: 5px;
+	 padding: 15px;
+	 max-width: 480px;
+}
+
 #frame {
+	background-color: #f4f4f4;
+	width: 800px;
 	margin: auto;
+}
+
+.site-header {
+	padding-left: 10px;
+	position: relative;
+}
+
+.navigation {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.navigation li {
+	display: inline;
+	margin-left: 10px;
 }

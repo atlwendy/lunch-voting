@@ -17,7 +17,7 @@ class UsersController < ApplicationController
         @meeting.push(m)
       end
     end
-    @meeting = @meeting.sort_by{|x| x['date']}.reverse
+    @meeting = @meeting.sort_by{|x| x['date']}
     @next_meeting = @meeting.first
   end
 

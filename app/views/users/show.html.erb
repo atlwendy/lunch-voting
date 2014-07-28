@@ -2,13 +2,28 @@
 
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
-<div class="jumbotron">
-<h2>Hello, <%= @user.username %>!<h2>
-Your next lunch is:
-  <div class="well">
-    <h3><%= @next_meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
-    <p class="timetext"><%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
-      <%= link_to @next_meeting.title, @next_meeting %>
+<div>
+<h2>Hello, <%= @user.username %>!</h2>
+<p>
+  Your next lunch is: <br>
+  <div class="lunch-date">
+    <div class="date-display" style="font-size: 150%">
+      <%= @next_meeting.date.in_time_zone.strftime("%A, %B %d") %>
+    </div>
+    <div class="timetext">
+      <%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %>
+    </div>
+    <p><%= @next_meeting.title %></p>
   </div>
-</div>
+</p>
+<%= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
+<h3>Later</h3>
+<ul>
+<% @meeting.each do |meeting| %>
+  <li>
+    <%= meeting.date.in_time_zone.strftime("%a, %b %d") %> - 
+      <%= link_to meeting.title, meeting %>
+  </li>
 
+<% end %>
+</ul>
