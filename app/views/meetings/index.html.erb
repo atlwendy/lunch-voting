@@ -1,14 +1,23 @@
 <% provide(:title, "Meeting index") %>
 
 <div class="listing table-responsive" style="margin-bottom: 10px">
-  <div class="buddiestopbar">
-      <div class="leftentity">
-        <div class="contentwrapper">
-          <h1><%=current_user.username%> meeting schedules</h1>
-          <h3>when and where is your meeting takes place</h3>
+  <div class="topbar">
+    <div class="buddiestopbar">
+        <div class="leftentity">
+          <div class="contentwrapper">
+            <h1><%=current_user.username%> meeting schedules</h1>
+            <h3>when and where is your meeting takes place</h3>
+          </div>
+        </div>
+      </div>
+      <div class="newmeeting">
+        <div class="nmeetingwrapper">
+          <i class="icon icon-plus"></i>
+          <%=link_to "Create New Meeting", new_meeting_path %>
         </div>
       </div>
     </div>
+  </div>
 
 <br>
 
@@ -31,7 +40,10 @@
             <%=meeting.description %>
           </div>
           <div class='peoplecount'>
-            <%=meeting.users.count %> are going
+            <%#= pluralize_to_sentence(meeting.users.count) %>
+            <%= pluralize(meeting.users.count, 'person') %> <%= 'is'.pluralize(meeting.users.count) %> <%#= pluralize(meeting.users.count, 'is', 'are')%> <%#='person'.pluralize(meeting.users.count) %> going 
+            <%#='person is going'.pluralize(meeting.users.count)%> 
+            <%#=pluralize(meeting.users.count, 'person')%> <%#="is going".pluralize(meeting.users.count) %><%#=pluralize(meeting.users.count, 'is', 'are') %> 
           </div>
         </div>
       </div>
@@ -49,6 +61,6 @@
   </ul>
 </div>
 
-<%= link_to 'New Meeting', new_meeting_path %>
+<%#= link_to 'New Meeting', new_meeting_path %>
 <br >
 </div>

@@ -20,4 +20,12 @@ module ApplicationHelper
 		gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
 		gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
   	end
+
+  	def pluralize_to_sentence(num)
+		if num == 1
+		  "#{num} person is going"
+		else
+		  "#{num} people are going"
+		end
+	end
 end
