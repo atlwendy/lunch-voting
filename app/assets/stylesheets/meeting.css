@@ -63,6 +63,7 @@ span.listingh {
 	background-color: #f4f4f4;
 	padding: 0 0 0 20px;
 }
+
 .listing {
 	padding-top: 5px;
 	font-size: 0.875em;
@@ -283,7 +284,7 @@ h6 {
 .groupmember {
 	margin: 20px 0;
 	background-color: #eee;
-	width: 50%;
+	
 }
 .groupmemberheader {
 	background-color: #ddd;
@@ -451,6 +452,20 @@ address {
 	height: 135px;
 	border: 1px solid #ccccc8;
 }
+
 .mapbox-text {
 	min-height: 85px;
+}
+
+#header {
+	background-color: #fff;
+}
+
+body {
+	background-color: #ccc;
+	padding: 0px;
+}
+
+#frame {
+	margin: auto;
 }

@@ -1,48 +1,24 @@
-<div class="navbar navbar-inverse nav-justified" style="margin-bottom: 0">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	  <div class="navbar-inner">
-	    <div class="container">
-	    	<%=link_to image_tag("wheretoeat_header.png"), root_path %>
-	      <% if signed_in? %>
-	      	<div id="customer-info">
-	      		<div id="welcome">Welcome</div>
-	      		<div id="customer-name"><%=current_user.username%></div>
-	      		<div id="logout"><%= link_to "Sign out", signout_path, method: "delete", :class=>"btn-small" %></div>
-	      	</div>
-	      <% end %>
-	      <nav>
-	      	
-	        <ul class="nav navbar-nav">
-	          <li><%= link_to "Home", root_path %></li>
-	          <li><%#= link_to "Help", help_path %></li>
-	          <% if signed_in? %>
-					
-		            <li><%= link_to "Users", users_path %></li>
-		            <li><%= link_to "Meetings", meetings_path %></li>
-		            <li><%= link_to "Restaurants", restaurants_path %></li>
-	            	<li id="fat-menu" class="dropdown">
-	            	  <a href="#" class="dropdown-toggle" data-toggle="	dropdown">
-	            	    Account <b class="caret"></b>
-	            	  </a>
-	            	  <ul class="dropdown-menu">
-	            	    <li><%= link_to "Profile", current_user %></li>
-	            	    <li><%= link_to "Settings", edit_user_path(	current_user) %></li>
-	            	    <li class="divider"></li>
-	            	    <li>
-	            	      <%= link_to "Sign out", signout_path, method: "delete" %>
-	            	    </li>
-	            	  </ul>
-	            	</li>
-	          <% else %>
-		            <li><%= link_to "Sign in", signin_path %></li>
-	          <% end %>
-	        </ul>
-	      </nav>
-	    </div>
-	  </div>
-	  <script>
-	  $(document).ready( function() {
-$('.dropdown-toggle').dropdown();
-});
-	  </script>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-8">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="/assets/wheretoeat_header.png" height="22"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Meetings</a></li>
+        <li><a href="#">Account</a></li>
+      </ul>
+    </div>
   </div>
+</nav>

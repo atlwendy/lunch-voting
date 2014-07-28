@@ -2,14 +2,19 @@
 <html>
 <head>
   <title>Lunchvoting | <%=yield(:title)%></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= render "layouts/header" %>
+
 </head>
 <body>
-	<div class="pagecontent">
-		<%= yield %>
-	</div>
+  <div id="frame">
+    <%= render "layouts/header" %>
+  	<div class="pagecontent">
+  		<%= yield %>
+  	</div>
+  </div>
 </body>
 </html>

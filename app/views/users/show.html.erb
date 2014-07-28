@@ -2,39 +2,13 @@
 
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
-
-<div class="content" style="border: none;">
-<div class="row">
-  <aside class="span4">
-    <section>
-      
-        <div class="figureset">
-          <div class="avatarimage imagebrg"><%= gravatar_for @user %></div>
-            <div class="figureset-description">
-              <h5><%= link_to @user.username, user_path(@user) %></h5>
-              <h6><%= @user.email %></h6>
-            </div>
-          </div>
-        </div>
-    </section>
-  </aside>
-</div>
-
-<div class="groupmember">
-  <div class="groupmemberheader">
-    <h3> Member of <%=@meeting.size%> meetings </h3>
+<div class="jumbotron">
+<h2>Hello, <%= @user.username %>!<h2>
+Your next lunch is:
+  <div class="well">
+    <h3><%= @next_meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+    <p class="timetext"><%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      <%= link_to @next_meeting.title, @next_meeting %>
   </div>
-  <ul class="listmeetings">
-  <% @meeting.each do |meeting| %>
-    <li class="meeting-divider">
-      <h3><%= meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
-      <p class="timetext"><%= meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
-      <%= link_to meeting.title, meeting %>
-    </li>
-
-  <% end %>
-  </ul>
-
 </div>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
