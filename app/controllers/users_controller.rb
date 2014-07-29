@@ -13,12 +13,11 @@ class UsersController < ApplicationController
   def show
     @meeting = []
     @user.meetings.each do |m|
-      if current_user.meetings.include?(m)
-        @meeting.push(m)
-      end
+      @meeting.push(m) if current_user.meetings.include?(m)
     end
     @meeting = @meeting.sort_by{|x| x['date']}
-    @next_meeting = @meeting.first
+    @future_meetings = @meeting.reject{|x| x.date < Date.today}
+    @next_meeting = @future_meetings.first
   end
 
   def new

@@ -3,8 +3,20 @@
     <a href="#"><img src="/assets/wheretoeat.png" width="200"></a>
   </h1>
   <ul class="navigation">
-    <li><a href="#">Lunches</a></li>
-    <li><a href="#">Buddies</a></li>
-    <li><a href="#">Account</a></li>
+    <li><a class='stylea' href="#">Lunches</a></li>
+    <li><a class='stylea' href="#">Buddies</a></li>
+    <li class="dropdown" id="fat-menu">
+        <a class='stylea' href="#" class="dropdown-toggle" data-toggle="dropdown">
+        Account <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Profile", current_user %></li>
+          <li><%= link_to "Settings", edit_user_path( current_user) %></li>
+          <li class="divider"></li>
+          <li>
+          <%= link_to "Sign out", signout_path, method: "delete" %>
+          </li>
+        </ul>
+    </li>
   </ul>
 </div>

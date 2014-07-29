@@ -490,4 +490,14 @@ body {
 .navigation li {
 	display: inline;
 	margin-left: 10px;
+	height: 100px;
+}
+.navigation li a.stylea {
+	color: #bbb;
+}
+.navigation li a.stylea:hover {
+	background-color: #ccc;
+	color: #fff;
+	text-decoration: none;
+	height: 2.4em;
 }

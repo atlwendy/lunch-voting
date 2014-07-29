@@ -16,7 +16,8 @@
     <p><%= @next_meeting.title %></p>
   </div>
 </p>
-<%= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
+<%#= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
+<%= link_to raw('<span class="glyphicon glyphicon-plus"> New Lunch</span>'), new_meeting_path, :class=>'btn btn-default btn-primary' %>
 <h3>Later</h3>
 <ul>
 <% @meeting.each do |meeting| %>
