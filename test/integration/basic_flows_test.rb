@@ -152,4 +152,27 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "create new user" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit("/users/new")
+
+    fill_in 'user_username', with: 'Test User'
+    fill_in 'user_email', with: 'testuser@test.com'
+    fill_in 'user_password', with: 'lunchvoting'
+    fill_in 'user_password_confirmation', with: 'lunchvoting'
+    click_button("Create User")
+
+    assert page.has_content?("Test User")
+    assert page.has_content?("testuser@test.com")
+
+    click_link("Sign out")
+    visit("/signin")
+    fill_in 'session_email', with: 'testuser@test.com'
+    fill_in 'session_password', with: 'lunchvoting'
+    click_button("Sign in")
+    assert page.has_content?("Test User")
+    user = User.where("email = 'testuser@test.com'").first
+    assert_equal current_path, user_path(user)
+  end
+
 end
