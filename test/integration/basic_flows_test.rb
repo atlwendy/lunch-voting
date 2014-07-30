@@ -140,8 +140,9 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
     votes = page.all('.votenumber').map(&:text)
     assert_equal find(".votenumber").text, "1"
-    #votes = page.execute_script("$('td.votenumber').html()")
-    assert_equal votes,['1']    
+
+    votes = page.evaluate_script("$('td.votenumber').html()").to_i
+    assert_equal votes, 1    
 
     find("#tdowna").click
     sleep(1)
