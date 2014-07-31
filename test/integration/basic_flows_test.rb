@@ -175,4 +175,17 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert_equal current_path, user_path(user)
   end
 
+  test "create new restaurant" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit("/restaurants/new")
+
+    fill_in 'restaurant_name', with: 'A new restaurant'
+    fill_in 'restaurant_address', with: 'new address road'
+    fill_in 'restaurant_url', with: 'newrestaurant.com'
+    click_button("Create Restaurant")
+
+    assert page.has_content?("A New Restaurant")
+    assert has_link?("A New Restaurant", :href=>"http://newrestaurant.com")
+    assert page.has_xpath?("//a[@href='http://newrestaurant.com']")
+  end
 end
