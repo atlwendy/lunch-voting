@@ -8,6 +8,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     @meeting = meetings(:one)
     @user = users(:one)
     @user2 = users(:two)
+    @restaurant = restaurants(:one)
   end
 
   teardown do
@@ -152,7 +153,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "create new user" do
+  test "create user" do
     Capybara.current_driver = Capybara.javascript_driver
     visit("/users/new")
 
@@ -175,7 +176,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert_equal current_path, user_path(user)
   end
 
-  test "create new restaurant" do
+  test "create restaurant" do
     Capybara.current_driver = Capybara.javascript_driver
     visit("/restaurants/new")
 
@@ -187,5 +188,20 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_content?("A New Restaurant")
     assert has_link?("A New Restaurant", :href=>"http://newrestaurant.com")
     assert page.has_xpath?("//a[@href='http://newrestaurant.com']")
+  end
+
+  test "edit restaurant" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit(restaurant_path(@restaurant))
+    page.find(:xpath, "//a[@href='/restaurants/#{@restaurant.id}/edit']").click
+
+    page.has_content?("Chipotle")
+    fill_in 'restaurant_name', with: 'New name'
+    fill_in 'restaurant_url', with: 'newrestaurant.com'
+    click_button("Update Restaurant")
+
+    assert page.has_content?("New Name")
+    assert page.has_xpath?("//a[@href='http://newrestaurant.com']")
+
   end
 end
