@@ -8,9 +8,16 @@
           <h3>restaurants that have been added by our users</h3>
         </div>
       </div>
-    </div>
+  </div>
+  <div class="newmeeting">
+      <div class="nmeetingwrapper">
+        <i class="icon icon-plus"></i>
+        <!-- <span class="glyphicon glyphicon-plus"></span> -->
+        <%=link_to "Add New Restaurant", new_restaurant_path %>
+      </div>
+  </div>
 
-<div class="listingbox">
+<div class="listingbox" style="float:left">
   <ul class="listmeetings">
   <% @restaurants.each do |restaurant| %>
     <li class="meeting-divider">
@@ -55,7 +62,6 @@
   </ul>
 
 
-<%= link_to 'New Restaurant', new_restaurant_path %>
 <script>
 $(document).ready(function () {
    //Convert address tags to google map links
