@@ -25,7 +25,7 @@
             <div class="mainname">
               <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="  display:block;">
                 <% if restaurant['photo_url'].nil? %>
-                  <i class="icon icon-cutlery"></i>
+                  <img alt=<%=restaurant['name']%> height="85" width="80" src=<%=image_path("default.jpg")%>>
                 <% else %>
                 <img alt=<%=restaurant['name']%> height="80" width="90" src=<%=restaurant[  'photo_url']%>>
                 <% end %>
@@ -49,9 +49,11 @@
                 <% splitarray = restaurant['address'].split(',')%>
                 <%=splitarray[0] %>
                 <br >
-                <% if not splitarray[1..-1].blank? %>
-                <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
+                <% gaddress = splitarray[1..-1] %>
+                <% if not gaddress.blank? %>
+                  <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.join(',')%> 
                 <% end %>
+                
               </address>
               <% end %>
             </div>
