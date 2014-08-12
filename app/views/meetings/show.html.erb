@@ -40,8 +40,8 @@
 		
 </div>
 <br>
-<%= link_to raw('<i class="icon icon-pencil"></i>'), edit_meeting_path(@meeting) %> |
-<%= link_to raw('<i class="icon icon-trash"></i>'), @meeting, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
+<%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to raw('<i class="icon icon-arrow-left"></i>'), meetings_path %>
 <script>
 

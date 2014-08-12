@@ -312,7 +312,7 @@ line-height: 18px;
 .buddiestopbar {
 	box-shadow: 0 1px 1px rgba(0,0,0,0.03),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
 	/*height: 80px;*/
-	width: 60%;
+	width: auto;
 	margin-bottom: 10px;
 	/*position: relative;*/
 	float: left;
@@ -338,9 +338,9 @@ line-height: 18px;
     width: 90%;
 }
 .newmeeting {
-	width: 30%;
+	width: auto;
 	border: solid 1px #ccc;
-	height: 30px;
+	height: auto;
 	margin-top: 35px;
 	margin-left: 15px;
 	padding: 12px 0 10px 5px;
@@ -352,6 +352,7 @@ line-height: 18px;
 .newmeeting a{
 	color: #888;
 	text-decoration: none;
+	margin-right:5px;
 }
 .buddiestopbar h1 {
 	font-size: 28px;
