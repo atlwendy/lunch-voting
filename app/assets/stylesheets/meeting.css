@@ -61,13 +61,14 @@ span.listingh {
 }
 .pagecontent {
 	padding: 0px 20px 20px 20px;
+	width: auto;
 }
 
 .listing {
 	padding-top: 5px;
 	font-size: 0.875em;
 	color: #636466;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	cursor: pointer;
 	display: block;
 }
@@ -86,9 +87,18 @@ tr.thead th{
 }
 
 .infosection {	
-	width: 50%;
+	width: auto;
 	border: 1px solid #dbdbdb;
 	padding-bottom: 20px;
+}
+
+.field {
+	padding-bottom: 10px;
+}
+
+label {
+	font-weight: normal !important;
+	font-size: 15px !important;
 }
 
 .infosection h5 {
@@ -102,7 +112,7 @@ tr.thead th{
 	padding: 1em 0 1em 2em;
 }
 .basicinfofields {
-	padding-left: 30px;
+	padding: 0 30px 0 30px;
 }
 .newmemberfields {
 	padding-left: 30px;
@@ -131,7 +141,61 @@ h1 {
 	background-color: #fff;
 	margin-bottom: 18px;
 	border: 1px solid #ddd; 
-	width: 90%;
+	width: auto;
+}
+
+.content h1 {
+}
+
+.allthingstop {
+	position: relative;
+	height: auto;
+	min-height: 200px;
+}
+
+.toptitle {
+	display: inline;
+	width: 70%;
+	float: left;
+}
+
+.areyougoing {
+	display: inline;
+	float: right;
+}
+
+#question, #iQuestion {
+	width: 30%;
+	height: auto;
+	background: none repeat scroll 0% 0% #e0e8e3;
+	box-shadow: 0 2px 2px 0px #bfc6c2;
+	float: right;
+	padding: 0 0 5px 5px;
+}
+
+#change {
+	position: relative;
+	left: 10%;
+}
+
+#rsvpYes {
+	box-shadow: 0px 2px 0px 0px #81988b;
+	color: #FFF !important;
+	background: none repeat scroll 0% 0% #47c47c;
+}
+
+#rsvpMaybe {
+	margin-bottom: 20px;
+	color: rgba(0, 0, 0, 0.67) !important;
+	background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.47);
+}
+
+#rsvpNo {
+	margin-bottom: 20px;
+	color: rgba(0, 0, 0, 0.67) !important;
+	background: none repeat scroll 0% 0% #E0393E ;
+	box-shadow: 0px 2px 0px 0px #851518;
 }
 
 #event-content {

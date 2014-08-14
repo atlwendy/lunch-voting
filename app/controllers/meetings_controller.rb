@@ -15,9 +15,13 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(@meeting_id)
     @user = current_user
     @uid = @user.nil? ? 0 : User.where('email = ?', @user.email).first.id
+    @going = Meeting.usergoing(@uid, @meeting_id)
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @meeting_mrs = @meeting.meeting_restaurant_selections.sort_by{|x| [x.vote_count, x['name']]}.reverse
     @inGroup = is_user_invited?(@user.email, @meeting_id)
+    @userlist = Meeting.userstatus(@meeting_id)
+    logger.info("*********************************************")
+    logger.info(@userlist)
   end
 
   def get_all_restaurants(meeting)
@@ -121,6 +125,15 @@ class MeetingsController < ApplicationController
     umv.save
     meeting_mrs = Meeting.find(id).meeting_restaurant_selections.sort_by{|x| x.vote_count}.reverse
     render :partial=>"restaurant_list", :locals=>{:meeting_mrs=>meeting_mrs, :uid=>uid} 
+  end
+
+  def set_decision
+    uid = params[:uid]
+    id = params[:id]
+    decision = params[:decision]
+    mmembership = MeetingMembership.where('user_id = ? AND meeting_id = ?', uid, id).first
+    mmembership.going = decision
+    mmembership.save
   end
 
   def get_users(emails, id=0)

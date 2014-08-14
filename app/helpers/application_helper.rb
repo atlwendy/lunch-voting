@@ -1,4 +1,7 @@
+require 'bootstrap_extension'
+
 module ApplicationHelper
+  include BootstrapExtension
 
 	def avatar_url(user)
 	  if user.avatar_url.present?
@@ -28,4 +31,9 @@ module ApplicationHelper
 		  "#{num} people are going"
 		end
 	end
+
+
+
+  # Add the modified method to ApplicationHelper
+  
 end

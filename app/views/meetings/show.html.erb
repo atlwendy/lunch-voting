@@ -3,8 +3,29 @@
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
 <div class="content">
-  <h1><%= @meeting.title %></h1>
-  <h5><%= @meeting.description %></h5>
+  <div class="allthingstop" id="top">
+    <div class="toptitle" id="toptitle">
+      <h1><%= @meeting.title %></h1>
+      <h5><%= @meeting.description %></h5>
+    </div>
+    <div id="question">
+    
+      <div class="areyougoing" id="repeatable">
+        <h3>Are you going?</h3>
+        <button id='rsvpYes' onclick="going('Yes')">Yes</button>
+        <button id='rsvpNo' onclick="going('No')">No</button>
+        <button id='rsvpMaybe' onclick="going('Maybe')">Maybe</button>
+      </div>
+    
+      <% if @going == 'nothing' %>
+        <h3>You were not invited </h3>
+      <% else %>
+        <h3>Your RSVP: <%=@going%></h3>
+      <% end %>
+      <button id="change" onclick="changeMind()"> Changed your mind? </button>
+    
+    </div>
+  </div>
   <div id="event-content">
     <ul class="dividedList">
       <li id="when">
@@ -17,11 +38,19 @@
   (<%= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3>
   <% end %>
   <ul>
-  <% @meeting.users.sort_by{|x| x.username}.each do |user| %>
-    <% if @inGroup %>
-      <li class="userlink"><%= link_to user.username, user %></li>
-    <% else %>
-      <li><%= user.username %>
+  <%# @meeting.users.sort_by{|x| x.username}.each do |user| %>
+    <%# if @inGroup %>
+      <!-- <li class="userlink"><%#= link_to user.username, user %></li> -->
+    <%# else %>
+      <%#= user.username %>
+    <% #end %>
+  <%# end %>
+  <% @userlist.each do |key, value| %>
+
+    <% if value.include?('Y') %>
+      <li style="list-style: none">
+      <img src="/assets/tick.gif"> <%=key %>
+      </li>
     <% end %>
   <% end %>
   </ul>
@@ -42,8 +71,15 @@
 <br>
 <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
 <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to raw('<i class="icon icon-arrow-left"></i>'), meetings_path %>
+<%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
 <script>
+
+$(document).ready(function(){
+  var going = "<%=@going%>";
+  if (going != ''){
+    $("#repeatable").hide();
+  }
+})
 
 var user = '<%= @user %>';
 function changeVote(direction, mrs_id){
@@ -79,6 +115,53 @@ function updateVote(vote, mrs_id) {
       console.log(status)
     },
   });
+}
+
+function going(decision) {
+  var uid = '<%=@uid%>';
+  var id = '<%=@meeting_id%>';
+  var url = "../meetings/" + id + "/" + "set_decision";
+
+  $.ajax({
+    url: url,
+    type: "GET",
+    data: {
+      uid: uid,
+      id: id,
+      decision: decision
+    },
+    datatype: "json",
+    success: function(data, textStatus, xhr) {
+      var div = document.getElementById("question");
+      //div.parentNode.removeChild(div);
+      $("#repeatable").remove();
+      var iDiv = document.createElement('div');
+      iDiv.id="iQuestion"    
+      iDiv.innerHTML = "<h3>Your RSVP: " + decision + "</h3>" + ' <button id="change" onclick="changeMind()"> Changed your mind? </button>';      
+      document.getElementById("top").appendChild(iDiv);
+
+    }
+  });
+}
+
+function changeMind() {
+  var currentDiv = document.getElementById("question");
+  var repeatable = document.getElementById("repeatable");
+  
+  //currentDiv.parentNode.removeChild(currentDiv);
+  $("#question").empty();
+  $("#iQuestion").remove();
+  var cdiv = document.createElement('div');
+  cdiv.class="areyougoing"
+  cdiv.id = "repeatable"
+  // jQuery('<div/>', {
+  //   id: 'repeatable',
+  //   class: 'areyougoing',
+  //   innerHTML: "<h3>Are you going?</h3><button id='rsvpYes' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' onclick='going(\"Maybe\")'>Maybe</button>"
+  // }).appendTo("#top");
+  cdiv.innerHTML = "<h3>Are you going?</h3><button id='rsvpYes' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' onclick='going(\"Maybe\")'>Maybe</button>"
+  document.getElementById("question").appendChild(cdiv);
+
 }
 
 </script>

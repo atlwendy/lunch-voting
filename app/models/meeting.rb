@@ -12,4 +12,25 @@ class Meeting < ActiveRecord::Base
         restaurant_values[:url])
     end
   end
+
+  def self.usergoing(uid, mid)
+    mm = MeetingMembership.where('user_id = ? AND meeting_id = ?', uid, mid)
+    if mm.empty?
+      return 'nothing'
+    else
+      return mm.first.going
+    end
+  end
+
+  def self.userstatus(mid)
+    userstatus = Hash.new
+    meeting = Meeting.find_by_id(mid)
+    meeting.users.sort_by{|x| x.username}.each do |user|
+      going = usergoing(user.id, mid) || ''
+      userstatus[user.username] = going
+    end
+    return userstatus
+    #ust = userstatus.sort_by{|key, value| value}.reverse
+  end
+
 end

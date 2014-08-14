@@ -4,10 +4,12 @@
 
 <div>
 <h2>Hello, <%= @user.username %>!</h2>
+<% if not @next_meeting.blank? %>
 <p>
   Your next lunch is: <br>
   <div class="lunch-date">
     <div class="date-display" style="font-size: 150%">
+
       <%= @next_meeting.date.in_time_zone.strftime("%A, %B %d") %>
     </div>
     <div class="timetext">
@@ -16,9 +18,10 @@
     <p><%= @next_meeting.title %></p>
   </div>
 </p>
+<% end %>
 <%#= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
-<%= link_to raw('<span class="glyphicon glyphicon-plus"> New Lunch</span>'), new_meeting_path, :class=>'btn btn-default btn-primary' %>
-<h3>Later</h3>
+<%= link_to raw('<span class="glyphicon glyphicon-plus"></span> New Lunch'), new_meeting_path, :class=>'btn btn-default btn-primary' %>
+<h3>Your previous lunch meetings:</h3>
 <ul>
 <% @meeting.each do |meeting| %>
   <li>
