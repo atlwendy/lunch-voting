@@ -19,10 +19,10 @@
     
       <% if @going == 'nothing' %>
         <h3>You were not invited </h3>
-      <% else %>
+      <% elsif not @going.nil? %>
         <h3>Your RSVP: <%=@going%></h3>
+        <button id="change" onclick="changeMind()"> Changed your mind? </button>
       <% end %>
-      <button id="change" onclick="changeMind()"> Changed your mind? </button>
     
     </div>
   </div>
@@ -33,11 +33,8 @@
         <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
         <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
 
-  <h3><%=@meeting.users.size%> people are going
-  <% if @inGroup %> 
-  (<%= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3>
-  <% end %>
-  <ul>
+  <!-- <h3><%#=@meeting.users.size%> people are going -->
+  
   <%# @meeting.users.sort_by{|x| x.username}.each do |user| %>
     <%# if @inGroup %>
       <!-- <li class="userlink"><%#= link_to user.username, user %></li> -->
@@ -45,15 +42,47 @@
       <%#= user.username %>
     <% #end %>
   <%# end %>
-  <% @userlist.each do |key, value| %>
-
-    <% if value.include?('Y') %>
+  <h3><%= @statuscounts['Yes'] %> going:</h3>
+  <ul>
+  <% @userlist.each do |u| %>    
+    <% if u[1].include?('Y') %>
       <li style="list-style: none">
-      <img src="/assets/tick.gif"> <%=key %>
+      <img src="/assets/tick.gif"> <%=u[0] %>
       </li>
     <% end %>
   <% end %>
   </ul>
+
+  <h3><%= @statuscounts['No'] %> not going:</h3>
+  <ul>
+  <% @userlist.each do |u| %> 
+    
+    <% if u[1].include?('N') %>
+      <li style="list-style: none">
+      <img src="/assets/red-cross_small.png"> <%=u[0] %>
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
+
+  <h3><%= @statuscounts['No'] %> might not going:</h3>
+  <ul>
+  <% @userlist.each do |u| %> 
+    
+    <% if u[1].include?('Maybe') %>
+      <li style="list-style: none">
+      <img src="/assets/question_mark.gif"> <%=u[0] %>
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
+
+  <% if @inGroup %> 
+  <!-- (<%#= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3> -->
+  You can invite more people to join in.
+  <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
+  <% end %>
+  
 
 <p>
   <div id="editr">

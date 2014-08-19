@@ -20,8 +20,7 @@ class MeetingsController < ApplicationController
     @meeting_mrs = @meeting.meeting_restaurant_selections.sort_by{|x| [x.vote_count, x['name']]}.reverse
     @inGroup = is_user_invited?(@user.email, @meeting_id)
     @userlist = Meeting.userstatus(@meeting_id)
-    logger.info("*********************************************")
-    logger.info(@userlist)
+    @statuscounts = Meeting.statuscounts(@userlist)
   end
 
   def get_all_restaurants(meeting)

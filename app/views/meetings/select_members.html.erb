@@ -2,9 +2,9 @@
 
   <%=form_tag 'submit_members' do %>
   <div class="infosection">
-    <h5>Add/Remove Members</h5>
+    <h5>Add Members</h5>
     <div class="newmemberfields" style="border-bottom:solid 1px #eee">
-      <div class="field" id="erest" >
+      <!-- <div class="field" id="erest" >
         <label for='erest address'>Current Users:</label>
         <% @allusers.each do |user| %>
           <label><%=check_box_tag 'user_id[]', 
@@ -13,7 +13,7 @@
           </label>
         <% end %>
       </div>
-    </div>
+    </div> -->
   
     <div class="field" id="member" style="margin-top: 5px; padding-left: 20px">
     	<table class="logincontent">
@@ -21,18 +21,19 @@
           <td><label for="Email address">Please enter new members' email address(es): &nbsp </label></td>
         </tr>
         <tr>
-          <td><input class="text" type="text" name="email" id="temail"></input>
+          <td><input class="text form-control" type="text" name="email" id="temail"></input>
           </td>
         </tr>
       </table>
-      <input class="button intermitbutton btn" name="addmore" type="button" value=  " Add member" id="addmember"></input></td>
+      <br />
+      <input class="button intermitbutton btn btn-default " name="addmore" type="button" value= "Add member" id="addmember"></input></td>
     		
     </div>
   </div>
-  <br>
-    <%=submit_tag "Save", :class=>'btn btn-primary btn-large' %>
-  <% end %>
 </div>
+<br />
+  <%=submit_tag "Send invite!", :class=>'btn btn-primary btn-large' %>
+  <% end %>
 
 <script>
 $(".intermitbutton").click(function() {

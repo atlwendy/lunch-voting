@@ -155,17 +155,18 @@ h1 {
 
 .toptitle {
 	display: inline;
-	width: 70%;
+	width: 65%;
 	float: left;
 }
 
 .areyougoing {
 	display: inline;
 	float: right;
+	margin-right: 5px;
 }
 
 #question, #iQuestion {
-	width: 30%;
+	width: 27%;
 	height: auto;
 	background: none repeat scroll 0% 0% #e0e8e3;
 	box-shadow: 0 2px 2px 0px #bfc6c2;
@@ -213,6 +214,9 @@ h3 {
 	padding-bottom: 6px;
 	line-height: 1.2;
 	letter-spacing: -0.25px;
+}
+input #temail.text {
+	width: 80% !important;
 }
 .timetext {
 	color: #888;

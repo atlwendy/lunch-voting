@@ -29,8 +29,14 @@ class Meeting < ActiveRecord::Base
       going = usergoing(user.id, mid) || ''
       userstatus[user.username] = going
     end
-    return userstatus
-    #ust = userstatus.sort_by{|key, value| value}.reverse
+    #return userstatus
+    ust = userstatus.sort_by{|key, value| value}.reverse
+  end
+
+  def self.statuscounts(status)   
+    status.each_with_object(Hash.new{|h, k| h[k] = '0'}) do |k, res|
+      res[k[1]].succ!
+    end
   end
 
 end
