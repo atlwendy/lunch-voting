@@ -115,7 +115,7 @@ label {
 	padding: 0 30px 0 30px;
 }
 .newmemberfields {
-	padding-left: 30px;
+	/*padding-left: 30px;*/
 }
 .inputaddress {
 	margin-bottom: 20px;
@@ -251,6 +251,9 @@ li {
     line-height: 24px;
     padding: 0px 0px 8px;
 }
+.date-indicator a {
+	color: #AAA;
+}
 .detail-container {
     background-color: #FFF !important;
     border: 1px solid #DDD;
@@ -278,7 +281,7 @@ li {
 }
 .sizemain {
 	width: 60%;
-	padding: 8px 0 0 5px;
+	padding: 8px 0 0 25px;
 	font-size: 33px;
 	font-weight: 400;
 }
@@ -316,7 +319,7 @@ li {
 
 .figureset-description {
 	width: auto;
-	padding-left: 53.5px;
+	padding-left: 10px;
 	display: table-cell;
 	vertical-align: top;
 }
@@ -340,6 +343,7 @@ h6 {
 	height: 35px;
 	overflow: hidden;
 	text-align: center;
+	padding-left: 12px;
 }
 .imagebrg {
 	padding: 5px 0 5px;
@@ -385,7 +389,7 @@ line-height: 18px;
 	/*position: relative;*/
 	float: left;
 	color: #888;
-	padding-top: 28px;
+	padding: 28px 5px 0 0;
 	font-size: 19px;
 	font-weight: 400;
 	background-color: #fff;
@@ -409,16 +413,21 @@ line-height: 18px;
 	width: auto;
 	border: solid 1px #ccc;
 	height: auto;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.03), -1px 2px 2px rgba(0, 0, 0, 0.03), 1px 0px 0px rgba(0, 0, 0, 0.03), 0px 1px 0px rgba(0, 0, 0, 0.12);
 	margin-top: 35px;
 	margin-left: 15px;
-	padding: 12px 0 10px 5px;
+	padding: 8px 13px 6px;
 	font-size: 23px;
 	font-weight: 400;
 	float: left;
-	background-color: #ccc;
+/*	background-color: #ccc;
+*/}
+.newmeeting:active {
+    vertical-align: top;
+    padding: 9px 13px 5px;
 }
 .newmeeting a{
-	color: #888;
+	color: #AAA;
 	text-decoration: none;
 	margin-right:5px;
 }
@@ -449,14 +458,16 @@ line-height: 18px;
 	font-family: inherit;
 	vertical-align: baseline;
 	padding: 0px;
+	margin-right: 10px;
 }
 .listingbox {
 	/*box-shadow: 0 1px 1px rgba(0,0,0,0.03),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);*/
 	display: block;
-	width: 90%;
+	width: 100%;
 	margin-bottom: 10px;
 	position: relative;
-}
+/*	float: left;
+*/}
 .meetingtime {
 	color: #888;
 }
@@ -471,12 +482,12 @@ line-height: 18px;
 }
 .addresses {
 	float: left;
-	padding: 0 15px;
+	padding: 0 25px;
 	min-height: 1px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	width: 37.5%;
+	width: auto;
 	margin-top: 3px;
 }
 address {
@@ -542,7 +553,6 @@ body {
 
 #frame {
 	background-color: #f4f4f4;
-	width: 800px;
 	margin: auto;
 }
 

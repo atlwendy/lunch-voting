@@ -1,34 +1,32 @@
 <!-- <div class="listing">
 <span class="listingh">Select restaurants </span> -->
 
-<div style="padding-top: 20px">
   <%=form_tag 'submit_restaurants' do %>
-  <div class="infosection form-group">
-        <h5>Add/Remove Restaurants</h5>
-        
-        <div class="newmemberfields" style="border-bottom:solid 1px #eee">
-          <div class="field" id="erest" >
-            <label for='erest address' class="col-md-4 control-label">Current Restaurant Selections:</label>
-              <br />
-                <% @allrests.each do |rest| %>
-                <div class="checkbox">
-                  <label><%=check_box_tag 'restaurant_id[]', 
-                    rest.id, @restaurants.include?(rest) %>
-                    <%= rest.name %>
-                  </label>
-                </div>
-                <% end %>
+  <div class="panel panel-default">
+      <div class="panel-heading"><h4>Add/Remove Restaurants</h4></div>
+      <div  class="panel-body">
+        <div class="newmemberfields">
+          <div id="erest" >
+            <h5 for='erest address'>Current Restaurant Selections:
+            </h5>
+            <% @allrests.each do |rest| %>
+              <div class="checkbox">
+                <label><%=check_box_tag 'restaurant_id[]', 
+                  rest.id, @restaurants.include?(rest) %>
+                  <%= rest.name %>
+                </label>
+              </div>
+            <% end %>
           </div>
         </div>
-
-        <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 2px #eee; padding-left: 20px; width: 70%">
-          <label>Or you can get a list of nearby restaurant based on following address</label>
-          <br />
-          <div class="field form-group">
+        <hr>
+        <div id="userinputaddress">
+          <h5>Or you can get a list of nearby restaurant based on following address</h5>
+          <div class="form-group">
             <label class="control-label">Address:</label>
             <input class="form-control" type="text" id="address"></input>
           </div>
-          <div class="field form-group">
+          <div class="form-group">
            <label class="control-label">City: </label>
            <input class="form-control" type="text" id="city"></input>
           </div>
@@ -36,28 +34,33 @@
            <label class="control-label">State: </label>
            <input class="text form-control" type="text" id="state"></input>
           </div>
-           <br >
+          <div class="form-group">
+            <label class="control-label">Zip code: </label>
+            <input class="text form-control" type="text" id="zipcode"></input>
+          </div>
+          <br >
            <input class="button btn btn-default inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input><span id="spin"></span>
         </div>
-          <br >
+        
+        <hr>
   
-        <div class="field" id="restaurant" style="margin-top: 5px; padding-left: 20px">
+        <div class="form-group" id="restaurant">
           <table class="rest">
             <tr>
-              <td><label for="Restaurant">Or you can enter new restaurant option(s): &nbsp </label></td>
+              <td><h5>Or you can enter new restaurant option(s): &nbsp </h5></td>
             </tr>
             <tr>
-              <td><input class="text" type="text" name="rtt" id="trest"></input></td>
+              <td><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
             </tr>
           </table>
-              <input class="button restb btn" name="morerest" type="button" value="Add restaurant"></input>              
+          <br />
+          <input class="button restb btn btn-default" name="morerest" type="button" value="Add restaurant"></input>              
         </div>
       </div>
-    <br />
+    </div>
   <%= submit_tag "Save", class: "btn btn-large btn-primary" %>
   <% end %>
-</div>
-
+<%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), @meeting %>
 
 
 <!-- <div class="field" id="restaurant">
@@ -100,6 +103,7 @@ $(".inputaddress").click(function() {
   var address = $("#address").val();
   var city = $("#city").val();
   var state = $("#state").val();
+  var zipcode = $("#zipcode").val();
 
   var opts = {
     lines: 10, // The number of lines to draw
@@ -123,8 +127,8 @@ $(".inputaddress").click(function() {
   var spinner = new Spinner(opts)
   spinner.spin(target);
 
-  if (!address || !city || !state) {
-    alert("You have to provide address, city and state to do the search");
+  if (!address && !city && !state && !zipcode) {
+    alert("You have to provide address, city, state or zip code to do the search");
   }
 
   $.ajax({
@@ -159,7 +163,7 @@ function generate_checkbox_list(jobject, value, elementid) {
     var rating = value.rating;
   
     $(elementid).append(
-      '<label>'
+      '<div class="checkbox"><label>'
       +
       '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" style="margin-left: 20px" data-type="json" value='
       + "'"
@@ -168,7 +172,7 @@ function generate_checkbox_list(jobject, value, elementid) {
       +
       '/>'
       +
-      '<a class="yelplink" style="padding-left: 6px" href='
+      '<a class="yelplink" style="padding-left: 40px" href='
       +
       url
       + 
@@ -183,7 +187,7 @@ function generate_checkbox_list(jobject, value, elementid) {
       +
       '</a>'
       +
-      '</label>');
+      '</label></div>');
   
 }
 </script>

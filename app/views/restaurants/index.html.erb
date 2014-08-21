@@ -8,9 +8,16 @@
           <h3>restaurants that have been added by our users</h3>
         </div>
       </div>
-    </div>
+  </div>
+  <div class="newmeeting">
+      <div class="nmeetingwrapper">
+        <i class="icon icon-plus"></i>
+        <!-- <span class="glyphicon glyphicon-plus"></span> -->
+        <%=link_to "Add New Restaurant", new_restaurant_path %>
+      </div>
+  </div>
 
-<div class="listingbox">
+<div class="listingbox" style="float:left">
   <ul class="listmeetings">
   <% @restaurants.each do |restaurant| %>
     <li class="meeting-divider">
@@ -18,7 +25,7 @@
             <div class="mainname">
               <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="  display:block;">
                 <% if restaurant['photo_url'].nil? %>
-                  <i class="icon icon-cutlery"></i>
+                  <img alt=<%=restaurant['name']%> height="85" width="80" src=<%=image_path("default.jpg")%>>
                 <% else %>
                 <img alt=<%=restaurant['name']%> height="80" width="90" src=<%=restaurant[  'photo_url']%>>
                 <% end %>
@@ -42,9 +49,11 @@
                 <% splitarray = restaurant['address'].split(',')%>
                 <%=splitarray[0] %>
                 <br >
-                <% if not splitarray[1..-1].blank? %>
-                <%=splitarray[1..-1].reject!{|c| c == " "}.join(',')%> 
+                <% gaddress = splitarray[1..-1] %>
+                <% if not gaddress.blank? %>
+                  <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.join(',')%> 
                 <% end %>
+                
               </address>
               <% end %>
             </div>
@@ -55,7 +64,6 @@
   </ul>
 
 
-<%= link_to 'New Restaurant', new_restaurant_path %>
 <script>
 $(document).ready(function () {
    //Convert address tags to google map links

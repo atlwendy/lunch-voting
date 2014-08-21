@@ -32,90 +32,97 @@
         <i class="icon icon-calendar"></i>
         <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
         <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      </li>
+    </ul>
 
-  <!-- <h3><%#=@meeting.users.size%> people are going -->
+    <h3><%= @statuscounts['Yes'] %> going:</h3>
+    <ul>
+    <% Meeting.rsvpYuser(@meeting, 'Y').each do |k| %>    
+        <li style="list-style: none">
+        <img src="/assets/tick.gif"> <%=k %>
+        </li>
+    <% end %>
+    </ul>
   
-  <%# @meeting.users.sort_by{|x| x.username}.each do |user| %>
-    <%# if @inGroup %>
-      <!-- <li class="userlink"><%#= link_to user.username, user %></li> -->
-    <%# else %>
-      <%#= user.username %>
-    <% #end %>
-  <%# end %>
-  <h3><%= @statuscounts['Yes'] %> going:</h3>
-  <ul>
-  <% @userlist.each do |u| %>    
-    <% if u[1].include?('Y') %>
-      <li style="list-style: none">
-      <img src="/assets/tick.gif"> <%=u[0] %>
-      </li>
+    <h3><%= @statuscounts['No'] %> not going:</h3>
+    <ul>
+    <% Meeting.rsvpYuser(@meeting, 'N').each do |k| %> 
+        <li style="list-style: none">
+        <img src="/assets/red-cross_small.png"> <%=k %>
+        </li>
     <% end %>
-  <% end %>
-  </ul>
-
-  <h3><%= @statuscounts['No'] %> not going:</h3>
-  <ul>
-  <% @userlist.each do |u| %> 
-    
-    <% if u[1].include?('N') %>
-      <li style="list-style: none">
-      <img src="/assets/red-cross_small.png"> <%=u[0] %>
-      </li>
-    <% end %>
-  <% end %>
-  </ul>
-
-  <h3><%= @statuscounts['No'] %> might not going:</h3>
-  <ul>
-  <% @userlist.each do |u| %> 
-    
-    <% if u[1].include?('Maybe') %>
-      <li style="list-style: none">
-      <img src="/assets/question_mark.gif"> <%=u[0] %>
-      </li>
-    <% end %>
-  <% end %>
-  </ul>
-
-  <% if @inGroup %> 
-  <!-- (<%#= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3> -->
-  You can invite more people to join in.
-  <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
-  <% end %>
+    </ul>
   
-
-<p>
-  <div id="editr">
-	<h3>Restaurant candidates and votes
-  <% if @inGroup %>
-	(<%= link_to 'edit restaurant', :select_restaurants, :class=>"editinh3" %>):</h3>
-  <% end %>
-</div>
-
-<div id = "restaurant_table">
-	<%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
-</div>
-		
-</div>
-<br>
-<%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
-<%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
+    <h3><%= @statuscounts['No'] %> might not going:</h3>
+    <ul>
+    <% Meeting.rsvpYuser(@meeting, 'M').each do |k| %> 
+        <li style="list-style: none">
+        <img src="/assets/question_mark.gif"> <%=k %>
+        </li>
+    <% end %>
+    </ul>
+  
+    <% if @inGroup %> 
+    <!-- (<%#= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3> -->
+    You can invite more people to join in.
+    <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
+    <% end %>
+      
+    <h3> The voted restaurant winner is: <h3>
+    <% if @result_sent %>
+    <div id="winner">
+      <%= link_to @winner.name, @winner.url %>
+    </div>
+    <% end %>
+    <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick=" append_details()"> (click here for voting details)</div>
+    <div id="rdetails">
+      <div id="editr">
+       <h3>Restaurant candidates and votes
+       <% if @inGroup %>
+       (<%= link_to 'edit restaurant selection', :select_restaurants, :class=>"editinh3" %>):</h3>
+       <% end %>
+      </div>
+      <div id = "restaurant_table">
+	       <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
+      </div>
+  
+    <br>
+    <div id="operation" style="font-size: 16px">
+      <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
+      <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method: :delete   , data: { confirm: 'Are you sure?' } %> |
+      <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
+    </div>
+    </div>
+    
+  </div>
 <script>
 
 $(document).ready(function(){
   var going = "<%=@going%>";
+  var result_sent = "<%=@result_sent%>";
   if (going != ''){
     $("#repeatable").hide();
   }
+  if (result_sent) {
+    $("#rdetails").hide();
+  }
+  else {
+    $("#winner").hide();
+  }
+
 })
 
 var user = '<%= @user %>';
 function changeVote(direction, mrs_id){
   var direction = direction;
-  var member = <%=@inGroup%>
+  var member = <%=@inGroup%>;
+  var result_sent = "<%=@result_sent%>";
   if (! user || ! member) { 
-    $("#editr").append("<div style='color: red'>You have to login or be the group's member to vote!</div>");
+    $("#editr").append("<div style='color: red'>In order to vote, you have to be invited and confirmed to go.</div>");
+    return
+  }
+  if (result_sent) {
+    $("#editr").append("<div style='color: red'>Restaurant winner has selected and results sent to all users. At this time, you can't vote any more.</div>");
     return
   }
   
@@ -191,6 +198,11 @@ function changeMind() {
   cdiv.innerHTML = "<h3>Are you going?</h3><button id='rsvpYes' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' onclick='going(\"Maybe\")'>Maybe</button>"
   document.getElementById("question").appendChild(cdiv);
 
+}
+
+function append_details() {
+  div = document.getElementById("restaurant_table");
+  $("#details").append(div);
 }
 
 </script>

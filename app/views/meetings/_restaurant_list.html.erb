@@ -27,7 +27,7 @@
         </td>
         <td rowspan="3" class="restname">
           <% if not mrs.restaurant.nil? and not mrs.restaurant.url.nil? %>
-            <%= link_to mrs.restaurant.name, mrs.restaurant.url %>
+            <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{:placement=>"bottom", :content=>"Rating on Yelp is #{mrs.restaurant.yelp_rating}", :trigger=>"hover"} %>
           <% elsif not mrs.restaurant.nil? %>
             <%= mrs.restaurant.name %>
           <% end %>
@@ -50,3 +50,8 @@
       </tr>
     <% end %>
 	</table>
+  <script>
+  $(document).ready(function(){
+    $(".yelplink").popover();
+  })
+  </script>

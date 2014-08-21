@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812202958) do
+ActiveRecord::Schema.define(version: 20140819193935) do
 
   create_table "invitations", force: true do |t|
     t.string   "recipient_email"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20140812202958) do
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "reminder_sent"
+    t.boolean  "result_sent"
   end
 
   create_table "restaurants", force: true do |t|

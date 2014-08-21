@@ -8,6 +8,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     @meeting = meetings(:one)
     @user = users(:one)
     @user2 = users(:two)
+    @restaurant = restaurants(:one)
   end
 
   teardown do
@@ -140,8 +141,9 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
     votes = page.all('.votenumber').map(&:text)
     assert_equal find(".votenumber").text, "1"
-    #votes = page.execute_script("$('td.votenumber').html()")
-    assert_equal votes,['1']    
+
+    votes = page.evaluate_script("$('td.votenumber').html()").to_i
+    assert_equal votes, 1    
 
     find("#tdowna").click
     sleep(1)
@@ -151,4 +153,55 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "create user" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit("/users/new")
+
+    fill_in 'user_username', with: 'Test User'
+    fill_in 'user_email', with: 'testuser@test.com'
+    fill_in 'user_password', with: 'lunchvoting'
+    fill_in 'user_password_confirmation', with: 'lunchvoting'
+    click_button("Create User")
+
+    assert page.has_content?("Test User")
+    assert page.has_content?("testuser@test.com")
+
+    click_link("Sign out")
+    visit("/signin")
+    fill_in 'session_email', with: 'testuser@test.com'
+    fill_in 'session_password', with: 'lunchvoting'
+    click_button("Sign in")
+    assert page.has_content?("Test User")
+    user = User.where("email = 'testuser@test.com'").first
+    assert_equal current_path, user_path(user)
+  end
+
+  test "create restaurant" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit("/restaurants/new")
+
+    fill_in 'restaurant_name', with: 'A new restaurant'
+    fill_in 'restaurant_address', with: 'new address road'
+    fill_in 'restaurant_url', with: 'newrestaurant.com'
+    click_button("Create Restaurant")
+
+    assert page.has_content?("A New Restaurant")
+    assert has_link?("A New Restaurant", :href=>"http://newrestaurant.com")
+    assert page.has_xpath?("//a[@href='http://newrestaurant.com']")
+  end
+
+  test "edit restaurant" do
+    Capybara.current_driver = Capybara.javascript_driver
+    visit(restaurant_path(@restaurant))
+    page.find(:xpath, "//a[@href='/restaurants/#{@restaurant.id}/edit']").click
+
+    page.has_content?("Chipotle")
+    fill_in 'restaurant_name', with: 'New name'
+    fill_in 'restaurant_url', with: 'newrestaurant.com'
+    click_button("Update Restaurant")
+
+    assert page.has_content?("New Name")
+    assert page.has_xpath?("//a[@href='http://newrestaurant.com']")
+
+  end
 end

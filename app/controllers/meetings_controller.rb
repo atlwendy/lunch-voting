@@ -18,9 +18,11 @@ class MeetingsController < ApplicationController
     @going = Meeting.usergoing(@uid, @meeting_id)
     mrs = MeetingRestaurantSelection.where('meeting_id = ?', params[:id])
     @meeting_mrs = @meeting.meeting_restaurant_selections.sort_by{|x| [x.vote_count, x['name']]}.reverse
-    @inGroup = is_user_invited?(@user.email, @meeting_id)
+    @inGroup = is_user_invited_and_confirmed?(@user, @meeting_id)
     @userlist = Meeting.userstatus(@meeting_id)
     @statuscounts = Meeting.statuscounts(@userlist)
+    @result_sent = @meeting.result_sent
+    @winner = Restaurant.find_by_id(Meeting.pick_winner(@meeting))
   end
 
   def get_all_restaurants(meeting)
@@ -100,8 +102,10 @@ class MeetingsController < ApplicationController
   end
 
 
-  def is_user_invited?(user, mid)
-    return Meeting.find(mid).users.include?(User.find_by_email(user)) ? true : false
+  def is_user_invited_and_confirmed?(user, mid)
+    invited = Meeting.find(mid).users.include?(user) ? true : false
+    confirmed = true #Meeting.usergoing(user.id, mid).include?('Y') ? true : false
+    return invited & confirmed
   end
 
   def get_votes(mrs_id)
