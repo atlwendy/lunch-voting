@@ -2,32 +2,33 @@
 
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
-<div>
-<h2>Hello, <%= @user.username %>!</h2>
-<% if not @next_meeting.blank? %>
-<p>
-  Your next lunch is: <br>
-  <div class="lunch-date">
-    <div class="date-display" style="font-size: 150%">
-
-      <%= @next_meeting.date.in_time_zone.strftime("%A, %B %d") %>
+<div class="listingbox">
+  <h2>Hello, <%= @user.username %>!</h2>
+  <% if not @next_meeting.blank? %>
+  <p>
+    Your next lunch is: <br>
+    <div class="lunch-date">
+      <div class="date-display" style="font-size: 150%">
+  
+        <%= link_to @next_meeting.date.in_time_zone.strftime("%A, %B %d"), @next_meeting %>
+      </div>
+      <div class="timetext">
+        <%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %>
+      </div>
+      <p><%= @next_meeting.title %></p>
     </div>
-    <div class="timetext">
-      <%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %>
-    </div>
-    <p><%= @next_meeting.title %></p>
-  </div>
-</p>
-<% end %>
-<%#= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
-<%= link_to raw('<span class="glyphicon glyphicon-plus"></span> New Lunch'), new_meeting_path, :class=>'btn btn-default btn-primary' %>
-<h3>Your previous lunch meetings:</h3>
-<ul>
-<% @meeting.each do |meeting| %>
-  <li>
-    <%= meeting.date.in_time_zone.strftime("%a, %b %d") %> - 
-      <%= link_to meeting.title, meeting %>
-  </li>
-
-<% end %>
-</ul>
+  </p>
+  <% end %>
+  <%#= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
+  <%= link_to raw('<span class="glyphicon glyphicon-plus"></span> New Lunch'),  new_meeting_path, :class=>'btn btn-default btn-primary' %>
+  <h3>Your previous lunch meetings:</h3>
+  <ul class="listmeetings">
+  <% @old_meetings.each do |meeting| %>
+    <li>
+      <%= meeting.date.in_time_zone.strftime("%a, %b %d") %> - 
+        <%= link_to meeting.title, meeting %>
+    </li>
+  
+  <% end %>
+  </ul>
+</div>

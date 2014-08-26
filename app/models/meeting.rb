@@ -36,7 +36,7 @@ class Meeting < ActiveRecord::Base
 
   def self.rsvpYuser(m, selection)
     ust = userstatus(m.id)
-    ust.map{|key, _| key if ust[key].include?("#{selection}")}.compact
+    ust.map{|key, _| key if ust[key]==("#{selection}")}.compact
   end
 
   def self.statuscounts(status)   

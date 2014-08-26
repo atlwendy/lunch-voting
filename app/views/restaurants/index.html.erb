@@ -1,23 +1,24 @@
-<div class="listing table-responsive">
 
 <div class="listing table-responsive" style="margin-bottom: 10px">
-  <div class="buddiestopbar">
+  <div class="topbar">
+    <div class="buddiestopbar">
       <div class="leftentity">
         <div class="contentwrapper">
           <h1>Restaurants</h1>
           <h3>restaurants that have been added by our users</h3>
         </div>
       </div>
-  </div>
-  <div class="newmeeting">
+    </div>
+    <div class="newmeeting">
       <div class="nmeetingwrapper">
-        <i class="icon icon-plus"></i>
-        <!-- <span class="glyphicon glyphicon-plus"></span> -->
+        <span class="glyphicon glyphicon-plus"></span>
         <%=link_to "Add New Restaurant", new_restaurant_path %>
       </div>
+    </div>
   </div>
+</div>
 
-<div class="listingbox" style="float:left">
+<div class="listingbox">
   <ul class="listmeetings">
   <% @restaurants.each do |restaurant| %>
     <li class="meeting-divider">
@@ -59,6 +60,7 @@
             </div>
           </div>
         </li>
+        <hr>
 
   <% end %>
   </ul>

@@ -4,17 +4,20 @@
 	
 	<h3>Forgot password </h3>
 	
-	<div style="border-top: solid 1px #ccc; width: 50%;">
+	<div >
 	
-		<p>	Please enter your email address and we will send you an email about how to 	reset 	your password.
+		<p>	Please enter your email address and we will send you an email about how to 	reset your password.
 		</p>
 		
 		<%= form_tag password_resets_path, :method => :post do %>
-		  <div class="field">
-		    <%= label_tag :email %>
-		    <%= text_field_tag :email, params[:email] %>
+		  <div class="row form-group ">
+		    <%= label_tag :email, nil, :class=> "col-md-8 control-label" %>
+		    <div class="col-md-8">
+		    	<%= text_field_tag :email, params[:email], :class=>'form-control' %>
+		    </div>
 		  </div>
-		  <div class="actions"><%= submit_tag "Reset Password", :class=>'btn' %></div>
+		  <div class="actions"><%= submit_tag "Reset Password", :class=>'btn btn-default' %>
+		  </div>
 		<% end %>
 	
 	</div>

@@ -58,6 +58,6 @@
   
   </ul> -->
 
-<%= link_to raw('<i class="icon icon-pencil"></i>'), edit_restaurant_path(@restaurant) %> |
-<%= link_to raw('<i class="icon icon-trash"></i>'), @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to raw('<i class="icon icon-arrow-left"></i>'), restaurants_path %>
+<%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_restaurant_path(@restaurant) %> |
+<%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), restaurants_path %>

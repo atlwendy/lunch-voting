@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-	layout 'menu'
+	layout 'sessions'
 
   def new
   	sign_out

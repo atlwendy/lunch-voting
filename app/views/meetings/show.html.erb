@@ -10,34 +10,39 @@
     </div>
     <div id="question">
     
-      <div class="areyougoing" id="repeatable">
+      <div class="areyougoing btn-group" id="repeatable">
         <h3>Are you going?</h3>
-        <button id='rsvpYes' onclick="going('Yes')">Yes</button>
-        <button id='rsvpNo' onclick="going('No')">No</button>
-        <button id='rsvpMaybe' onclick="going('Maybe')">Maybe</button>
+        <button id='rsvpYes' class='btn btn-success' onclick="going('Yes')">Yes
+        </button>
+        <button id='rsvpNo' class='btn btn-danger' onclick="going('No')">No
+        </button>
+        <button id='rsvpMaybe' class='btn btn-warning' onclick="going('Maybe')">Maybe
+        </button>
+        
       </div>
     
       <% if @going == 'nothing' %>
         <h3>You were not invited </h3>
       <% elsif not @going.nil? %>
         <h3>Your RSVP: <%=@going%></h3>
-        <button id="change" onclick="changeMind()"> Changed your mind? </button>
+        <button id="change" class="btn btn-default" onclick="changeMind()"> Changed your mind? </button>
       <% end %>
     
     </div>
   </div>
+  <br />
   <div id="event-content">
-    <ul class="dividedList">
-      <li id="when">
-        <i class="icon icon-calendar"></i>
-        <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
-        <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
-      </li>
-    </ul>
+    
+    <div>
+      <h3><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></h3>
+      <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+    </div>
 
+
+      
     <h3><%= @statuscounts['Yes'] %> going:</h3>
     <ul>
-    <% Meeting.rsvpYuser(@meeting, 'Y').each do |k| %>    
+    <% Meeting.rsvpYuser(@meeting, 'Yes').each do |k| %>    
         <li style="list-style: none">
         <img src="/assets/tick.gif"> <%=k %>
         </li>
@@ -46,35 +51,40 @@
   
     <h3><%= @statuscounts['No'] %> not going:</h3>
     <ul>
-    <% Meeting.rsvpYuser(@meeting, 'N').each do |k| %> 
+    <% Meeting.rsvpYuser(@meeting, 'No').each do |k| %> 
         <li style="list-style: none">
         <img src="/assets/red-cross_small.png"> <%=k %>
         </li>
     <% end %>
     </ul>
   
-    <h3><%= @statuscounts['No'] %> might not going:</h3>
+    <h3><%= @statuscounts['Maybe'].to_i + @statuscounts[''].to_i %> not decided yet:</h3>
     <ul>
-    <% Meeting.rsvpYuser(@meeting, 'M').each do |k| %> 
+    <% Meeting.rsvpYuser(@meeting, 'Maybe').each do |k| %> 
+        <li style="list-style: none">
+        <img src="/assets/question_mark.gif"> <%=k %>
+        </li>
+    <% end %>
+    <% Meeting.rsvpYuser(@meeting, nil).each do |k| %> 
         <li style="list-style: none">
         <img src="/assets/question_mark.gif"> <%=k %>
         </li>
     <% end %>
     </ul>
   
-    <% if @inGroup %> 
-    <!-- (<%#= link_to 'edit member', :select_members, :class=>"editinh3" %>):</h3> -->
-    You can invite more people to join in.
-    <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
+    <% if @inGroup and not @result_sent%> 
+      You can invite more people to join in.
+      <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
     <% end %>
       
-    <h3> The voted restaurant winner is: <h3>
     <% if @result_sent %>
-    <div id="winner">
-      <%= link_to @winner.name, @winner.url %>
-    </div>
+      <h3> The voted restaurant winner is: <h3>
+      <div id="winner">
+        <%= link_to @winner.name, @winner.url %>
+      </div>
+      <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick =" append_details()"> (click here for voting details)</div>
     <% end %>
-    <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick=" append_details()"> (click here for voting details)</div>
+
     <div id="rdetails">
       <div id="editr">
        <h3>Restaurant candidates and votes
@@ -83,15 +93,17 @@
        <% end %>
       </div>
       <div id = "restaurant_table">
-	       <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
+         <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
       </div>
   
-    <br>
-    <div id="operation" style="font-size: 16px">
-      <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
-      <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method: :delete   , data: { confirm: 'Are you sure?' } %> |
-      <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
-    </div>
+      <br>
+      <% if @inGroup %>
+        <div id="operation" style="font-size: 16px">
+          <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'),    edit_meeting_path(@meeting) %> |
+          <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting,   method:  :delete   , data: { confirm: 'Are you sure?' } %> |
+          <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'),    meetings_path %>
+        </div>
+      <% end %>
     </div>
     
   </div>
@@ -173,7 +185,8 @@ function going(decision) {
       $("#repeatable").remove();
       var iDiv = document.createElement('div');
       iDiv.id="iQuestion"    
-      iDiv.innerHTML = "<h3>Your RSVP: " + decision + "</h3>" + ' <button id="change" onclick="changeMind()"> Changed your mind? </button>';      
+      iDiv.innerHTML = "<h3>Your RSVP: " + decision + "</h3>" + ' <button id="change" class="btn btn-default" onclick="changeMind()"> Changed your mind? </button>';
+      $("#question").css("border", "none");     
       document.getElementById("top").appendChild(iDiv);
 
     }
@@ -188,14 +201,15 @@ function changeMind() {
   $("#question").empty();
   $("#iQuestion").remove();
   var cdiv = document.createElement('div');
-  cdiv.class="areyougoing"
+  cdiv.className = "btn-group";
   cdiv.id = "repeatable"
   // jQuery('<div/>', {
   //   id: 'repeatable',
   //   class: 'areyougoing',
   //   innerHTML: "<h3>Are you going?</h3><button id='rsvpYes' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' onclick='going(\"Maybe\")'>Maybe</button>"
   // }).appendTo("#top");
-  cdiv.innerHTML = "<h3>Are you going?</h3><button id='rsvpYes' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' onclick='going(\"Maybe\")'>Maybe</button>"
+  $("#question").css("border", "1px solid #ccc")
+  cdiv.innerHTML = "<h3>Are you going?</h3><button id='rsvpYes' class='btn btn-success' onclick='going(\"Yes\")'>Yes</button> <button id='rsvpNo' class='btn btn-danger' onclick='going(\"No\")'>No</button> <button id='rsvpMaybe' class='btn btn-warning' onclick='going(\"Maybe\")'>Maybe</button>"
   document.getElementById("question").appendChild(cdiv);
 
 }

@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     end
     @meeting = @meeting.sort_by{|x| x['date']}
     @future_meetings = @meeting.reject{|x| x.date < Date.today}
+    @old_meetings = @meeting - @future_meetings
     @next_meeting = @future_meetings.first
   end
 

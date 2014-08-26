@@ -15,9 +15,10 @@
     </div>
   <% end %>
 
-  <div style="padding-top: 20px">
-    <div class="infosection">     
-      <h5 >Basic info</h5>
+  <div class="panel panel-default">
+      <div class="panel-heading">     
+        <h4>Basic info</h4>
+      </div>
       <div class="basicinfofields">
         <div class="field" class="form-group">
           <%= f.label :title %>
@@ -36,15 +37,19 @@
           <% end %>
         </div>
       </div>
-    </div>
-    <br />
+
+    </div >
+
 
     <% if @meeting.new_record? %>
-      <div class="infosection">
-        <h5>Add New Member</h5>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Add New Member(s)</h4>
+      </div>
         <div class="newmemberfields">
           
             <% if not @meeting.users.empty? %>
+            <div class="basicinfofields">
               <div class="field" id="emember">
                 <label for='emember address'>Current members:</label>
                 <ul>
@@ -53,30 +58,36 @@
                   <% end %>
                 </ul>
               </div>
+            </div>
             <% end %>
           
-            <div class="field" id="member">
-          	 <table class="logincontent">
-                <tr>
-                    <td>
-                      <label for="Email address">
-                        Please enter new members' email address(es): &nbsp   
-                      </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input class="text" type="text" name="email" id="temail"></input></td>
-                </tr>
-              </table>
-                <input class=" button intermitbutton btn" name="addmore" type="button" value="Add member" id= "addmember"> </input>
+            <div class="basicinfofields">
+              <div class="field" id="member">
+          	  <table class="logincontent">
+                  <tr>
+                      <td>
+                        <label for="Email address">
+                          Please enter new members' email address(es): &nbsp   
+                        </label>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td><input class="text form-control" type="text" name="email" id="temail"></ input></td>
+                  </tr>
+                </table>
+                <br >
+                  <input class="button intermitbutton btn btn-default" name="addmore" type="button"  value="Add member" id= "addmember"> </input>
+              </div>
             </div>
         </div>
       </div>
       <br>
 
-      <div class="infosection">
-        <h5>Add Restaurants</h5>
-        <div class="newmemberfields">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Add Restaurants</h4>
+        </div>
+        <div class="panel-body">
           <% if not @meeting.restaurants.empty? %>
             <div class="field" id="erest" style="border-bottom:solid 1px #eee">
               <label for='erest address'>Current Restaurants:</label>
@@ -91,40 +102,53 @@
           <div class="field checkbox" id="default" style="border-bottom:solid 2px #eee">
            <label>A list of default restaurants based on your current location (sorted by distance):</label>
           </div>
+
           
-          <div class="field checkbox" id="userinputaddress" style="margin-top: 10px; border-bottom:solid 2px #eee">
-           <label>Or you can get a list of nearby restaurant based on following address</label>
-           <label>Address:</label>
-           <input class="text" type="text" id="address"></input>
-           <label>City: </label>
-           <input class="text" type="text" id="city"></input>
-           <label>State: </label>
-           <input class="text" type="text" id="state"></input>
-           <label>Zip code: </label>
-           <input class="text" type="text" id="zipcode"></input>
-           <br >
-           <input class="button btn inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input><span id="spin"></span>
+          <div class="checkbox" id="userinputaddress">
+            <label>Or you can get a list of nearby restaurant based on following address</label>
+            <div class="basicinfofields">
+
+              <div class="form-group">
+               <h5>Address:</h5>
+               <input class="text form-control" type="text" id="address"></input>
+              </div>
+              <div class="form-group">
+                <h5>City: </h5>
+                <input class="text form-control" type="text" id="city"></input>
+              </div>
+              <div class="form-group">
+                <h5>State: </h5>
+                <input class="text form-control" type="text" id="state"></input>
+              </div>
+              <div class="form-group">
+                <h5>Zip code: </h5>
+                <input class="text form-control" type="text" id="zipcode"></input>
+              </div>
+             <br >
+             <input class="button btn inputaddress btn-default" name="inputaddress" type= "button" value="Get nearby restaurant list "></input><span id="spin"></span>
+            </div>
           </div>
-          <br >
+            <hr>
   
-          <div class="field" id="restaurant" style="margin-top: 5px">
+          <div class="field" id="restaurant">
             <table class="rest">
               <tr>
                 <td><label for="Restaurant">Or you can enter new restaurant option(s): &nbsp </label></td>
               </tr>
               <tr>
-                <td><input class="text" type="text" name="rtt" id="trest"></input></td>
+                <td><div class="form-group"><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
               </tr>
             </table>
-                <input class="button restb btn" name="morerest" type="button" value="Add restaurant"></input>
+            <div style="padding-left: 20px">
+              <input class="button restb btn btn-default" name="morerest" type="button" value="Add restaurant"></input>
+            </div>
                 
           </div>
         </div>
       </div>
+      </div>
     <% end %>
-    </div>
-    <br />
-  <br />
+    
 <%= f.submit class: "btn btn-large btn-primary" %>
 <% end %>
 

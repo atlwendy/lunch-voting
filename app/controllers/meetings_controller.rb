@@ -66,6 +66,7 @@ class MeetingsController < ApplicationController
     @meeting.restaurants = restaurants
     respond_to do |format|
       if @meeting.save
+        MeetingMembership.where('meeting_id = ? and user_id = ?', Meeting.maximum('id'), current_user.id).first.update_attributes(:going=>"Yes")
         @meeting.users.each do |u|  
           UserMailer.invite(u, meeting_url(@meeting)).deliver      
         end
@@ -250,19 +251,20 @@ class MeetingsController < ApplicationController
     @users = @meeting.users
     @allusers = []
     User.all.order('username').each{|x| @allusers.push(x) if not (x.meetings & current_user.meetings).empty?}
-    #@alluseremails = User.pluck(:email) #get_user_emails(@allusers)
-    @alluseremails = []
-    @alluseremails = @allusers.map{|x| @alluseremails.push(x.email)}
+    @alluseremails = @users.pluck(:email) #get_user_emails(@allusers)
+    # @alluseremails = []
+    # @alluseremails = @allusers.map{|x| @alluseremails.push(x.email)}
   end
 
   def submit_members
     meeting = Meeting.find(params[:id])
     send_updates(meeting.users.pluck(:id), params[:user_id], meeting)
-    meeting.users = User.where({id: params[:user_id]}) + get_users(params[:emailaddress], params[:id])
+    meeting.users = meeting.users + get_users(params[:emailaddress], params[:id])
     redirect_to meeting
   end
 
   def send_updates(old_ids, new_ids, meeting)
+    return if new_ids.nil?
     newadded = new_ids.collect{|x| x.to_i} - old_ids
     return if newadded.empty?
     url = meeting_path(meeting)

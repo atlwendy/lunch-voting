@@ -1,21 +1,31 @@
 <% provide(:title, "Sign in") %>
 <h1>Sign in</h1>
-<span style="color:red"><%=flash[:error]%></span>
-<span style="color:red"><%=flash[:notice]%></span>
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(:session, url: sessions_path) do |f| %>
+<div style="margin: 40px">
+  <span style="color:red"><%=flash[:error]%></span>
+  <span style="color:red"><%=flash[:notice]%></span>  
+    
+      <%= form_for(:session, url: sessions_path) do |f| %>
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+        <div class="row">
+          <%= f.label :email, class: "col-md-8 control-label" %>
+          <div class="col-md-8">
+            <%= f.text_field :email %>
+          </div>
+        </div>
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+        <div class="row">  
+          <%= f.label :password, class: "col-md-8 control-label" %>
+          <div class="col-md-8">
+            <%= f.password_field :password, :class=>'form-control' %>
+          </div>
+        </div>
+        <br >      
+        <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+      <% end %>
 
-      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-    <% end %>
-
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
-    <p><%= link_to "Forgotten password?", new_password_reset_path %></p>
-  </div>
+<br>
+  
+  <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  <p><%= link_to "Forgotten password?", new_password_reset_path %></p>
+      
 </div>

@@ -12,28 +12,28 @@
     </div> -->
   <%# end %>
 <div style="padding-top: 20px">
-  <div class="infosection" style="width: 100%">
-    <h5 >Basic info</h5>
+  
+    
     <div class="basicinfofields">
-      <div class="field">
+      <div class="row">
         <%= f.label :username %>
         <%= f.text_field :username %>
       </div>
-      <div class="field">
+      <div class="row">
         <%= f.label :email %>
         <%= f.text_field :email %>
       </div>
-      <div class="field">
+      <div class="row">
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
-      <div class="field">
+      <div class="row">
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
       <%= f.hidden_field :invitation_token %>
     </div>
-  </div>
+  
   <br >
 
   <% if not @user.email.nil? %>

@@ -2,10 +2,10 @@
 
 one:
   name: Chipotle
-  address: windward
+  address: windward,ga
   url: chipotle.com
 
 two:
   name: subway
-  address: bethany
+  address: bethany,ga
   url: subway.com
