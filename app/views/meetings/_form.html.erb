@@ -24,11 +24,11 @@
           <%= f.label :title %>
           <%= f.text_field :title, id:"title" %>
         </div>
-        <div class="field">
+        <div class="form-group">
           <%= f.label :description %>
           <%= f.text_field :description %>
         </div>
-        <div class="field" id="date">
+        <div class="form-group" id="date">
           <%= f.label :date %>
           <% if @meeting.date.nil? %>
             <%= f.text_field :date, :value=>Date.today %>
@@ -44,7 +44,7 @@
     <% if @meeting.new_record? %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4>Add New Member(s)</h4>
+        <h3 class="panel-title">Add New Member(s)</h3>
       </div>
         <div class="newmemberfields">
           
@@ -61,8 +61,10 @@
             </div>
             <% end %>
           
+
+
             <div class="panel-body">
-              <div id="member">
+              <div id="member" class="form-group">
           	  <table class="logincontent">
                   <tr>
                       <td>
@@ -85,7 +87,7 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>Add Restaurants</h4>
+          <h3 class="panel-title">Add Restaurants</h3>
         </div>
         <div class="panel-body">
           <% if not @meeting.restaurants.empty? %>
@@ -99,12 +101,12 @@
             </div>
           <% end %>
   
-          <div class="field" id="default" style="border-bottom:solid 2px #eee">
+          <div class="form-group" id="default" style="border-bottom:solid 2px #eee">
            <label>A list of default restaurants based on your current location (sorted by distance):</label>
           </div>
 
           
-          <div id="userinputaddress">
+          <div id="userinputaddress" class="form-group">
             <label>Or you can get a list of nearby restaurant based on following address</label>
             <div class="basicinfofields">
 
@@ -128,7 +130,8 @@
              <input class="button btn inputaddress btn-default" name="inputaddress" type= "button" value="Get nearby restaurant list "></input><span id="spin"></span>
             </div>
           </div>
-            <hr>
+          
+          <hr>
   
           <div class="field" id="restaurant">
             <table class="rest">
@@ -139,10 +142,8 @@
                 <td><div class="form-group"><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
               </tr>
             </table>
-            <div style="padding-left: 20px">
-              <input class="button restb btn btn-default" name="morerest" type="button" value="Add restaurant"></input>
-            </div>
-                
+            
+            <button class="button restb btn btn-default" name="morerest">Add Restaurant</button>     
           </div>
         </div>
       </div>
