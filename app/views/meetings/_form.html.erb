@@ -17,10 +17,10 @@
 
   <div class="panel panel-default">
       <div class="panel-heading">     
-        <h4>Basic info</h4>
+        <h3 class="panel-title">Basic info</h3>
       </div>
-      <div class="basicinfofields">
-        <div class="field" class="form-group">
+      <div class="panel-body">
+        <div class="form-group">
           <%= f.label :title %>
           <%= f.text_field :title, id:"title" %>
         </div>
@@ -61,8 +61,8 @@
             </div>
             <% end %>
           
-            <div class="basicinfofields">
-              <div class="field" id="member">
+            <div class="panel-body">
+              <div id="member">
           	  <table class="logincontent">
                   <tr>
                       <td>
@@ -99,12 +99,12 @@
             </div>
           <% end %>
   
-          <div class="field checkbox" id="default" style="border-bottom:solid 2px #eee">
+          <div class="field" id="default" style="border-bottom:solid 2px #eee">
            <label>A list of default restaurants based on your current location (sorted by distance):</label>
           </div>
 
           
-          <div class="checkbox" id="userinputaddress">
+          <div id="userinputaddress">
             <label>Or you can get a list of nearby restaurant based on following address</label>
             <div class="basicinfofields">
 
@@ -193,7 +193,7 @@ function generate_checkbox_list(jobject, value, elementid) {
     var rating = value.rating;
   
     $(elementid).append(
-      '<label>'
+      '<div class="checkbox"><label>'
       +
       '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" data-type="json" value='
       + "'"
@@ -217,7 +217,7 @@ function generate_checkbox_list(jobject, value, elementid) {
       +
       '</a>'
       +
-      '</label>');
+      '</label></div>');
   
 }
 

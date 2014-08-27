@@ -206,7 +206,7 @@ class MeetingsController < ApplicationController
       info['name'] = business['name'].gsub("'", "")
       info['distance'] = business['distance']
       info['is_closed'] = business['is_closed']
-      info['rating'] = business['reviews'][0]['rating']
+      info['rating'] = business['avg_rating']
       info['url'] = business['url']
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
       info['photo_url'] = business['photo_url']
