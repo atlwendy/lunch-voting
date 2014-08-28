@@ -1,26 +1,10 @@
 <% provide(:title, "Meeting index") %>
 
-<div class="listing table-responsive" style="margin-bottom: 10px">
-  <div class="topbar">
-    <div class="buddiestopbar">
-        <div class="leftentity">
-          <div class="contentwrapper">
-            <h1><%=current_user.username%> meeting schedules</h1>
-            <h3>when and where is your meeting takes place</h3>
-          </div>
-        </div>
-      </div>
-      <div class="newmeeting">
-        <div class="nmeetingwrapper">
-          <span class="glyphicon glyphicon-plus"></span>
-          <%=link_to "Create New Lunch", new_meeting_path %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<br>
+<h1><%=current_user.username%> Lunch Calendar</h1>
+         
+<%= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),    new_meeting_path, :class=>'btn btn-primary btn-lg' %>
+         
 
 <div class="listingbox">
   <ul class="listmeetings">
@@ -35,7 +19,7 @@
         </div>
         <div class="unit sizemain">
           <div class="title">
-            <%= link_to meeting.title, meeting %> 
+            <%= link_to meeting.title.split.map(&:capitalize).join(' '), meeting %> 
           </div>
           <div class="description">
             <%=meeting.description %>
@@ -60,8 +44,4 @@
 
   <% end %>
   </ul>
-</div>
-
-<%#= link_to 'New Meeting', new_meeting_path %>
-<br >
 </div>

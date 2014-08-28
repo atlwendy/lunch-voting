@@ -58,3 +58,89 @@ body {
   display: inline;
   height: 100px;
 }
+
+.listingbox {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  background-color: #f4f4f4;
+}
+
+.listmeetings {
+  padding: 10px 0 0 0;
+  padding-bottom: 0;
+  border-bottom: 1px solid transparent;
+  list-style: none;
+}
+
+.date-indicator {
+    color: #AAA;
+    text-shadow: 1px 1px 0px #FFF;
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 0px 0px 8px;
+}
+.date-indicator a {
+  color: #AAA;
+  text-shadow: 1px 1px 0px #FFF;
+}
+.meetingtime {
+  color: #888;
+}
+.detail-container {
+    background-color: #FFF !important;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    background-clip: padding-box;
+    display: block;
+    list-style: none outside none;
+    margin: 0px 0px 18px;
+    padding: 0px;
+    font-size: 18px;
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+}
+.unit {
+  float: left;
+}
+.sizetime {
+  width: 28%;
+  color: #888;
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 19px;
+  font-weight: 400;
+}
+.sizemain {
+  width: 60%;
+  padding: 8px 0 0 25px;
+  font-size: 33px;
+  font-weight: 400;
+}
+.sizemain a {
+  color: #000;/*rgba(0, 0, 0, 0.67);*/
+}
+.title {
+  line-height: 1.2;
+  color: #888;
+}
+.title a {
+  font-family: 'PT Sans', sans-serif;
+  margin-bottom: 5px;
+}
+.description {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: #333;
+}
+.peoplecount {
+  font-size: 15px;
+  color: #999;
+  margin-bottom: 20px;
+}
