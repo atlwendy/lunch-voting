@@ -22,7 +22,6 @@
 
 body {
   background-color: #ccc;
-  padding: 0 50px;
   margin: 0px;
 }
 
@@ -37,10 +36,10 @@ body {
   background-color: #f4f4f4;
   margin: auto;
   padding: 1em;
+  max-width: 800px;
 }
 
 .site-header {
-  padding-left: 10px;
   position: relative;
 }
 
@@ -57,15 +56,5 @@ body {
 
 .navigation li {
   display: inline;
-  margin-left: 10px;
   height: 100px;
-}
-.navigation li a.stylea {
-  color: #bbb;
-}
-.navigation li a.stylea:hover {
-  background-color: #ccc;
-  color: #fff;
-  text-decoration: none;
-  height: 2.4em;
 }

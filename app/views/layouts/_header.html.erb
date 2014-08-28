@@ -1,14 +1,31 @@
 <div class="site-header">
-  <h1>
-    <a href="#"><img src="/assets/wheretoeat.png" width="200"></a>
-  </h1>
-  <ul class="navigation">
+  
+  <ul class="nav nav-pills" style="float: right">
     <li><%=link_to "Lunches", meetings_url, :class=>'stylea'%></li>
     <li><%=link_to "Buddies", users_url, :class=>'stylea'%></li>
     <li class="dropdown" id="fat-menu">
-        <a class='stylea' href="#" class="dropdown-toggle" data-toggle="dropdown">
+      
+         <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+           Account
+           <span class="caret"></span>
+         <ul class="dropdown-menu" role="menu">
+           <li role="profile">
+            <%= link_to "Profile", current_user %>
+           </li>
+           <li role="Settings">
+            <%= link_to "Settings", edit_user_path( current_user) %>
+           </li>
+           <li class="divider"></li>
+           <li role="Sign out">
+            <%= link_to "Sign out", signout_path, method: "delete" %>
+           </li>
+         </ul>
+      
+
+        <!-- <a class='stylea' href="#" class="dropdown-toggle" data-toggle="dropdown">
         Account <b class="caret"></b>
         </a>
+
         <ul class="dropdown-menu">
           <li><%= link_to "Profile", current_user %></li>
           <li><%= link_to "Settings", edit_user_path( current_user) %></li>
@@ -16,7 +33,10 @@
           <li>
           <%= link_to "Sign out", signout_path, method: "delete" %>
           </li>
-        </ul>
+        </ul> -->
     </li>
   </ul>
+  <h1>
+    <a href="#"><img src="/assets/wheretoeat.png" width="200" style="margin-left:-9px; margin-top:-33px"></a>
+  </h1>
 </div>
