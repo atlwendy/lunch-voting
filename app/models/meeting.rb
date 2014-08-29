@@ -73,4 +73,17 @@ class Meeting < ActiveRecord::Base
       end
     end
   end
+
+  def self.aggregate_meeting_by_date(meetings)
+    aggregated_meetings = {}
+    meetings.each do |m|
+      mdate = m.date.to_date
+      if aggregated_meetings[mdate].blank?
+        aggregated_meetings[mdate] = [m]
+      else
+        aggregated_meetings[mdate].push(m)
+      end
+    end
+    aggregated_meetings
+  end
 end

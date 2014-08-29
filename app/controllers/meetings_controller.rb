@@ -6,8 +6,8 @@ class MeetingsController < ApplicationController
   layout 'menu'
   
   def index
-    @meetings = []
-    Meeting.all.order('date').reverse.each{|x| @meetings.push(x) if x.users.include?(current_user)}
+    meetings = []
+    @meetings = Meeting.aggregate_meeting_by_date(Meeting.all.order('date').reverse.each{|x| meetings.push(x) if x.users.include?(current_user)})
   end
 
   def show

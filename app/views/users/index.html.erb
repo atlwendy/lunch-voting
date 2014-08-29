@@ -1,22 +1,12 @@
 <% provide(:title, "User index") %>
 
 <div class="listing table-responsive" style="cursor: default">
-  <div class="topbar">
-      <div class="buddiestopbar">
-        <div class="leftentity">
-          <div class="contentwrapper">
+ 
             <h1>Lunch buddies for <%=current_user.username%></h1>
-            <h3>people that you went to eat with or will be eating with</h3>
-          </div>
-        </div>
-      </div>
-      <div class="newmeeting">
-        <div class="nmeetingwrapper">
-          <span class="glyphicon glyphicon-plus"></span>
-          <%=link_to "Create New Lunch", new_meeting_path %>
-        </div>
-      </div>
-    </div>
+            <p>people that you went to eat with or will be eating with</p>
+        
+      <%= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),    new_meeting_path, :class=>'btn btn-primary btn-lg' %>
+    
   <% if @users.empty? %>
     <div class="emptyuser">
       <span class="listingh">No lunch buddy for <%=current_user.username%> yet....</span>

@@ -82,7 +82,7 @@ body {
     text-transform: uppercase;
     font-weight: 700;
     line-height: 24px;
-    padding: 0px 0px 8px;
+    padding: 10px 0px 8px;
 }
 .date-indicator a {
   color: #AAA;
@@ -98,7 +98,7 @@ body {
     background-clip: padding-box;
     display: block;
     list-style: none outside none;
-    margin: 0px 0px 18px;
+    margin: 0px;
     padding: 0px;
     font-size: 18px;
     min-height: 100px;
@@ -143,4 +143,22 @@ body {
   font-size: 15px;
   color: #999;
   margin-bottom: 20px;
+}
+.avatarimage {
+  width: 80px !important;
+  height: 80px !important;
+  vertical-align: top;
+  display: table cell;
+  border: none;
+  float: left;
+  height: 35px;
+  overflow: hidden;
+  text-align: center;
+  padding-left: 12px;
+}
+.figureset-description {
+  width: auto;
+  padding-left: 10px;
+  display: table-cell;
+  vertical-align: top;
 }
