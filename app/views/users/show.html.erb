@@ -3,10 +3,18 @@
 <p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
 
 <div class="listingbox">
-  <h2>Hello, <%= @user.username %>!</h2>
+  <% if current_user == @user %>
+    <h2>Hello, <%= @user.username %>!</h2>
+  <% else %>
+    <h2><%= @user.username %>'s Lunch Meetings </h2>
+  <% end %>
   <% if not @next_meeting.blank? %>
   <p>
-    Your next lunch is: <br>
+    <% if current_user == @user %>
+      Your next lunch is: <br>
+    <% else %>
+      Next lunch is: <br>
+    <% end %>
     <div class="lunch-date">
       <div class="date-display" style="font-size: 150%">
   
@@ -17,11 +25,15 @@
       </div>
       <p><%= @next_meeting.title %></p>
     </div>
+    <% else %>
+      <h3> No future lunch meeting scheduled </h3>
+    <% end %>
   </p>
-  <% end %>
-  <%#= link_to '+ New Lunch', new_meeting_path, :class => 'btn btn-default' %>
-  <%= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),  new_meeting_path, :class=>'btn btn-lg btn-primary' %>
-  <h3>Your previous lunch meetings:</h3>
+
+  
+  
+  <%#= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),  new_meeting_path, :class=>'btn btn-lg btn-primary' %>
+  <h3>Previous lunch meetings:</h3>
   <ul class="listmeetings">
   <% @old_meetings.each do |meeting| %>
     <li>
@@ -32,3 +44,9 @@
   <% end %>
   </ul>
 </div>
+
+<% if current_user == @user %>
+  <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'),      edit_user_path(@user) %> |
+  <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @user,    method:  :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'),    users_path %>
+<% end %>

@@ -13,35 +13,34 @@
     <li class="date-indicator">
       <%= link_to date.in_time_zone.strftime("%a, %b %d, %Y"), meetings[0], :class=>"meetingtime" %>
     </li>
-      <li >
-        <ul>
+    <li >
+      <ul style="padding: 0">
+        <div class="detail-container">
           <% meetings.each do |meeting| %>
-          
-            <div class="detail-container">
-              <li>
-                <div class="unit sizetime">
-                  <%= meeting.date.in_time_zone.strftime("%l:%M %p") %>
+            <li class="meetingsamedate">              
+              <div class="unit sizetime">
+                <%= meeting.date.in_time_zone.strftime("%l:%M %p") %>
+              </div>
+              <div class="unit sizemain">
+                <div class="title">
+                  <%= link_to meeting.title.split.map(&:capitalize).join(' '),meeting %> 
                 </div>
-                <div class="unit sizemain">
-                  <div class="title">
-                    <%= link_to meeting.title.split.map(&:capitalize).join(' '), meeting %> 
-                  </div>
-                  <div class="description">
-                    <%=meeting.description %>
-                  </div>
-                  <div class='peoplecount'>
-                    <%#= pluralize_to_sentence(meeting.users.count) %>
-                    <%= pluralize(meeting.users.count, 'person') %> <%= 'is'.   pluralize    (meeting.users.count) %> <%#= pluralize( meeting .users.count,    'is', 'are')%> <%#='person'.  pluralize(meeting .users.count) %>   going 
-                    <%#='person is going'.pluralize(meeting.users.count)%> 
-                    <%#=pluralize(meeting.users.count, 'person')%> <%#="is  going".      pluralize(meeting.users.count) %><%#=pluralize( meeting. users.   count, 'is', 'are') %> 
-                  </div>
+                <div class="description">
+                  <%=meeting.description %>
                 </div>
-              </li>
-            </div>
-          
+                <div class='peoplecount' >
+                     <%#= pluralize_to_sentence(meeting.users.count) %>
+                  <%= pluralize(meeting.users.count, 'person') %> <%= 'is'.pluralize(meeting.users.count) %> going <%#= pluralize  meeting .users.count,    'is', 'are')%> <%#='person'.  pluralize(meeting .users.count) %>  
+                     <%#='person is going'.pluralize(meeting.users.count)%> 
+                     <%#=pluralize(meeting.users.count, 'person')%> <%#="is going".       pluralize(meeting.users.count) %><%#=pluralize( meeting.  users.   count, 'is', 'are') %> 
+                </div>
+              </div> 
+
+            </li>
           <% end %>
-        </ul>
-      </li>
+        </div>
+      </ul>
+    </li>
       
   <% end %>
   </ul>

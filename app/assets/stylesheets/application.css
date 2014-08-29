@@ -94,6 +94,7 @@ body {
 .detail-container {
     background-color: #FFF !important;
     border: 1px solid #DDD;
+    border-bottom: none;
     border-radius: 3px;
     background-clip: padding-box;
     display: block;
@@ -101,7 +102,7 @@ body {
     margin: 0px;
     padding: 0px;
     font-size: 18px;
-    min-height: 100px;
+    min-height: 80px;
     height: auto;
     overflow: auto;
 }
@@ -109,7 +110,7 @@ body {
   float: left;
 }
 .sizetime {
-  width: 28%;
+  width: 20%;
   color: #888;
   padding-left: 10px;
   padding-top: 10px;
@@ -118,7 +119,7 @@ body {
 }
 .sizemain {
   width: 60%;
-  padding: 8px 0 0 25px;
+  padding: 8px 0 0 20px;
   font-size: 33px;
   font-weight: 400;
 }
@@ -143,6 +144,11 @@ body {
   font-size: 15px;
   color: #999;
   margin-bottom: 20px;
+}
+.meetingsamedate {
+  border-bottom: solid 1px #ddd; 
+  line-height:1.2; 
+  overflow:hidden;
 }
 .avatarimage {
   width: 80px !important;
