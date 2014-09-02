@@ -168,3 +168,85 @@ body {
   display: table-cell;
   vertical-align: top;
 }
+.areyougoing {
+  display: inline;
+  float: right;
+  margin-right: 5px;
+}
+
+#question {
+  width: auto;
+  height: auto;
+/*  border: 1px solid #ccc;
+*/  float: right;
+  padding: 0 15px 5px 15px;
+  margin-top: -15px;
+}
+
+#iQuestion {
+  width: auto;
+  height: auto;
+/*  border: 1px solid #ccc;
+*/  float: right;
+  padding: 0 15px 5px 15px;
+  margin-top:-15px;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid gray;
+  position: absolute;
+}
+
+.arrow-uped {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid orange;
+  position: absolute;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  
+  border-top: 7px solid gray;
+  /*position: absolute;*/
+}
+
+.arrow-downed {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  
+  border-top: 7px solid orange;
+  /*position: absolute;*/
+}
+.votenumber {
+  padding: 5px 0 0 3px;
+}
+table.restname {
+  border: none;
+  border-collapse: separate;
+  border-spacing: 3px;
+}
+
+table.rest {
+/*  margin-left: 20px;
+*/}
+
+td.restname {
+  font-size: 20px;
+  padding-left: 10px;
+}
+.listuser {
+  list-style: none;
+  margin-bottom: 7px;
+}

@@ -119,12 +119,12 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     fill_in 'title', with: 'Test Lunch'
     fill_in 'temail', with: 'annie@annie.com'
     assert page.has_field?("temail", :with=>"annie@annie.com")
-    click_button('Add member')
+    click_button('Add Member')
     assert_equal page.evaluate_script('document.getElementById("addeduser").value'), 'annie@annie.com'
     
     fill_in 'trest', with: 'canton cooks'
     assert page.has_field?('trest', :with=>'canton cooks')
-    click_button('Add restaurant')
+    click_button('Add Restaurant')
     assert_equal page.evaluate_script('document.getElementById("addedrest").value'), 'canton cooks'
  
     click_button('Create Meeting')

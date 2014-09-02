@@ -105,7 +105,9 @@ class MeetingsController < ApplicationController
 
   def is_user_invited_and_confirmed?(user, mid)
     invited = Meeting.find(mid).users.include?(user) ? true : false
-    confirmed = true #Meeting.usergoing(user.id, mid).include?('Y') ? true : false
+    status = Meeting.usergoing(user.id, mid)
+    return false if status.nil?
+    confirmed = status.include?('Y') ? true : false unless invited.blank?
     return invited & confirmed
   end
 

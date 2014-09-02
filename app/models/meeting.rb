@@ -15,7 +15,7 @@ class Meeting < ActiveRecord::Base
 
   def self.usergoing(uid, mid)
     mm = MeetingMembership.where('user_id = ? AND meeting_id = ?', uid, mid)
-    if mm.empty?
+    if mm.blank?
       return 'nothing'
     else
       return mm.first.going
