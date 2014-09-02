@@ -11,8 +11,8 @@
     </div>
     <div class="newmeeting">
       <div class="nmeetingwrapper">
-        <span class="glyphicon glyphicon-plus"></span>
-        <%=link_to "Add New Restaurant", new_restaurant_path %>
+        
+        <%=link_to raw('<span class="glyphicon glyphicon-plus"></span> Add New Restaurant'), new_restaurant_path, :class=>"btn btn-default btn-lg" %>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     <li class="meeting-divider">
           <div class="figureset">
             <div class="mainname">
-              <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="  display:block;">
+              <a href=<%=restaurant_path(restaurant)%> class="avatarimage" style="padding-left:0; display:block;">
                 <% if restaurant['photo_url'].nil? %>
                   <img alt=<%=restaurant['name']%> height="85" width="80" src=<%=image_path("default.jpg")%>>
                 <% else %>
@@ -45,6 +45,7 @@
 
             <div class="addresses">
               <% if not restaurant['address'].blank? %>
+              <span class="glyphicon glyphicon-map-marker"></span>
               <i class="icon icon-map-marker"></i>
               <address>
                 <% splitarray = restaurant['address'].split(',')%>

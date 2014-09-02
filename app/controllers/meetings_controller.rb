@@ -7,7 +7,8 @@ class MeetingsController < ApplicationController
   
   def index
     meetings = []
-    @meetings = Meeting.aggregate_meeting_by_date(Meeting.all.order('date').reverse.each{|x| meetings.push(x) if x.users.include?(current_user)})
+    Meeting.all.order('date').reverse.each{|x| meetings.push(x) if x.users.include?(current_user)}
+    @meetings = Meeting.aggregate_meeting_by_date(meetings)
   end
 
   def show

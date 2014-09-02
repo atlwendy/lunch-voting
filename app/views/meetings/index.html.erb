@@ -30,7 +30,7 @@
                 </div>
                 <div class='peoplecount' >
                      <%#= pluralize_to_sentence(meeting.users.count) %>
-                  <%= pluralize(meeting.users.count, 'person') %> <%= 'is'.pluralize(meeting.users.count) %> going <%#= pluralize  meeting .users.count,    'is', 'are')%> <%#='person'.  pluralize(meeting .users.count) %>  
+                  <%= pluralize(Meeting.rsvpYuser(meeting, 'Yes').count, 'person') %> <%= 'is'.pluralize(Meeting.rsvpYuser(meeting, 'Yes').count) %> going <%#= pluralize  meeting .users.count,    'is', 'are')%> <%#='person'.  pluralize(meeting .users.count) %>  
                      <%#='person is going'.pluralize(meeting.users.count)%> 
                      <%#=pluralize(meeting.users.count, 'person')%> <%#="is going".       pluralize(meeting.users.count) %><%#=pluralize( meeting.  users.   count, 'is', 'are') %> 
                 </div>

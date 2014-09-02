@@ -6,26 +6,27 @@
   <% if not @restaurant['yelp_rating'].nil? %>
   <h3>Yelp rating: <%=@restaurant['yelp_rating'] %></h3>
   <% end %>
-  <% if not @restaurant['address'].nil? %>
-    
-  <div class="map-container">
-    <div class="mapbox-map">
+
+  <% if not @restaurant['address'].blank? %>   
+    <div class="map-container">
+      <div class="mapbox-map">
+      </div>
+      <div class="mapbox-text">
+        <h5>Address: </h5>
+        <address>
+            <% splitarray = @restaurant['address'].split(',')%>
+            <%=splitarray[0] %>  
+            <br >
+            <% gaddress = splitarray[1..-1] %>
+            <% if not gaddress.blank? %>
+              <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',')  : gaddress.join(',')%> 
+            <% end %>
+          
+        </address>
+      </div>
     </div>
-    <div class="mapbox-text">
-      <address>
-        
-          <% splitarray = @restaurant['address'].split(',')%>
-          <%=splitarray[0] %>
-  
-          <br >
-          <% gaddress = splitarray[1..-1] %>
-          <% if not gaddress.blank? %>
-            <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.join(',')%> 
-          <% end %>
-        
-      </address>
-    </div>
-  </div>
+  <% else %>
+    <div><h5>Please add an url or address </h5></div>
   <% end %>
 </div>
 
@@ -57,7 +58,7 @@
 
   
   </ul> -->
-
+<br >
 <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_restaurant_path(@restaurant) %> |
 <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @restaurant, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), restaurants_path %>

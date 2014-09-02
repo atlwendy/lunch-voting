@@ -57,7 +57,7 @@ class Meeting < ActiveRecord::Base
   def self.pick_winner(m)
     restaurant_votes = Hash.new
     m.meeting_restaurant_selections.each{|y| restaurant_votes[y.restaurant_id] = y.vote_count}
-    return 0 if restaurant_votes.empty?
+    return 0 if restaurant_votes.empty? or restaurant_votes.max_by{|k,v| v}[1].to_i == 0
     hv_pair = restaurant_votes.select{|k, v| v == restaurant_votes.values.max}
     rid_highest_votes = hv_pair.reduce({}){|h,(k,v)| (h[v] ||= []) << k;h}.max[1]
     rid_yelp_review = Hash.new

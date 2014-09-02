@@ -7,9 +7,11 @@
     <li><%=link_to "Buddies", users_url, :class=>'stylea'%></li>
     <li class="dropdown" id="fat-menu">
       
-         <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-           Account
+         <!-- <a class="dropdown-toggle" data-toggle="dropdown"> -->
+           <!-- <span class="menuavatarimage" style="display:block; background-image: url(<%= gravatar_url(current_user)%>)"></span> -->
+           <%= link_to image_tag(gravatar_url(current_user), :class=>"menuavatarimage"), "/", :class=>"dropdown-toggle", :data=>{:toggle=>"dropdown"}%>
            <span class="caret"></span>
+            </a>
          <ul class="dropdown-menu" role="menu">
            <li role="profile">
             <%= link_to "Profile", current_user %>
