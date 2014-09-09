@@ -5,7 +5,7 @@
             <h1>Lunch buddies for <%=current_user.username%></h1>
             <p>people that you went to eat with or will be eating with</p>
         
-      <%= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),    new_meeting_path, :class=>'btn btn-primary btn-lg' %>
+      <%#= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),    new_meeting_path, :class=>'btn btn-primary btn-lg' %>
     
   <% if @users.empty? %>
     <div class="emptyuser">

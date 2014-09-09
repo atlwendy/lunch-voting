@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819193935) do
+ActiveRecord::Schema.define(version: 20140909210715) do
 
   create_table "invitations", force: true do |t|
     t.string   "recipient_email"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140819193935) do
     t.datetime "updated_at"
     t.string   "photo_url"
     t.string   "yelp_rating"
+    t.string   "categories"
   end
 
   create_table "user_mrs_votecounts", force: true do |t|

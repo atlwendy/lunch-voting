@@ -213,12 +213,18 @@ class MeetingsController < ApplicationController
       info['url'] = business['url']
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
       info['photo_url'] = business['photo_url']
+      info['categories'] = parse_categories(business['categories'])
       @defaultrests.push(info)
     end
     @defaultrests.sort_by!{|x| x['distance']}
     return @defaultrests
   end
 
+  def parse_categories(categories)
+    cuisines = []
+    categories.each{|c| cuisines.push(c['name'])}
+    return cuisines.join(' ')
+  end
   
   def update
     users = get_users(params[:emailaddress], params[:id])

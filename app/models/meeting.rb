@@ -5,6 +5,11 @@ class Meeting < ActiveRecord::Base
   has_many :restaurants, :through => :meeting_restaurant_selections
 
   scope :future_meetings, lambda { where('DATE(date) >= ?', Date.today)}
+  before_save :capitalize_title
+
+  def capitalize_title
+    self.title = self.title.split.map(&:capitalize).join(' ')
+  end
 
   def restaurants_attributes=(hash)
     hash.each do |sequence,restaurant_values|

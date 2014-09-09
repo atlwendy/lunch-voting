@@ -16,39 +16,71 @@
       end
       %>
 
-      <tr>
+      <tr><td>
         <% if already_voted_up %>
-          <td class="<%= up_arrow_class %>" id="tupa"
+          <span class="glyphicon glyphicon-thumbs-up votedcolor" id="tupa"
             onclick="alert('You have already up voted!')">
         <% else %>
-          <td class="<%= up_arrow_class %>" id="tupa"
+          <span class="glyphicon glyphicon-thumbs-up" id="tupa"
             onclick="changeVote('up', <%= mrs.id %>)">
         <% end %>
-        </td>
-        <td rowspan="3" class="restname">
-          <% if not mrs.restaurant.nil? and not mrs.restaurant.url.nil? %>
-            <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{:placement=>"bottom", :content=>"Rating on Yelp is #{mrs.restaurant.yelp_rating}", :trigger=>"hover"} %>
-          <% elsif not mrs.restaurant.nil? %>
-            <%= link_to mrs.restaurant.name, mrs.restaurant %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td class="votenumber">
-          <%= vote_count %>
-        </td>
-      </tr>
-      <tr>
+        </span>
+        
+      
+      
+        
+        <span class="votenumber"><%= vote_count %></span>
+        
+      
+      
         <% if already_voted_down %>
-          <td class="<%= down_arrow_class %>" id="tdowna"
+          <span class="glyphicon glyphicon-thumbs-down votedcolor" id="tdowna"
             onclick="alert('You have already down voted!')">
         <% else %>
-          <td class="<%= down_arrow_class %>" id="tdowna"
+          <span class="glyphicon glyphicon-thumbs-down" id="tdowna"
             onclick="changeVote('down', <%= mrs.id %>)">
-          </td>
+          </span>
         <% end %>
-      </tr>
-    <% end %>
+      </td>
+      <td>
+      
+      <div class="figureset">
+        <div class="mainname">
+          <% if not mrs.restaurant.nil? and not mrs.restaurant.url.nil? %>
+          <a href=<%=restaurant_path(mrs.restaurant)%> class="avatarimage" style="padding-left:0;   display:block;">
+            <% if mrs.restaurant['photo_url'].nil? %>
+              <img alt=<%=mrs.restaurant.name%> height="85" width="80" src=<%=image_path("default.jpg")%>>
+            <% else %>
+            <img alt=<%=mrs.restaurant.name%> height="80" width="90" src=<%=mrs.restaurant['photo_url']%>>
+            <% end %>
+          </a>
+          <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{:placement=> "bottom", :content=>"Rating on Yelp is #{mrs.restaurant.yelp_rating}", :trigger=>"hover"} %>
+          <% elsif not mrs.restaurant.nil? %>
+          <%= link_to mrs.restaurant.name, mrs.restaurant %>
+          <% end %>
+          <p style="padding-left: 95px"><%=mrs.restaurant['categories'] %></p>
+          <p style="padding-left: 95px">Yelp Rating: <%=mrs.restaurant['yelp_rating'] %></p>
+        </div>
+
+      <div class="addresses">
+        <% if not mrs.restaurant['address'].blank? %>
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <address>
+          <% splitarray = mrs.restaurant['address'].split(',')%>
+          <%=splitarray[0] %>
+          <br >
+          <% gaddress = splitarray[1..-1] %>
+          <% if not gaddress.blank? %>
+            <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.join(',')%> 
+          <% end %>
+          
+        </address>
+        <% end %>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <% end %>
 	</table>
   <script>
   $(document).ready(function(){

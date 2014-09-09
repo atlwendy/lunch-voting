@@ -16,29 +16,29 @@
   <% end %>
 
   <div class="panel panel-default">
-      <div class="panel-heading">     
-        <h3 class="panel-title">Basic info</h3>
+    <div class="panel-heading">     
+      <h3 class="panel-title">Basic info</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, id:"title" %>
       </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <%= f.label :title %>
-          <%= f.text_field :title, id:"title" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :description %>
-          <%= f.text_field :description %>
-        </div>
-        <div class="form-group" id="date">
-          <%= f.label :date %>
-          <% if @meeting.date.nil? %>
-            <%= f.text_field :date, :value=>Date.today %>
-          <% else %>
-            <%= f.text_field :date%>
-          <% end %>
-        </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_field :description %>
       </div>
+      <div class="form-group" id="date">
+        <%= f.label :date %>
+        <% if @meeting.date.nil? %>
+          <%= f.text_field :date, :value=>Date.today %>
+        <% else %>
+          <%= f.text_field :date%>
+        <% end %>
+      </div>
+    </div>
 
-    </div >
+  </div >
 
 
     <% if @meeting.new_record? %>
@@ -46,43 +46,43 @@
       <div class="panel-heading">
         <h3 class="panel-title">Add New Member(s)</h3>
       </div>
-        <div class="newmemberfields">
+      <div class="newmemberfields">
           
-            <% if not @meeting.users.empty? %>
-            <div class="basicinfofields">
-              <div class="field" id="emember">
-                <label for='emember address'>Current members:</label>
-                <ul>
-                <% @meeting.users.each do |user| %>
-                  <li><%= user.username %></li>
-                  <% end %>
-                </ul>
-              </div>
+        <% if not @meeting.users.empty? %>
+          <div class="basicinfofields">
+            <div class="field" id="emember">
+              <label for='emember address'>Current members:</label>
+              <ul>
+              <% @meeting.users.each do |user| %>
+                <li><%= user.username %></li>
+                <% end %>
+              </ul>
             </div>
-            <% end %>
-          
+          </div>
+        <% end %>
+        
 
 
-            <div class="panel-body">
-              <div id="member" class="form-group">
-          	  <table class="logincontent">
-                  <tr>
-                      <td>
-                        <label for="Email address">
-                          Please enter new members' email address(es): &nbsp   
-                        </label>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td><input class="text form-control" type="text" name="email" id="temail"></ input></td>
-                  </tr>
-                </table>
-                <br >
-                  <input class="button intermitbutton btn btn-default" name="addmore" type="button"  value="Add Member" id= "addmember"> </input>
-              </div>
-            </div>
+        <div class="panel-body">
+          <div id="member" class="form-group">
+            <table class="logincontent">
+                <tr>
+                    <td>
+                      <label for="Email address">
+                        Please enter new members' email address(es): &nbsp   
+                      </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input class="text form-control" type="text" name="email" id="temail"></ input></ td>
+                </tr>
+            </table>
+            <br >
+              <input class="button intermitbutton btn btn-default" name="addmore" type="button"  value="Add Member" id= "addmember"> </input>
+          </div>
         </div>
       </div>
+    </div>
       <br>
 
       <div class="panel panel-default">
@@ -147,9 +147,8 @@
           </div>
         </div>
       </div>
-      </div>
+
     <% end %>
-    
 <%= f.submit class: "btn btn-large btn-primary" %>
 <% end %>
 

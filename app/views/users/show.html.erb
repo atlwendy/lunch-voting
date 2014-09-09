@@ -4,41 +4,74 @@
 
 <div class="listingbox">
   <% if current_user == @user %>
-    <h2>Hello, <%= @user.username %>!</h2>
+    <h1>Hello, <%= @user.username %>!</h1>
   <% else %>
     <h2><%= @user.username %>'s Lunch Meetings </h2>
   <% end %>
   <% if not @next_meeting.blank? %>
-  <p>
+  <div class="nextlunch">
     <% if current_user == @user %>
-      <h5>Your next lunch is: </h5>
+      <h3 style="color: #fff; padding-top: 10px">Your next lunch: </h3>
     <% else %>
-      Next lunch is: <br>
+      Next lunch: <br>
     <% end %>
+    <div class="datecalendar">
+      <time class="sheet">
+        <span class="month"><%=@next_meeting.date.strftime("%b")%></span>
+        <span class="day"><%=@next_meeting.date.day%></span>
+      </time>
+    </div>
     <div class="lunch-date">
       <div class="date-display" style="font-size: 150%">
-  
-        <%= link_to @next_meeting.date.in_time_zone.strftime("%A, %B %d"), @next_meeting %>
+        <%= link_to @next_meeting.title, @next_meeting %>
       </div>
-      <div class="timetext">
+      <p><%=@next_meeting.description %></p>
+      <div class="timetext" style="color: #000; font-weight: 300; font-size:16px">
         <%= @next_meeting.date.in_time_zone.strftime("%l:%M %p") %>
       </div>
-      <p><%= @next_meeting.title %></p>
     </div>
     <% else %>
-      <h3> No future lunch meeting scheduled </h3>
+      <h3> Upcoming </h3>
+      <p> No future lunch scheduled. </p>
     <% end %>
-  </p>
+  </div>
 
   
   
   <%#= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),  new_meeting_path, :class=>'btn btn-lg btn-primary' %>
   <h3>Previous lunch meetings:</h3>
   <ul class="listmeetings">
-  <% @old_meetings.each do |meeting| %>
-    <li>
-      <%= meeting.date.in_time_zone.strftime("%a, %b %d") %> - 
-        <%= link_to meeting.title, meeting %>
+  <% @old_meetings.each_pair do |date, meetings| %>
+    <!-- <li>
+      <%#= meeting.date.in_time_zone.strftime("%a, %b %d") %> - 
+        <%#= link_to meeting.title, meeting %>
+    </li> -->
+
+    <li class="date-indicator">
+      <%= link_to date.in_time_zone.strftime("%a, %b %d, %Y"), meetings[0], :class=>"meetingtime" %>
+    </li>
+    <li >
+      <ul style="padding: 0">
+        <div class="detail-container" style="min-height: 40px">
+          <% meetings.each do |meeting| %>
+            <li class="meetingsamedate">              
+              <div class="unit sizetime" style="padding-top: 15px">
+                <%= meeting.date.in_time_zone.strftime("%l:%M %p") %>
+              </div>
+              <div class="unit sizemain">
+                <div class="title">
+                  <%= link_to meeting.title.split.map(&:capitalize).join(' '),meeting %> 
+                </div>
+                <div class="description">
+                  <%=meeting.description %>
+                </div>
+                
+              </div> 
+
+            </li>
+          <% end %>
+        </div>
+      </ul>
     </li>
   
   <% end %>

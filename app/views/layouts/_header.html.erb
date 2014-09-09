@@ -6,12 +6,14 @@
     <li><%=link_to "Lunches", meetings_url, :class=>'stylea'%></li>
     <li><%=link_to "Buddies", users_url, :class=>'stylea'%></li>
     <li class="dropdown" id="fat-menu">
+
+      <a style="color: black" class="dropdown-toggle" data-toggle="dropdown" href="/"><img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)"><span class="caret" style="margin-top: -2px; margin-left: 5px;"></span></a>
       
-         <!-- <a class="dropdown-toggle" data-toggle="dropdown"> -->
-           <!-- <span class="menuavatarimage" style="display:block; background-image: url(<%= gravatar_url(current_user)%>)"></span> -->
-           <%= link_to image_tag(gravatar_url(current_user), :class=>"menuavatarimage"), "/", :class=>"dropdown-toggle", :data=>{:toggle=>"dropdown"}%>
+        <!-- <a class="dropdown-toggle" data-toggle="dropdown">
+           <span class="menuavatarimage" style="display:block; background-image: url(<%= gravatar_url(current_user)%>)"></span>
+           <%#= link_to image_tag(gravatar_url(current_user), :class=>"menuavatarimage"), "/", :class=>"dropdown-toggle", :data=>{:toggle=>"dropdown"}%> 
            <span class="caret"></span>
-            </a>
+        </a> -->
          <ul class="dropdown-menu" role="menu">
            <li role="profile">
             <%= link_to "Profile", current_user %>

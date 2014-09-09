@@ -2,9 +2,10 @@
 
 
 <h1><%=current_user.username%> Lunch Calendar</h1>
-         
+<% if @meetings.blank? %>
+  <h3>No lunch scheduled for <%=current_user.username %>. Create one now! </h3>
+<% end %>
 <%= link_to raw('<span class="glyphicon glyphicon-plus"></span> Create New Lunch'),    new_meeting_path, :class=>'btn btn-primary btn-lg' %>
-         
 
 <div class="listingbox">
   <ul class="listmeetings">

@@ -25,18 +25,82 @@ body {
   margin: 0px;
 }
 
-.lunch-date {
-   background-color: #ddd;
-   border-radius: 5px;
-   padding: 15px;
-   max-width: 480px;
+h1 {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
 }
 
+.lunch-date {
+  margin-left: 138px;
+  margin-right: 13px;
+  background-color: #cfdfec;
+  border-radius: 5px;
+  padding: 15px;
+  max-width: 480px;
+  color: #000;
+  width: auto;
+}
+
+.nextlunch { 
+  padding: 0 0 40px 13.5px;
+  background-color: #508dbd;
+}
+.meetingtimefont {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 24px;
+  margin-top:20px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+.datecalendar {
+  width: 10%;
+  line-height: 0;
+  display: table-cell;
+  vertical-align:top;
+  float: left;
+}
+.timetext {
+  padding-left: 50px;
+  color: #888;
+  text-shadow: 1px 1px 0px #FFF;
+}
+#event-content {
+  margin-top: 30px;
+}
+.sheet {
+  width: 80px;
+  height:80px;
+  display:inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+.month {
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  font-size: 19px;
+  height:32px;
+  line-height: 36px;
+  text-transform: uppercase;
+  background-color:#e0393e;
+  color: #fff;
+  display:block;
+}
+.day {
+  line-height: 48px;
+  font-size: 32px;
+  display:block;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  border-top-width: 0;
+}
 #frame {
   background-color: #f4f4f4;
   margin: auto;
   padding: 1em;
   max-width: 800px;
+  min-height: 600px;
 }
 
 .site-header {
@@ -120,7 +184,7 @@ body {
 .sizemain {
   width: 60%;
   padding: 8px 0 0 20px;
-  font-size: 33px;
+  font-size: 30px;
   font-weight: 400;
 }
 .sizemain a {
@@ -139,6 +203,7 @@ body {
   font-size: 18px;
   font-weight: normal;
   color: #333;
+  padding-bottom: 10px;
 }
 .peoplecount {
   font-size: 15px;
@@ -177,65 +242,91 @@ body {
 #question {
   width: auto;
   height: auto;
-/*  border: 1px solid #ccc;
-*/  float: right;
+  /*border: 1px solid #ccc;*/
+  float: right;
   padding: 0 15px 5px 15px;
-  margin-top: -15px;
+  /*background-color: #73C588;
+  border-radius: 0 4px 0 0;
+  color: #fff;*/
 }
 
 #iQuestion {
   width: auto;
   height: auto;
-/*  border: 1px solid #ccc;
-*/  float: right;
+  /*border: 1px solid #ccc;*/
+  float: right;
   padding: 0 15px 5px 15px;
   margin-top:-15px;
+  /*background-color: #73C588;
+  border-radius: 0 4px 0 0;
+  color: #fff;*/
+}
+.rsvpY {
+  color: #269944;
+}
+.rsvpN {
+  color: #d9534f;
 }
 
 .arrow-up {
   width: 0; 
   height: 0; 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid gray;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid gray;
   position: absolute;
 }
 
 .arrow-uped {
   width: 0; 
   height: 0; 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid orange;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid orange;
   position: absolute;
 }
 
+.votedcolor {
+  color: orange;
+}
 .arrow-down {
   width: 0; 
   height: 0; 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
   
-  border-top: 7px solid gray;
+  border-top: 17px solid gray;
+  display: block;
   /*position: absolute;*/
 }
 
 .arrow-downed {
   width: 0; 
   height: 0; 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
   
-  border-top: 7px solid orange;
+  border-top: 10px solid orange;
   /*position: absolute;*/
 }
 .votenumber {
   padding: 5px 0 0 3px;
+  display:block;
+  font-size: 24px;
 }
+#itdowna #itupa {
+  display: block;
+}
+.yelplink {
+  padding-left: 15px;
+  font-size: 20px;
+}
+
 table.restname {
   border: none;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 3px;
+  width: 100%;
 }
 
 table.rest {
@@ -245,6 +336,10 @@ table.rest {
 td.restname {
   font-size: 20px;
   padding-left: 10px;
+}
+table.restname td {
+  padding-bottom: 10px;
+  padding-left: 20px;
 }
 .listuser {
   list-style: none;
@@ -276,7 +371,7 @@ td.restname {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 62.5%;
+  width: 52.5%;
 }
 .addresses {
   float: left;
@@ -309,7 +404,7 @@ address {
 }
 .menuavatarimage {
   width: auto !important;
-  height: 20px !important;
+  height: 25px !important;
   vertical-align: top;
   display: table cell;
   border: none;
