@@ -141,6 +141,14 @@ class MeetingsController < ApplicationController
     mmembership = MeetingMembership.where('user_id = ? AND meeting_id = ?', uid, id).first
     mmembership.going = decision
     mmembership.save
+    inGroup = is_user_invited_and_confirmed?(User.find(uid), id)
+    userlist = Meeting.userstatus(id)
+    statuscounts = Meeting.statuscounts(userlist)
+    meeting = Meeting.find(id)
+    result_sent = meeting.result_sent
+    winner = Restaurant.find_by_id(Meeting.pick_winner(meeting))
+    render :partial=>"members_status", :locals=>{:statuscounts=>statuscounts, 
+      :meeting=>meeting, :inGroup=>inGroup, :result_sent=>result_sent, :winner=>winner}
   end
 
   def get_users(emails, id=0)

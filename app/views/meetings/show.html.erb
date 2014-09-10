@@ -53,62 +53,11 @@
     </div>
   
 
-      
-    <h3><%= @statuscounts['Yes'] %> going:</h3>
-    <ul>
-    <% Meeting.rsvpYuser(@meeting, 'Yes').each do |k| %>    
-        <li style="list-style: none">
-        <img src="/assets/tick.gif" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)"> &nbsp;<%=k %>
-        </li>
-    <% end %>
-    </ul>
-  
-    <h3><%= @statuscounts['No'] %> not going:</h3>
-    <ul>
-    <% Meeting.rsvpYuser(@meeting, 'No').each do |k| %> 
-        <li style="list-style: none">
-        <img src="/assets/red-cross_small.png" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)">&nbsp;<%=k %>
-        </li>
-    <% end %>
-    </ul>
-  
-    <h3><%= @statuscounts['Maybe'].to_i + @statuscounts[''].to_i %> not decided yet:</h3>
-    <ul>
-    <% Meeting.rsvpYuser(@meeting, 'Maybe').each do |k| %> 
-        <li style="list-style: none">
-        <img src="/assets/question_mark.gif"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)"><%=k %>
-        </li>
-    <% end %>
-    <% Meeting.rsvpYuser(@meeting, nil).each do |k| %> 
-        <li style="list-style: none">
-        <img src="/assets/question_mark.gif"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)"><%=k %>
-        </li>
-    <% end %>
-    </ul>
-  
-    <% if @inGroup and not @result_sent%> 
-      You can invite more people to join in.
-      <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
-    <% end %>
-      
-    <% if @result_sent %>
-      <h3> The voted restaurant winner is: <h3>
-      <div id="winner">
-        <%= link_to @winner.name, @winner.url %>
-      </div>
-      <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick =" append_details()"> (click here for voting details)</div>
-    <% end %>
+    <div id="member_status">
+      <%= render partial: "members_status", locals: {statuscounts: @statuscounts, meeting: @meeting, inGroup: @inGroup, result_sent: @result_sent}, winner: @winner %>
+    </div> 
 
-   
-      <br>
-      <% if @inGroup %>
-        <div id="operation" style="font-size: 16px">
-          <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
-          <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method:  :delete, data: { confirm: 'Are you sure?' } %> |
-          <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
-        </div>
-      <% end %>
-    </div>
+    
     
   </div>
 <script>
@@ -184,6 +133,7 @@ function going(decision) {
     },
     datatype: "json",
     success: function(data, textStatus, xhr) {
+      $("#member_status").html(data);
       var div = document.getElementById("question");
       //div.parentNode.removeChild(div);
       $("#repeatable").remove();
