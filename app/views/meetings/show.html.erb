@@ -40,9 +40,11 @@
 
     <div id="rdetails">
       <div id="editr">
-       <h3>Restaurant candidates and votes
+       <h3>Restaurant candidates and votes</h3>
        <% if @inGroup %>
-       (<%= link_to 'edit restaurant selection', :select_restaurants, :class=>"editinh3" %>):</h3>
+       <p>
+       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> restaurant selection'), :select_restaurants, :class=>"editinh3 selection btn btn-default" %>
+       </p>
        <% end %>
       </div>
       <div id = "restaurant_table">

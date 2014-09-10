@@ -313,6 +313,8 @@ h1 {
   padding: 5px 0 0 3px;
   display:block;
   font-size: 24px;
+  font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
+  text-align: center;
 }
 #itdowna #itupa {
   display: block;
@@ -320,6 +322,16 @@ h1 {
 .yelplink {
   padding-left: 15px;
   font-size: 20px;
+}
+.selection {
+  box-shadow: #949494 0px 2px 0px 0px;
+  color: rgba(0,0,0,0.8) !important;
+  background: #eeeeee;
+}
+.restaurant_categories {
+  padding-left: 95px;
+  font-family: 'PT Sans', sans-serif;
+  color: #888;
 }
 
 table.restname {

@@ -214,6 +214,7 @@ class MeetingsController < ApplicationController
       info['address'] = business['address1'] + business['address2'] + business['address3'] + ', ' + business['city'] + ', ' + ', ' + business['state'] + ' ' + business['zip']
       info['photo_url'] = business['photo_url']
       info['categories'] = parse_categories(business['categories'])
+      info['review_count'] = business['review_count']
       @defaultrests.push(info)
     end
     @defaultrests.sort_by!{|x| x['distance']}

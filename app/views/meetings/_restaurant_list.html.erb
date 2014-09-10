@@ -16,7 +16,7 @@
       end
       %>
 
-      <tr><td>
+      <tr><td style="text-align: center">
         <% if already_voted_up %>
           <span class="glyphicon glyphicon-thumbs-up votedcolor" id="tupa"
             onclick="alert('You have already up voted!')">
@@ -24,15 +24,8 @@
           <span class="glyphicon glyphicon-thumbs-up" id="tupa"
             onclick="changeVote('up', <%= mrs.id %>)">
         <% end %>
-        </span>
-        
-      
-      
-        
-        <span class="votenumber"><%= vote_count %></span>
-        
-      
-      
+        </span>  
+        <span class="votenumber"><%= vote_count %></span>   
         <% if already_voted_down %>
           <span class="glyphicon glyphicon-thumbs-down votedcolor" id="tdowna"
             onclick="alert('You have already down voted!')">
@@ -58,8 +51,22 @@
           <% elsif not mrs.restaurant.nil? %>
           <%= link_to mrs.restaurant.name, mrs.restaurant %>
           <% end %>
-          <p style="padding-left: 95px"><%=mrs.restaurant['categories'] %></p>
-          <p style="padding-left: 95px">Yelp Rating: <%=mrs.restaurant['yelp_rating'] %></p>
+          
+          <p style="padding-left: 95px; font-size:16px"> 
+            <% r = mrs.restaurant['yelp_rating'].to_i %>
+            <% for i in (1..r) %>
+              <img src=<%=image_path("star.png")%>>
+            <% end %>
+            <% if mrs.restaurant['yelp_rating'].include?('.') %>
+              <img src=<%=image_path("half_star.png")%>>
+            <% end %>
+               <%#=mrs.restaurant['yelp_rating'] %>
+            <% if mrs.restaurant['review_count'] > 0 %>
+            <span style="font-size:12px; font-style:italic"> <%= mrs.restaurant['review_count'] %> reviews on Yelp</span>
+            <% end %> 
+          </p>
+
+          <p class="restaurant_categories"><%=mrs.restaurant['categories'] %></p>
         </div>
 
       <div class="addresses">
@@ -85,5 +92,11 @@
   <script>
   $(document).ready(function(){
     $(".yelplink").popover();
+    //Convert address tags to google map links
+   $('address').each(function () {
+      var link = "<a style='color: #555' href='http://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).html() + "</a>";
+      $(this).html(link);
+   });
   })
+
   </script>
