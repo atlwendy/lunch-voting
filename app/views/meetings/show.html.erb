@@ -35,7 +35,7 @@
     <div>
       <div style="background-color: #ddd; width: 30px; height: 30px; float:left"><span class="glyphicon glyphicon-calendar" style="padding: 7px"></span></div>
       <span class="meetingtimefont"><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></span>
-      <p class="timetext"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      <p class="timetext" style="padding-left:50px"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
     </div>
 
     <div id="rdetails">
@@ -103,9 +103,9 @@
       <br>
       <% if @inGroup %>
         <div id="operation" style="font-size: 16px">
-          <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'),    edit_meeting_path(@meeting) %> |
-          <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting,   method:  :delete   , data: { confirm: 'Are you sure?' } %> |
-          <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'),    meetings_path %>
+          <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'), edit_meeting_path(@meeting) %> |
+          <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @meeting, method:  :delete, data: { confirm: 'Are you sure?' } %> |
+          <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), meetings_path %>
         </div>
       <% end %>
     </div>

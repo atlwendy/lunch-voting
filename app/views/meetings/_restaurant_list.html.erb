@@ -39,7 +39,7 @@
       
       <div class="figureset">
         <div class="mainname">
-          <% if not mrs.restaurant.nil? and not mrs.restaurant.url.nil? %>
+          <% if not mrs.restaurant.nil? %>
           <a href=<%=restaurant_path(mrs.restaurant)%> class="avatarimage" style="padding-left:0;   display:block;">
             <% if mrs.restaurant['photo_url'].nil? %>
               <img alt=<%=mrs.restaurant.name%> height="85" width="80" src=<%=image_path("default.jpg")%>>
@@ -47,9 +47,11 @@
             <img alt=<%=mrs.restaurant.name%> height="80" width="90" src=<%=mrs.restaurant['photo_url']%>>
             <% end %>
           </a>
-          <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{:placement=> "bottom", :content=>"Rating on Yelp is #{mrs.restaurant.yelp_rating}", :trigger=>"hover"} %>
-          <% elsif not mrs.restaurant.nil? %>
-          <%= link_to mrs.restaurant.name, mrs.restaurant %>
+          <% end %>
+          <% if mrs.restaurant.url.nil? %>
+            <%= link_to mrs.restaurant.name, restaurant_path(mrs.restaurant), :class=>'yelplink', :data=>{:placement=> "bottom", :content=>"Not from Yelp", :trigger=>"hover"} %>
+          <% else %>
+            <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{:placement=> "bottom", :content=>"Rating on Yelp is #{mrs.restaurant.yelp_rating}", :trigger=>"hover"} %>
           <% end %>
           
           <p style="padding-left: 95px; font-size:16px"> 
@@ -57,7 +59,7 @@
             <% for i in (1..r) %>
               <img src=<%=image_path("star.png")%>>
             <% end %>
-            <% if mrs.restaurant['yelp_rating'].include?('.') %>
+            <% if r != 0 && mrs.restaurant['yelp_rating'].include?('.') %>
               <img src=<%=image_path("half_star.png")%>>
             <% end %>
                <%#=mrs.restaurant['yelp_rating'] %>
