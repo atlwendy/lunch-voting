@@ -3,8 +3,9 @@
 
 
 <%= form_for(@meeting) do |f| %>
+  <%#= render "shared/error_messages", :target => @meeting %>
   <% if @meeting.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
 
       <ul>
@@ -60,8 +61,6 @@
             </div>
           </div>
         <% end %>
-        
-
 
         <div class="panel-body">
           <div id="member" class="form-group">
@@ -155,9 +154,9 @@
 <script>
 
 $(document).ready(function(){
-  var id = <%=@id %>;
+  var id = '<%=@id %>';
   var url = "../meetings/" + id + "/get_default_restaurants";
-  var action = <%=@new %>;
+  var action = '<%=@new %>';
   if (action) {
   navigator.geolocation.getCurrentPosition(function(position){
     $.ajax({
@@ -244,7 +243,7 @@ $(".intermitbutton").click(function() {
 })
 
 $(".inputaddress").click(function() {
-  var id = <%=@id %>
+  var id = "<%=@id %>"
   var url = "../meetings/" + id + "/search_restaurants_from_input_address"
   var address = $("#address").val();
   var city = $("#city").val();

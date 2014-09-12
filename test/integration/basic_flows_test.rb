@@ -47,7 +47,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     show_one_meeting
     user_signin
 
-    click_link('edit restaurant')
+    click_link('Edit restaurant selection')
     assert_equal current_path, "#{meeting_path(@meeting)}/select_restaurants"
     assert page.has_content?('Chipotle')
     check('Chipotle')
@@ -96,10 +96,10 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = Capybara.javascript_driver
     
     #visit("/meetings/#{@meeting.id}")
-    visit(meeting_path(@meeting))
+    visit(edit_meeting_path(@meeting))
     user_signin
 
-    page.find(:xpath, "//a[@href='/meetings/#{@meeting.id}/edit']").click
+    #page.find(:xpath, "//a[@href='/meetings/#{@meeting.id}/edit']").click
 
     assert_equal current_path, edit_meeting_path(@meeting)
     assert page.has_field?("title", :with=>"First Lunch")
@@ -108,7 +108,7 @@ class BasicFlowsTest < ActionDispatch::IntegrationTest
     click_button('Update Meeting')
 
     assert_equal current_path, meeting_path(@meeting)
-    assert page.has_content?('editing First Lunch')
+    assert page.has_content?('Editing First Lunch')
   end
 
   test "create meeting" do

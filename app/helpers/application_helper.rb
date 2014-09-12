@@ -32,7 +32,15 @@ module ApplicationHelper
 		end
 	end
 
-
+  def flash_class(level)
+    case level
+      when "notice" then "alert alert-info"
+      when "success" then "alert alert-success"
+      when "error" then "alert alert-danger"
+      when "alert" then "alert alert-danger"
+      else "alert sowrong"
+    end
+end
 
   # Add the modified method to ApplicationHelper
   

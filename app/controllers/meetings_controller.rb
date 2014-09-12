@@ -24,6 +24,7 @@ class MeetingsController < ApplicationController
     @statuscounts = Meeting.statuscounts(@userlist)
     @result_sent = @meeting.result_sent
     @winner = Restaurant.find_by_id(Meeting.pick_winner(@meeting))
+    @past = Time.now.to_date > @meeting.date
   end
 
   def get_all_restaurants(meeting)
@@ -147,8 +148,10 @@ class MeetingsController < ApplicationController
     meeting = Meeting.find(id)
     result_sent = meeting.result_sent
     winner = Restaurant.find_by_id(Meeting.pick_winner(meeting))
+    past = Time.now.to_date > @meeting.date
     render :partial=>"members_status", :locals=>{:statuscounts=>statuscounts, 
-      :meeting=>meeting, :inGroup=>inGroup, :result_sent=>result_sent, :winner=>winner}
+      :meeting=>meeting, :inGroup=>inGroup, :result_sent=>result_sent, 
+      :winner=>winner, :past=>past}
   end
 
   def get_users(emails, id=0)

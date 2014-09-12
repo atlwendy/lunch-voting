@@ -1,13 +1,18 @@
 <% provide(:title, "Show meeting") %>
 
-<p id="notice" style="margin-top: 5px; padding-top: 5px"><%= notice %></p>
-
-<div class="content">
+<!-- <p id="notice" style="margin-top: 5px; padding-top: 5px"><%#= notice %></p> -->
+<% flash.each do |key, value| %>
+  <div class="<%=flash_class(key) %>">
+        <%= value %>
+  </div>
+<% end %>
+<div class="content" style="margin-top: 10px;">
   <div class="allthingstop" id="top">
     <div class="toptitle" id="toptitle">
       <h1><%= @meeting.title %></h1>
       <h5><%= @meeting.description %></h5>
     </div>
+    <% if not @past %>
     <div id="question">
     
       <div class="areyougoing btn-group" id="repeatable">
@@ -27,37 +32,47 @@
         <h3 class=<%=@going == 'Yes' ? 'rsvpY' : 'rsvpN' %>>Your RSVP: <%=@going%></h3>
         <button id="change" class="btn btn-default" onclick="changeMind()"> Changed your mind? </button>
       <% end %>
-    
     </div>
+    <% else %>
+      <% if @going != 'nothing' and not @going.nil? %>
+        <div id="question">
+          <h3 class=<%=@going == 'Yes' ? 'rsvpY' : 'rsvpN' %>>Your RSVP: <%=@going%></h3>
+        </div>
+      <% end %>
+    <% end %>
+    
   </div>
   <div id="event-content">
     
-    <div>
-      <div style="background-color: #ddd; width: 30px; height: 30px; float:left"><span class="glyphicon glyphicon-calendar" style="padding: 7px"></span></div>
+    <div class="meetingshowtime">
+      <div style="width: 30px; height: 30px; float:left"><span class="glyphicon glyphicon-calendar" style="padding: 7px"></span></div>
       <span class="meetingtimefont"><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></span>
       <p class="timetext" style="padding-left:50px"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
     </div>
 
     <div id="rdetails">
       <div id="editr">
-       <h3>Restaurant candidates and votes</h3>
-       <% if @inGroup %>
-       <p>
-       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> restaurant selection'), :select_restaurants, :class=>"editinh3 selection btn btn-default" %>
-       </p>
-       <% end %>
+       <h3>Venue</h3>
       </div>
       <div id = "restaurant_table">
          <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
       </div>
+      <% if @inGroup and not @past%>
+       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> Edit restaurant selection'), :select_restaurants, :class=>"editinh3 selection btn btn-default" %>
+      <% end %>
     </div>
   
+    <% if not @winner.nil? %>
+      <div id="winner">
+        <h3>Restaurant Pick</h3>
+        <%= link_to @winner.name, restaurant_path(@winner), :class=>'yelplink' %>
+      </div>
+      <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick =" append_details()"> (click here for voting details)</div>
+    <% end %>
 
     <div id="member_status">
-      <%= render partial: "members_status", locals: {statuscounts: @statuscounts, meeting: @meeting, inGroup: @inGroup, result_sent: @result_sent}, winner: @winner %>
+      <%= render partial: "members_status", locals: {statuscounts: @statuscounts, meeting: @meeting, inGroup: @inGroup, result_sent: @result_sent, winner: @winner, past:@past} %>
     </div> 
-
-    
     
   </div>
 <script>
@@ -65,10 +80,12 @@
 $(document).ready(function(){
   var going = "<%=@going%>";
   var result_sent = "<%=@result_sent%>";
+  var past = <%=@past%>;
+
   if (going != ''){
     $("#repeatable").hide();
   }
-  if (result_sent) {
+  if (result_sent | past) {
     $("#rdetails").hide();
   }
   else {
@@ -82,11 +99,12 @@ function changeVote(direction, mrs_id){
   var direction = direction;
   var member = <%=@inGroup%>;
   var result_sent = "<%=@result_sent%>";
+  var past = <%=@past%>
   if (! user || ! member) { 
     $("#editr").append("<div style='color: red'>In order to vote, you have to be invited and confirmed to go.</div>");
     return
   }
-  if (result_sent) {
+  if (result_sent || past) {
     $("#editr").append("<div style='color: red'>Restaurant winner has selected and results sent to all users. At this time, you can't vote any more.</div>");
     return
   }

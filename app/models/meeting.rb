@@ -6,9 +6,10 @@ class Meeting < ActiveRecord::Base
 
   scope :future_meetings, lambda { where('DATE(date) >= ?', Date.today)}
   before_save :capitalize_title
+  validates_presence_of :title, :message => "cannot be empty"
 
   def capitalize_title
-    self.title = self.title.split.map(&:capitalize).join(' ')
+    self.title = self.title.split.map(&:capitalize).join(' ') unless self.title.blank?
   end
 
   def restaurants_attributes=(hash)
@@ -66,7 +67,8 @@ class Meeting < ActiveRecord::Base
     hv_pair = restaurant_votes.select{|k, v| v == restaurant_votes.values.max}
     rid_highest_votes = hv_pair.reduce({}){|h,(k,v)| (h[v] ||= []) << k;h}.max[1]
     rid_yelp_review = Hash.new
-    rid_highest_votes.each{|x| rid_yelp_review[x] = Restaurant.find_by_id(x).yelp_rating}
+    rid_highest_votes.each{|x| rid_yelp_review[x] = 
+        [Restaurant.find_by_id(x).yelp_rating, Restaurant.find_by_id(x).review_count] }
     return rid_yelp_review.max_by{|k, v| v}[0]
   end
 

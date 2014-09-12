@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def login_required
   	unless signed_in?
         store_location
-        redirect_to signin_url, notice: "Please sign in."
+        redirect_to signin_url, error: "Please sign in."
     end
   end
 end
