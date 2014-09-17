@@ -3,18 +3,7 @@
 
 
 <%= form_for(@meeting) do |f| %>
-  <%#= render "shared/error_messages", :target => @meeting %>
-  <% if @meeting.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
-      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
-
-      <ul>
-      <% @meeting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/error", :target => @meeting %>
 
   <div class="panel panel-default">
     <div class="panel-heading">     
@@ -42,7 +31,7 @@
   </div >
 
 
-    <% if @meeting.new_record? %>
+  <% if @meeting.new_record? %>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Add New Member(s)</h3>
@@ -73,7 +62,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input class="text form-control" type="text" name="email" id="temail"></ input></ td>
+                    <td><input class="text form-control" type="text" name="email" id="temail"></input></td>
                 </tr>
             </table>
             <br >
@@ -82,9 +71,9 @@
         </div>
       </div>
     </div>
-      <br>
+    <br>
 
-      <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Add Restaurants</h3>
         </div>
@@ -138,11 +127,11 @@
                 <td><label for="Restaurant">Or you can enter new restaurant option(s): &nbsp </label></td>
               </tr>
               <tr>
-                <td><div class="form-group"><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
+                <td><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
               </tr>
             </table>
             
-            <button class="button restb btn btn-default" name="morerest">Add Restaurant</button>     
+            <input class="button restb btn btn-default" name="morerest" type="button" value="Add Restaurant"></input>     
           </div>
         </div>
       </div>

@@ -45,9 +45,9 @@
   <div id="event-content">
     
     <div class="meetingshowtime">
-      <div style="width: 30px; height: 30px; float:left"><span class="glyphicon glyphicon-calendar" style="padding: 7px"></span></div>
+      <div class="calendaricon"><span class="glyphicon glyphicon-calendar" style="padding: 7px"></span></div>
       <span class="meetingtimefont"><%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %></span>
-      <p class="timetext" style="padding-left:50px"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
+      <p class="timetext timepadding"><%= @meeting.date.in_time_zone.strftime("%l:%M %p") %></p>
     </div>
 
     <div id="rdetails">
@@ -55,7 +55,8 @@
        <h3>Venue</h3>
       </div>
       <div id = "restaurant_table">
-         <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
+        <br>
+        <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
       </div>
       <% if @inGroup and not @past%>
        <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> Edit restaurant selection'), :select_restaurants, :class=>"editinh3 selection btn btn-default" %>
@@ -63,11 +64,14 @@
     </div>
   
     <% if not @winner.nil? %>
-      <div id="winner">
+      <div id="winner" >
         <h3>Restaurant Pick</h3>
-        <%= link_to @winner.name, restaurant_path(@winner), :class=>'yelplink' %>
-      </div>
-      <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick =" append_details()"> (click here for voting details)</div>
+        <div style="padding: 8px; width: 30%">
+          <img src="/assets/red_badge.jpg" style="float:left">
+          <%= link_to @winner.name, restaurant_path(@winner), :class=>'yelplink' %>
+        </div>
+        <div id="details" style="font-style: italic; font-size: 14px; cursor: pointer;" onClick ="append_details()"> (click here for voting details)</div>
+      </div>      
     <% end %>
 
     <div id="member_status">

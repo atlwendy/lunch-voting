@@ -4,7 +4,7 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   layout 'menu'
-  
+
   def index
     meetings = []
     Meeting.all.order('date').reverse.each{|x| meetings.push(x) if x.users.include?(current_user)}
@@ -148,7 +148,7 @@ class MeetingsController < ApplicationController
     meeting = Meeting.find(id)
     result_sent = meeting.result_sent
     winner = Restaurant.find_by_id(Meeting.pick_winner(meeting))
-    past = Time.now.to_date > @meeting.date
+    past = Time.now.to_date > meeting.date
     render :partial=>"members_status", :locals=>{:statuscounts=>statuscounts, 
       :meeting=>meeting, :inGroup=>inGroup, :result_sent=>result_sent, 
       :winner=>winner, :past=>past}

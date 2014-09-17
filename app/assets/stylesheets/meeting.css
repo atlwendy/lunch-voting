@@ -33,10 +33,24 @@ h1 {
 .meetingtimefont {
   font-family: 'PT Sans', sans-serif;
   font-size: 24px;
-  margin-top:20px;
-  margin-bottom: 10px;
-  padding-left: 20px;
 }
+.calendaricon {
+  width: 30px; 
+  height: 30px; 
+}
+@media (min-width: 740px) {
+  .calendaricon {
+    float: left;
+  }
+}
+@media (min-width: 740px) {
+  .meetingtimefont {
+    margin-top:20px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+}
+
 .datecalendar {
   width: 10%;
   line-height: 0;
@@ -48,6 +62,12 @@ h1 {
   color: #888;
   text-shadow: 1px 1px 0px #FFF;
 }
+@media (min-width: 740px) {
+  .timepadding {
+    padding-left: 50px;
+  }
+}
+
 #event-content {
   margin-top: 30px;
 }
@@ -338,7 +358,7 @@ h1 {
   background: #eeeeee;
 }
 .restaurant_categories {
-  padding-left: 95px;
+  padding-left: 15px;
   font-family: 'PT Sans', sans-serif;
   color: #888;
 }
@@ -359,8 +379,7 @@ td.restname {
   padding-left: 10px;
 }
 table.restname td {
-  padding-bottom: 10px;
-  padding-left: 20px;
+  
 }
 .listuser {
   list-style: none;
@@ -394,18 +413,34 @@ table.restname td {
   box-sizing: border-box;
   width: 52.5%;
 }
-.addresses {
-  float: left;
-  padding: 0 25px;
-  min-height: 1px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: auto;
-  margin-top: 3px;
+.address {
+  display: inline-block;
+  vertical-align: top;
 }
+
+@media (min-width: 640px){
+  .address {
+    margin-left: 2em;
+  }
+}
+
+@media (max-width: 640px){
+  .address {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+  }
+  .address br {
+    display: none;
+  }
+}
+
+.thumb {
+  vertical-align: top;
+}
+
 address {
-  display: block;
+  display: inline;
   font-style: normal;
 }
 .figureset:after, .figureset-right:after {
@@ -434,4 +469,9 @@ address {
   overflow: hidden;
   text-align: center;
   padding-left: 12px;
+}
+.restinfo {
+  display: inline-block;
+  min-width: 20em;
+  max-width: 20em;
 }

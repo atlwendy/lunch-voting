@@ -7,6 +7,13 @@ class Meeting < ActiveRecord::Base
   scope :future_meetings, lambda { where('DATE(date) >= ?', Date.today)}
   before_save :capitalize_title
   validates_presence_of :title, :message => "cannot be empty"
+  validate :meeting_date_after_today
+
+  def meeting_date_after_today
+    if self.date < Time.now
+      errors.add(:meeting, 'lunch date needs to be after current time')
+    end
+  end
 
   def capitalize_title
     self.title = self.title.split.map(&:capitalize).join(' ') unless self.title.blank?
