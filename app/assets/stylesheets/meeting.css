@@ -475,3 +475,9 @@ address {
   min-width: 20em;
   max-width: 20em;
 }
+#tupa:hover {
+  cursor: pointer;
+}
+#tdowna:hover {
+  cursor: pointer;
+}
