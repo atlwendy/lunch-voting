@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lunchvoting | <%=yield(:title)%></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+ 
+</head>
+<body>
+  <div id="frame">
+  
+  <div style="padding: 50px 0 0 20px; background-color: #f4f4f4">
+    <div class="pagecontent">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

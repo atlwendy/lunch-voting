@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-	layout 'sessions'	
+	layout :define_layout
 	
 	def new
 	end
@@ -24,6 +24,11 @@ class SessionsController < ApplicationController
 	def frontpage
 		return if current_user.nil?
 		redirect_to :action=>'index', :controller=>'meetings'
+	end
+
+	private
+	def define_layout
+		action_name == 'frontpage' ? 'empty' : 'sessions'
 	end
 
 end
