@@ -36,7 +36,11 @@ class User < ActiveRecord::Base
     self.invitation = Invitation.find_by_token(token)
   end
 
-
+  def self.allbuddies(user)
+    buddies = []
+    User.all.order('username').each{|x| buddies.push(x) if not (x.meetings & user.meetings).empty?}
+    buddies = buddies - [user] if not buddies.empty?
+  end
 
   private
 

@@ -52,18 +52,25 @@
         <% end %>
 
         <div class="panel-body">
+
           <div id="member" class="form-group">
             <table class="logincontent">
                 <tr>
                     <td>
                       <label for="Email address">
-                        Please enter new members' email address(es): &nbsp   
+                        Please enter new members' email address(es): &nbsp (<span class="choose"><a>or choose from your buddies</a></span>)  
                       </label>
                     </td>
                 </tr>
+
+                <% @allbuddies.each do |user| %>
+                    <tr class="showallbuddies"><td align='left'><input name='emailaddress[]' type='checkbox' id='addeduser' value=<%=user.email%>> <%=user.email%></input></td></tr>
+                <% end %>
+
                 <tr>
                     <td><input class="text form-control" type="text" name="email" id="temail"></input></td>
                 </tr>
+
             </table>
             <br >
               <input class="button intermitbutton btn btn-default" name="addmore" type="button"  value="Add Member" id= "addmember"> </input>
@@ -130,9 +137,25 @@
                 <td><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
               </tr>
             </table>
-            
+            <br>
             <input class="button restb btn btn-default" name="morerest" type="button" value="Add Restaurant"></input>     
           </div>
+
+          <hr >
+          <div class="field" id="search_on_yelp">
+            <label>Or you can search on Yelp via restaurant name.</label><p style="font-style:italic;">(You can do multiple searches, and results will stack on the list)</p>
+            <div class="form-group">
+              <h5>Zip code: </h5>
+              <input class="text form-control" type="text" id="zipyelp"></input>
+            </div>
+            <h5>Restaurant Name:</h5>
+              <input class="text form-control" type="text" id="rname"></input>
+            </div>
+            <br>
+            <input class="button btn inputaddress btn-default" name="yelpsearch" type= "button" value="Search on Yelp"></input><span id="spin"></span>
+          </div>
+        </div>
+
         </div>
       </div>
 
@@ -143,6 +166,7 @@
 <script>
 
 $(document).ready(function(){
+  $('.showallbuddies').hide();
   var id = '<%=@id %>';
   var url = "../meetings/" + id + "/get_default_restaurants";
   var action = '<%=@new %>';
@@ -176,6 +200,7 @@ $(document).ready(function(){
 })
 
 function generate_checkbox_list(jobject, value, elementid) {
+    if (typeof value === undefined) {return;}
     var name = value.name;
     var url = value.url;
     var rating = value.rating;
@@ -223,8 +248,9 @@ $(".intermitbutton").click(function() {
   var thisemailaddress = commonvalue.val()
   if (validateEmail(thisemailaddress)) {
     $("#invalidemail").remove();
-  	$('table.logincontent').append("<tr><td align='right'>"+thisemailaddress+"<input name='emailaddress[]' type='hidden' id='addeduser' value='"+thisemailaddress+"'></input></td></tr>"); 	
+  	$('table.logincontent').append("<tr><td align='left'> <input name='emailaddress[]' type='checkbox' checked id='addeduser' value='"+thisemailaddress+"'> "+thisemailaddress+"</input></td></tr>"); 	
   }
+
   else {
     $('#member').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"Invalid email address!"+"</p>");
   }
@@ -232,13 +258,20 @@ $(".intermitbutton").click(function() {
 })
 
 $(".inputaddress").click(function() {
+  if (this.value == 'Get Nearby Restaurant List '){
+    var address = $("#address").val();
+    var city = $("#city").val();
+    var state = $("#state").val();
+    var zipcode = $("#zipcode").val();
+  }
+  else {
+    var address = "searchonyelp";
+    var rname = $("#rname").val();
+    var zipcode = $("#zipyelp").val();
+    var searchonyelp = true;
+  }
   var id = "<%=@id %>"
-  var url = "../meetings/" + id + "/search_restaurants_from_input_address"
-  var address = $("#address").val();
-  var city = $("#city").val();
-  var state = $("#state").val();
-  var zipcode = $("#zipcode").val();
-
+  var url = "../meetings/" + id + "/search_restaurants_from_input_address" 
   var opts = {
     lines: 10, // The number of lines to draw
     length: 5, // The length of each line
@@ -272,7 +305,8 @@ $(".inputaddress").click(function() {
         address: address,
         city: city,
         state: state,
-        zipcode: zipcode
+        zipcode: zipcode,
+        rname: rname
       },
       datatype: "json",
       success: function(data, textStatus, xhr){
@@ -282,8 +316,14 @@ $(".inputaddress").click(function() {
         }
         else {
           $.each(data, function(index,value) {
-              generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
-              console.log(JSON.stringify(value), value.name, value.url);
+            console.log(data['searchonyelp']);
+              if (searchonyelp) {
+                generate_checkbox_list(JSON.stringify(value), value, '#search_on_yelp');
+              }
+              else {
+                generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
+              }
+              //console.log(JSON.stringify(value), value.name, value.url);
               $(".yelplink").popover();
           });
         }
@@ -313,5 +353,9 @@ function validateEmail($email) {
     return true;
   }
 }
+
+$(".choose").click(function() {
+  $('.showallbuddies').show();
+})
 
 </script>

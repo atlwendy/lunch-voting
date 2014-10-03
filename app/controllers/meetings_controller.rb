@@ -49,6 +49,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new
     @id = Meeting.all.empty? ? 1 : Meeting.maximum("id") + 1
     @new = true
+    @allbuddies = User.allbuddies(current_user)
   end
 
   def edit
@@ -76,6 +77,7 @@ class MeetingsController < ApplicationController
         format.json { render :show, status: :created, location: @meeting }
         
       else
+        @allbuddies = User.allbuddies(current_user)
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
@@ -202,14 +204,22 @@ class MeetingsController < ApplicationController
 
   def search_restaurants_from_input_address
     client = Yelp::Client.new
-    
-    request = Location.new(
-      :address => params[:address],
-      :city => params[:city],
-      :state => params[:state],
-      :zipcode => params[:zipcode],
-      :radius => 5,
-      :term => "restaurants" )
+    if params[:address] == 'searchonyelp'
+      name = params[:rname].blank? ? 'restaurants' : params[:rname]
+      request = Location.new(
+        :zipcode => params[:zipcode],
+        :radius => 5,
+        :term => name)
+    else
+      request = Location.new(
+        :address => params[:address],
+        :city => params[:city],
+        :state => params[:state],
+        :zipcode => params[:zipcode],
+        :radius => 5,
+        :term => "restaurants" )
+    end
+    #searchonyelp = params[:address] == 'searchonyelp' ? true : false
     response = client.search(request)
     render json: parse_restaurant_list(response).to_json
   end
@@ -230,6 +240,7 @@ class MeetingsController < ApplicationController
       info['review_count'] = business['review_count']
       @defaultrests.push(info)
     end
+    #@defaultrests.push({'searchonyelp'=>soy})
     @defaultrests.sort_by!{|x| x['distance']}
     return @defaultrests
   end
