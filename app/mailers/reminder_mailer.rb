@@ -1,9 +1,9 @@
 class ReminderMailer < ActionMailer::Base
-  default from: "reminder@lunchvoting.com"
+  default from: "reminder@lunch-tvoting.com"
 
   def send_reminder(m)
     @meeting = m
-    allYusers = Meeting.rsvpYuser(m, 'Y')
+    allYusers = Meeting.rsvpYuser(m, 'Yes')
     allYusers.each do |k|
       @user = User.find_by_username(k)
       @allusers = allYusers - [@user.username]
@@ -13,7 +13,7 @@ class ReminderMailer < ActionMailer::Base
 
   def send_result(m)
     @meeting = m
-    allYusers = Meeting.rsvpYuser(m, 'Y')
+    allYusers = Meeting.rsvpYuser(m, 'Yes')
     @winner = Restaurant.find_by_id(Meeting.pick_winner(m)).name
     allYusers.each do |mu|
       @user = User.find_by_username(mu)

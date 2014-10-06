@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default from: "invite@lunchvoting.com"
+  default from: "invite@lunch-voting.com"
 
   def send_invitation(current_user, invitation, signup_url, token)
   	@signup_url = signup_url + "?invitation_token=" + token

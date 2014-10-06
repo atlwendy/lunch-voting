@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "invite_notify@lunchvoting.com"
+  default from: "invite_notify@lunch-voting.com"
 
   def invite(u, url)  	
   	@user = u.email
