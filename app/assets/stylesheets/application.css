@@ -11,7 +11,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require 'bootstrap'
+ *= require 'bootstrap-theme'
+ *= require 'meeting'
+ *= require 'frontpage'
+ *= require 'jquery.datetimepicker'
+ *= require 'invitations'
+ *= require 'font-awesome'
  *= require_self
  */
 

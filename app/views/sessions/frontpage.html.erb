@@ -1,13 +1,77 @@
-<img alt="Where to eat?" src=<%=image_path("wheretoeat.png")%>>
+<div >
+  <!-- <img style="width: 100%; height: auto" src=<%=image_path('frontpage_votes_w_bg.jpg')%>> -->
 
-<div class="narrow">
-   <div class="row marketing" style="margin: 12px;">
-       <div class="col-lg-8">
-           
-       <h3> Ever wondering how to make a lunch decision with a group of friends or coworkers? This lunch voting app will help you.</h3>
-       <br ><br >
-       <%=link_to "Get Started", signin_url, {:style=>'font-size:28px', :class=>"btn btn-primary btn-large orange"} %>
-   </div>
+  <!-- <div class="narrow jumbotron" style="padding-top: 0px; background:url(<%=image_path('frontpage_votes_w_bg.jpg')%>); color: #fff; background-size: cover">
+      
+        <div class="col-lg-8 fptext">
+           <h1> Lunch Voting </h1>
+          <p> Ever wonder how to decide where to lunch with a group of friends or coworkers? Lunch Voting will help you.</p>
+          <br ><br >
+          <p><%=link_to "Get Started", signin_url, {:style=>'font-size:28px', :class=>"btn btn-primary btn-large orange"} %></p>
+        </div>
+       -->
+  </div>
 </div>
 
-<%=flash[:notice]%>
+
+  <section class="narrow">
+    <div class="center-box fptext jumbotron">
+      <h1>Lunch Voting</h1>
+      <p class="punchline">Ever wonder how to decide where to lunch with a group of friends or coworkers? Lunch Voting will help you.</p>
+      <p><%=link_to "Get Started", signin_url, {:style=>'font-size:28px', :class=>"btn btn-primary btn-large orange"} %></p>
+    </div>
+  </section>
+
+  <section class="how">
+    
+    <div class="howsection">
+      <h2 >How it works</h2>
+    </div>
+    <div>
+      <!-- <i class="fa fa-wechat fa-2x"></i> -->
+      <ol>
+        <li class="listitem"> 
+          <i class="fa fa-gear fa-2x iconitem" style="display:block; text-align:center"></i> A person initiates a new lunch meeting
+          <p class="description"> set the lunch date; invite others; predefine lunch venue selections</p>
+        </li>
+        <li class="downarrow">
+          <i class="fa fa-long-arrow-down fa-2x"></i>
+        </li>
+        <li class="listitem"> 
+          <i class="fa fa-inbox fa-2x iconitem" style="display:block; text-align:center"></i>Invitees get email invite
+          <p class="description">decide to join in or not; optionally add more favorite restaurants</p>
+        </li>
+
+        <li class="downarrow">
+          <i class="fa fa-long-arrow-down fa-2x"></i>
+        </li>
+        <li class="listitem"> 
+          <div style="display:block; text-align:center">
+            <i class="fa fa-thumbs-o-up fa-2x iconitem"></i> 
+            <i class="fa fa-thumbs-o-down fa-2x iconitem"></i>
+          </div>
+          All confirmed to go can vote
+          <p class="description">can only upvote or downvote once on a venue</p>
+        </li>
+        <li class="downarrow">
+          <i class="fa fa-long-arrow-down fa-2x"></i>
+        </li>
+        <li class="listitem"> 
+          <i class="fa fa-inbox fa-2x iconitem" style="display:block; text-align:center"></i>Two days before lunch date, all confirmed to go get a vote reminder email
+        </li>
+        <li class="downarrow">
+          <i class="fa fa-long-arrow-down fa-2x"></i>
+        </li>
+        <li class="listitem"> 
+          <i class="fa fa-heart-o fa-2x iconitem" style="display:block; text-align:center"></i>One day before lunch date, winnder selected based on votes and emailed to all confirmed to go attendees
+        </li>
+      </ol>
+    </div>
+  </section>
+  <section class="getstarted" >
+    <p class="getstartedbutton"><%=link_to "Get Started", signin_url, {:style=>'font-size:28px', :class=>"btn btn-primary btn-large orange"} %></p>
+  </section>
+  <section class="footer">
+    © 2014 lunch-voting All rights reserved.
+
+  </section>

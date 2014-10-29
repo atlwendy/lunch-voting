@@ -1,0 +1,157 @@
+body {
+
+}
+#bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+}
+#bg img{
+  /*background:url('table2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;*/
+/*  background-position: center;
+*/  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+  z-index: 1;
+}
+.marketing {
+  padding: 20px;
+  color: #fff;
+}
+.fptext {
+  padding: 20px;
+  background-color:rgba(0,0,0,0.6);
+  border-radius: 5px;
+}
+.narrow {
+    text-align: center;
+    font-size: 120%;
+    color: white;
+    background: url(frontpage_votes_w_bg.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+    font-size: 1.2em;
+    font-weight: normal;
+  }
+  .narrow .punchline {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  @media only screen and (min-width: 640px) {
+    .narrow {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+    .profile {
+      float: left;
+      max-width: 250px;
+      margin-right: 20px;
+    }
+    .center-box {
+      margin: 0 auto;
+      width: 640px
+    }
+    .contact {
+      margin-bottom: 2em;
+    }
+    .narrow h1 {
+      /*font-size: 150%;*/
+    }
+    .narrow .punchline {
+      /*font-size: 200%;*/
+      text-align: left;
+    }
+  }
+
+.how {
+  margin-top: 30px;
+}
+.how {
+    text-shadow: 1px 1px 0px #ccc;
+}
+.howsection {
+  /*margin-left: 50px;*/
+  text-align: center;
+}
+ol {
+  list-style: none;
+  color: #292e31;
+  font-family: 'Whitney SSm A','Whitney SSm B',Helvetica,Arial;
+  font-weight: 300;
+  font-style: normal;
+  font-size:18px;
+  padding: 0;
+  text-align: center;
+}
+.listitem {
+  border: solid 1px rgba(49,78,95,0.12);
+  margin: 10px 0px 20px 10px;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  display:inline-block;
+  background-color: #fff;
+}
+.iconitem {
+  display:block;
+  text-align:center;
+}
+.listitem .description {
+  font-style: italic;
+  font-size: 14px;
+  color: #000080;
+}
+ @media only screen and (min-width: 640px) {
+  .how {
+    margin: 0 auto;
+    width: 640px;
+  }
+}
+.getstarted {
+  text-align: center;
+  /*background: url(table2.jpg) repeat;*/
+  background-color: #313d47;
+  height: 110px;
+  width: 100%;
+}
+.getstartedbutton {
+  padding-top: 28px;
+}
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #5c5c5c;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.downarrow {
+  margin-left: 19px;
+}
+
+/*.wheretoeat img {
+  z-index: 10;
+}*/
+
+/*html {
+  background: url("/assets/table2.jpg") no-repeat center center fixed;
+  background-repeat: no-repeat, no-repeat; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center, top left;
+}*/
