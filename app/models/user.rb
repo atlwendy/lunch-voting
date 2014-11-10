@@ -39,7 +39,10 @@ class User < ActiveRecord::Base
   def self.allbuddies(user)
     buddies = []
     User.all.order('username').each{|x| buddies.push(x) if not (x.meetings & user.meetings).empty?}
-    buddies = buddies - [user] if not buddies.empty?
+    if not buddies.empty?
+      buddies = buddies - [user]
+    end
+    return buddies
   end
 
   private
