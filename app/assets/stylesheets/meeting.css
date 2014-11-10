@@ -343,6 +343,7 @@ body {
 .yelplink {
   padding-left: 15px;
   font-size: 20px;
+  white-space: nowrap;
 }
 .selection {
   box-shadow: #949494 0px 2px 0px 0px;
@@ -472,4 +473,8 @@ address {
 }
 #tdowna:hover {
   cursor: pointer;
+}
+
+.date-display a{
+  color: #3A6A91;
 }
