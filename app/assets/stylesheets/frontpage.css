@@ -36,7 +36,7 @@ body {
     text-align: center;
     font-size: 120%;
     color: white;
-    background: url(frontpage_votes_w_bg.jpg) no-repeat center center;
+    /*background: url(frontpage_votes_w_bg.jpg) no-repeat center center;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
