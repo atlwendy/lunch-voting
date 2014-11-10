@@ -1,10 +1,5 @@
 body {
-  background-color: #ccc;
   margin: 0px;
-}
-
-h1 {
-  font-weight: bold;
 }
 
 #notice {
@@ -103,7 +98,6 @@ h1 {
   border-top-width: 0;
 }
 #frame {
-  background-color: #f4f4f4;
   margin: auto;
   padding: 1em;
   max-width: 800px;
@@ -135,7 +129,6 @@ h1 {
   width: 100%;
   margin-bottom: 10px;
   position: relative;
-  background-color: #f4f4f4;
 }
 
 .listmeetings {
