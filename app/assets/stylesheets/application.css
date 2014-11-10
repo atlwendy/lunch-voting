@@ -13,11 +13,11 @@
  *
  *= require 'bootstrap'
  *= require 'bootstrap-theme'
+ *= require 'font-awesome'
  *= require 'meeting'
  *= require 'frontpage'
  *= require 'jquery.datetimepicker'
  *= require 'invitations'
- *= require 'font-awesome'
  *= require_self
  */
 
