@@ -28,6 +28,14 @@
 }
 
 .site-title {
+  color: #613001;
   font-family: 'Abril Fatface';
   font-size: 2em;
+}
+
+.site-title a {
+  color: #613001;
+}
+.site-title a:hover {
+  text-decoration: none;
 }

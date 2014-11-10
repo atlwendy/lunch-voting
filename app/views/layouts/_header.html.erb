@@ -10,11 +10,6 @@
 
       <a style="color: black" class="dropdown-toggle" data-toggle="dropdown" href="/"><img alt="Account" class="menuavatarimage" src="<%=gravatar_url(current_user)%>)"><span class="caret" style="margin-top: -2px; margin-left: 5px;"></span></a>
       
-        <!-- <a class="dropdown-toggle" data-toggle="dropdown">
-           <span class="menuavatarimage" style="display:block; background-image: url(<%= gravatar_url(current_user)%>)"></span>
-           <%#= link_to image_tag(gravatar_url(current_user), :class=>"menuavatarimage"), "/", :class=>"dropdown-toggle", :data=>{:toggle=>"dropdown"}%> 
-           <span class="caret"></span>
-        </a> -->
          <ul class="dropdown-menu" role="menu">
            <li role="profile">
             <%= link_to "Profile", current_user %>
@@ -29,21 +24,9 @@
          </ul>
       
 
-        <!-- <a class='stylea' href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Account <b class="caret"></b>
-        </a>
-
-        <ul class="dropdown-menu">
-          <li><%= link_to "Profile", current_user %></li>
-          <li><%= link_to "Settings", edit_user_path( current_user) %></li>
-          <li class="divider"></li>
-          <li>
-          <%= link_to "Sign out", signout_path, method: "delete" %>
-          </li>
-        </ul> -->
     </li>
   </ul>
   <h1 class="site-title">
-    Lunch Voting
+    <a href="/">Lunch Voting</a>
   </h1>
 </div>

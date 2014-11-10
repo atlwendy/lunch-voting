@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
 	def frontpage
 		return if current_user.nil?
-		redirect_to :action=>'index', :controller=>'meetings'
+		redirect_to :action=>'show', :controller=>'users', :id => current_user.id
 	end
 
 	private
