@@ -52,14 +52,14 @@
 
     <div id="rdetails">
       <div id="editr">
-       <h3>Venue</h3>
+       <h3>Where to go?</h3>
       </div>
       <div id = "restaurant_table">
         <br>
         <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
       </div>
       <% if @inGroup and not @past%>
-       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> Edit restaurant selection'), :select_restaurants, :class=>"editinh3 selection btn btn-default" %>
+       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> Edit restaurants'), :select_restaurants, :class=>"btn btn-default" %>
       <% end %>
     </div>
   

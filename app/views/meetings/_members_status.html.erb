@@ -1,10 +1,10 @@
 <% if not @past %>
   <h3>Who's Going?</h3>
-  <ul style="list-style: none">
-    <li style="color: #5EA06F;"><h5><%= statuscounts['Yes'] %> going:</h5>
+  <ul class="attendence-list">
+    <li style="color: #5EA06F;"><h4><%= statuscounts['Yes'] %> going</h4>
 <% else %>
   <h3>Who went?</h3>
-  
+  <ul class="attendence-list">
 <% end %>
       <ul>
         <% Meeting.rsvpYuser(meeting, 'Yes').each do |k| %>    
@@ -15,36 +15,42 @@
       </ul>
     </li>
 <% if not @past %>
-    <li style="color: #d9534f">
-      <h5><%= statuscounts['No'] %> not going:</h5>
-      <ul>
-      <% Meeting.rsvpYuser(meeting, 'No').each do |k| %> 
-          <li class="userlist">
-          <img src="/assets/red-cross_small.png" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)"><span style="color:#d9534f">&nbsp;<%=k %></span>
-          </li>
-      <% end %>
-      </ul>
-    </li>
-    <li style="color: #f0ad4e">
-      <h5><%= statuscounts['Maybe'].to_i + statuscounts[''].to_i %> not decided yet:</h5>
-      <ul>
-      <% Meeting.rsvpYuser(meeting, 'Maybe').each do |k| %> 
-          <li class="userlist">
-          <img src="/assets/question_mark.gif" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)"><span style="color: #f0ad4e">&nbsp; <%=k %></span>
-          </li>
-      <% end %>
-        <% Meeting.rsvpYuser(meeting, nil).each do |k| %> 
+    <% not_going = Meeting.rsvpYuser(meeting, 'No') %>
+    <% if not_going.size > 0 then %>
+      <li style="color: #d9534f">
+        <h4><%= statuscounts['No'] %> not going</h4>
+        <ul>
+        <% not_going.each do |k| %> 
             <li class="userlist">
-            <img src="/assets/question_mark.gif" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)">&nbsp;<span style="color:#f0ad4e"> <%=k %></span>
+            <img src="/assets/red-cross_small.png" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)"><span style="color:#d9534f">&nbsp;<%=k %></span>
             </li>
         <% end %>
         </ul>
       </li>
-    </ul>
+    <% end %>
+    <% undecided = Meeting.rsvpYuser(meeting, 'Maybe') %>
+    <% if undecided.size > 0 then %>
+      <li style="color: #f0ad4e">
+        <h4><%= statuscounts['Maybe'].to_i + statuscounts[''].to_i %> undecided</h4>
+        <ul>
+        <% undecided.each do |k| %> 
+            <li class="userlist">
+            <img src="/assets/question_mark.gif" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)"><span style="color: #f0ad4e">&nbsp; <%=k %></span>
+            </li>
+        <% end %>
+          <% Meeting.rsvpYuser(meeting, nil).each do |k| %> 
+              <li class="userlist">
+              <img src="/assets/question_mark.gif" style="float:left"> <img alt="Account" class="menuavatarimage" src="<%=gravatar_url(User.find_by_username(k))%>)">&nbsp;<span style="color:#f0ad4e"> <%=k %></span>
+              </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% if inGroup and not result_sent and not past%> 
-  <%= link_to 'Invite more people to join in', :select_members, :class=>"btn btn-default selection" %>
+  <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
   <br />
 <% end %>
   
