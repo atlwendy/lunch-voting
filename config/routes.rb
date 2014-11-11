@@ -18,11 +18,13 @@ Rails.application.routes.draw do
   get 'meetings/:id/select_members' => 'meetings#select_members', as: :select_members
   post 'meetings/:id/submit_members' => 'meetings#submit_members'
   get 'meetings/:id/select_restaurants' => 'meetings#select_restaurants', as: :select_restaurants
+  get 'meetings/:id/add_restaurants_by_address' => 'meetings#add_restaurants_by_address', as: :add_restaurants_by_address
+  get 'meetings/:id/add_restaurants_by_location' => 'meetings#add_restaurants_by_location', as: :add_restaurants_by_location
   post 'meetings/:id/submit_restaurants' => 'meetings#submit_restaurants'
   get 'meetings/:id/update_vote' => 'meetings#update_vote', as: :update_vote
   get 'meetings/:id/set_decision' => 'meetings#set_decision', as: :set_decision
   get 'meetings/:id/get_default_restaurants' => 'meetings#get_default_restaurants', as: :get_default_restaurants
-  get 'meetings/:id/search_restaurants_from_input_address' =>'meetings#search_restaurants_from_input_address', as: :search_restaurants_from_input_address
+  get 'meetings/:id/search_restaurants' =>'meetings#search_restaurants', as: :search_restaurants
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'

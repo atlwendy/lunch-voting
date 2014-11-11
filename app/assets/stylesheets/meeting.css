@@ -489,3 +489,19 @@ address {
   list-style: none;
   padding: 0;
 }
+
+.btn .glyphicon {
+  font-size: 80%;
+}
+
+.tab-panel {
+  padding: 1em;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em; 
+}
+
+.flash {
+  margin-top: 10px;
+}

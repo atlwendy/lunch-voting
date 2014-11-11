@@ -1,4 +1,5 @@
 include Yelp::V1::Review::Request
+require 'yelp_query'
 class MeetingsController < ApplicationController
   before_action :login_required
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
@@ -25,6 +26,9 @@ class MeetingsController < ApplicationController
     @result_sent = @meeting.result_sent
     @winner = Restaurant.find_by_id(Meeting.pick_winner(@meeting))
     @past = Time.now.to_date > @meeting.date
+    if mrs.size == 0
+      redirect_to :action => :select_restaurants
+    end
   end
 
   def get_all_restaurants(meeting)
@@ -202,25 +206,11 @@ class MeetingsController < ApplicationController
     render json: parse_restaurant_list(response).to_json
   end
 
-  def search_restaurants_from_input_address
+  def search_restaurants
     client = Yelp::Client.new
-    if params[:address] == 'searchonyelp'
-      name = params[:rname].blank? ? 'restaurants' : params[:rname]
-      request = Location.new(
-        :zipcode => params[:zipcode],
-        :radius => 5,
-        :term => name)
-    else
-      request = Location.new(
-        :address => params[:address],
-        :city => params[:city],
-        :state => params[:state],
-        :zipcode => params[:zipcode],
-        :radius => 5,
-        :term => "restaurants" )
-    end
-    #searchonyelp = params[:address] == 'searchonyelp' ? true : false
-    response = client.search(request)
+    query = YelpQuery.new(params[:location], params[:name])
+    puts query.to_yelp_params
+    response = client.search(query)
     render json: parse_restaurant_list(response).to_json
   end
 
@@ -313,9 +303,18 @@ class MeetingsController < ApplicationController
     @all_restaurant_names = Restaurant.pluck(:name)
   end
 
+  def add_restaurants_by_address
+
+  end
+
+  def add_restaurants_by_location
+
+  end
+
   def submit_restaurants
     meeting = Meeting.find(params[:id])
-    meeting.restaurants = Restaurant.where({id: params[:restaurant_id]}) + add_default_restaurants(params[:restaurant_name]) + get_restaurant(params[:restaurantname], false)
+    meeting.restaurants += Restaurant.where({id: params[:restaurant_id]}) + add_default_restaurants(params[:restaurant_name]) + get_restaurant(params[:restaurantname], false)
+    flash[:notice] = "Venue selection has been updated successfully"
     redirect_to meeting
   end
 

@@ -1,201 +1,29 @@
-<!-- <div class="listing">
-<span class="listingh">Select restaurants </span> -->
+<% is_new = @restaurants.size == 0 %>
 
-  <%=form_tag 'submit_restaurants' do %>
-  <div class="panel panel-default">
-      <div class="panel-heading"><h4>Add/Remove Restaurants</h4></div>
-      <div  class="panel-body">
-        <div class="newmemberfields">
-          <div id="erest" >
-            <h5 for='erest address'>Current Restaurant Selections:
-            </h5>
-            <% @restaurants.each do |rest| %>
-              <div class="checkbox">
-                <label><%=check_box_tag 'restaurant_id[]', 
-                  rest.id, @restaurants.include?(rest) %>
-                  <%= rest.name %>
-                </label>
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <hr>
-        <div id="userinputaddress">
-          <h5>Or you can get a list of nearby restaurant based on following address</h5>
-          <div class="row">
-            <label class="control-label col-md-8">Address:</label>
-            <div class="form-group col-md-8">
-              <input class="form-control" type="text" id="address"></input>
-            </div>
-          </div>
-          <div class="row">
-            <label class="control-label col-md-8">City: </label>
-            <div class="form-group col-md-8">
-              <input class="form-control" type="text" id="city"></input>
-            </div>
-          </div>
-          <div class="row">
-            <label class="control-label col-md-8">State: </label>
-            <div class="form-group col-md-8">
-              <input class="text form-control" type="text" id="state"></input>
-            </div>
-          </div>
-          <div class="row">
-            <label class="control-label col-md-8">Zip code: </label>
-            <div class="form-group col-md-8">
-              <input class="text form-control" type="text" id="zipcode"></input>
-            </div>
-          </div>
-          <br >
-           <input class="button btn btn-default inputaddress" name="inputaddress" type="button" value="Get nearby restaurant list "></input><span id="spin"></span>
-        </div>
-        
-        <hr>
+<%=form_tag 'submit_restaurants' do %>
+  <h1>Venue Candidates</h1>
+  <p>Select venue candidates for
   
-        <div class="form-group" id="restaurant">
-          <table class="rest">
-            <tr>
-              <td><h5>Or you can enter new restaurant option(s): &nbsp </h5></td>
-            </tr>
-            <tr>
-              <td><input class="text form-control" type="text" name="rtt" id="trest"></input></td>
-            </tr>
-          </table>
-          <br />
-          <input class="button restb btn btn-default" name="morerest" type="button" value="Add restaurant"></input>              
-        </div>
-      </div>
-    </div>
-  <%= submit_tag "Save", class: "btn btn-large btn-primary" %>
+    <b><%= @meeting.title %></b> - 
+    <%= @meeting.description %> on
+    <b>
+      <%= @meeting.date.in_time_zone.strftime("%a, %b %d, %Y") %>
+      <%= @meeting.date.in_time_zone.strftime("%l:%M %p") %>
+    </b>.
+  </p>
+
+  <% if @restaurants.size > 0 %>
+    <ul>
+      <% @restaurants.each do |rest| %>
+        <li><%= rest.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><em>Add some restaurants to the list kickstart it.</em></p>
   <% end %>
-<%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'), @meeting %>
 
-
-<!-- <div class="field" id="restaurant">
-    <table class="rest">
-      <tr>
-        <td><label for="Restaurant">Please enter new restaurant option(s): &nbsp </label></td>
-        <td><input class="text" type="text" name="rtt" id="trest"></input>
-          <input class="button restb" name="morerest" type="button" value="Add restaurant"></input>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <%#=submit_tag "Save", :class=>'btn' %> -->
-
-<script>
-$(".restb").click(function() {
-  var ivalue = $("#trest")
-  var rvalue = ivalue.val();
-  $('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' id='addedrest' value='"+rvalue+"'></input></td></tr>");
-  ivalue.val("");
-})
-// $(".restb").click(function() {
-//   var ivalue = $(this).parents('tr').find("[name=rtt]")
-//   var rvalue = ivalue.val();
-//   var names = '<%=@all_restaurant_names%>'
-
-//   if (names.indexOf(rvalue) > -1) {
-//   	$('#restaurant').prepend("<p id='invalidemail' style='color:red; margin-left:50px'>"+"This restaurant exists already!"+"</p>")
-//   }
-//   else {
-//   	$('table.rest').append("<tr><td align='right'>"+rvalue+"<input name='restaurantname[]' type='hidden' id='addedrest' value='"+rvalue+"'></input></td></tr>");
-//   	ivalue.val("");
-//   }
-// })
-
-$(".inputaddress").click(function() {
-  var id = <%=@id %>
-  var url = "../" + id + "/search_restaurants_from_input_address"
-  var address = $("#address").val();
-  var city = $("#city").val();
-  var state = $("#state").val();
-  var zipcode = $("#zipcode").val();
-
-  var opts = {
-    lines: 10, // The number of lines to draw
-    length: 5, // The length of each line
-    width: 2, // The line thickness
-    radius: 6, // The radius of the inner circle
-    corners: 1, // Corner roundness (0..1)
-    rotate: 0, // The rotation offset
-    direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#000', // #rgb or #rrggbb or array of colors
-    speed: 1, // Rounds per second
-    trail: 60, // Afterglow percentage
-    shadow: true, // Whether to render a shadow
-    hwaccel: false, // Whether to use hardware acceleration
-    className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
-    top: 2, // Top position relative to parent
-    left: '30%' // Left position relative to parent
-  };
-  var target = document.getElementById('spin');
-  var spinner = new Spinner(opts)
-  spinner.spin(target);
-
-  if (!address && !city && !state && !zipcode) {
-    alert("You have to provide address, city, state or zip code to do the search");
-  }
-
-  $.ajax({
-      url: url,
-      type: "GET",
-      data: {
-        address: address,
-        city: city,
-        state: state
-      },
-      datatype: "json",
-      success: function(data, textStatus, xhr){
-        $.each(data, function(index,value) {
-            generate_checkbox_list(JSON.stringify(value), value, '#userinputaddress');
-            console.log(JSON.stringify(value), value.name, value.url);
-            $(".yelplink").popover();
-        });
-        spinner.stop();
-
-      },
-      error: function(request, status, error){
-        console.log(error)
-        console.log(status)
-      },
-    });
-
-})
-
-function generate_checkbox_list(jobject, value, elementid) {
-    var name = value.name;
-    var url = value.url;
-    var rating = value.rating;
-  
-    $(elementid).append(
-      '<div class="checkbox"><label>'
-      +
-      '<input id="restaurant_id_" name="restaurant_name[]" type="checkbox" style="margin-left: 20px" data-type="json" value='
-      + "'"
-      +
-      jobject + "'"
-      +
-      '/>'
-      +
-      '<a class="yelplink" style="padding-left: 40px" href='
-      +
-      url
-      + 
-      
-      ' data-placement="bottom" data-content=' 
-      + '"Rating on Yelp is ' +  
-      rating + '"'
-      +
-      ' data-trigger="hover">' 
-      + 
-      name
-      +
-      '</a>'
-      +
-      '</label></div>');
-  
-}
-</script>
+  <a href="add_restaurants_by_address" class="btn <%= is_new ? 'btn-primary' : 'btn-default' %>">Add restaurants</a>
+  <% if not is_new %>
+    <a href="./" class="btn btn-primary">Back to Event</a>
+  <% end %>
+<% end %>

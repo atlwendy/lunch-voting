@@ -1,8 +1,7 @@
 <% provide(:title, "Show meeting") %>
 
-<!-- <p id="notice" style="margin-top: 5px; padding-top: 5px"><%#= notice %></p> -->
 <% flash.each do |key, value| %>
-  <div class="<%=flash_class(key) %>">
+  <div class="flash <%=flash_class(key) %>">
         <%= value %>
   </div>
 <% end %>
@@ -55,11 +54,10 @@
        <h3>Where to go?</h3>
       </div>
       <div id = "restaurant_table">
-        <br>
         <%= render partial: "restaurant_list", locals: {meeting_mrs: @meeting_mrs, uid: @uid} %>
       </div>
       <% if @inGroup and not @past%>
-       <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span> Edit restaurants'), :select_restaurants, :class=>"btn btn-default" %>
+       <%= link_to raw('Add more venues <span class="glyphicon glyphicon-pencil"></span>'), :select_restaurants, :class=>"btn btn-default" %>
       <% end %>
     </div>
   
@@ -76,8 +74,8 @@
 
     <div id="member_status">
       <%= render partial: "members_status", locals: {statuscounts: @statuscounts, meeting: @meeting, inGroup: @inGroup, result_sent: @result_sent, winner: @winner, past:@past} %>
-    </div> 
-    
+    </div>
+
   </div>
 <script>
 

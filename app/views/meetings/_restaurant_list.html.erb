@@ -1,106 +1,111 @@
 <table class='restname vote' id='editr'>
-  <% meeting_mrs.each do |mrs| %>
-    <%
-    vote_count = mrs.vote_count
-    my_vote = mrs.votes.find {|v| v.user_id.to_i == uid.to_i }
-    up_arrow_class = 'arrow-up'
-    down_arrow_class = 'arrow-down'
-    already_voted_up = my_vote && my_vote.vote_counts > 0
-    already_voted_down = my_vote && my_vote.vote_counts < 0
+  <% if meeting_mrs.size == 0 %>
+    <p>No currently selected restaurants.</p>
+  <% else %>
+    <% meeting_mrs.each do |mrs| %>
+      <%
+      vote_count = mrs.vote_count
+      my_vote = mrs.votes.find {|v| v.user_id.to_i == uid.to_i }
+      up_arrow_class = 'arrow-up'
+      down_arrow_class = 'arrow-down'
+      already_voted_up = my_vote && my_vote.vote_counts > 0
+      already_voted_down = my_vote && my_vote.vote_counts < 0
 
-    if already_voted_up then
-      up_arrow_class = 'arrow-uped'
-    end
-    if already_voted_down then
-      down_arrow_class = 'arrow-downed'
-    end
-    %>
+      if already_voted_up then
+        up_arrow_class = 'arrow-uped'
+      end
+      if already_voted_down then
+        down_arrow_class = 'arrow-downed'
+      end
+      %>
 
-    <tr>
-      <td style="text-align: center; vertical-align: top; min-width: 4em">
-        <% if already_voted_up %>
-          <span class="glyphicon glyphicon-thumbs-up votedcolor" id="tupa"
-            onclick="alert('You have already up voted!')">
-        <% else %>
-          <span class="glyphicon glyphicon-thumbs-up" id="tupa"
-            onclick="changeVote('up', <%= mrs.id %>)">
-        <% end %>
-        </span>  
-        <span class="votenumber"><%= vote_count %></span>   
-        <% if already_voted_down %>
-          <span class="glyphicon glyphicon-thumbs-down votedcolor" id="tdowna"
-            onclick="alert('You have already down voted!')">
-        <% else %>
-          <span class="glyphicon glyphicon-thumbs-down" id="tdowna"
-            onclick="changeVote('down', <%= mrs.id %>)">
-          </span>
-        <% end %>
-      </td>
-      <td>
-      
-          <% if not mrs.restaurant.nil? %>
-          <a href="<%=restaurant_path(mrs.restaurant)%>">
-            <% if mrs.restaurant['photo_url'].nil? %>
-              <img class="thumb" height="90" width="90" alt=<%=mrs.restaurant.name%> src=<%=image_path("default.jpg")%>>
-            <% else %>
-              <img class="thumb" height="90" width="90" alt=<%=mrs.restaurant.name%> src=<%=mrs.restaurant['photo_url']%>>
-            <% end %>
-          </a>
+      <tr>
+        <td style="text-align: center; vertical-align: top; min-width: 4em">
+          <% if already_voted_up %>
+            <span class="glyphicon glyphicon-thumbs-up votedcolor" id="tupa"
+              onclick="alert('You have already up voted!')">
+          <% else %>
+            <span class="glyphicon glyphicon-thumbs-up" id="tupa"
+              onclick="changeVote('up', <%= mrs.id %>)">
           <% end %>
-          
-          <div class="restinfo" style="display: inline-block;">
-              <% if mrs.restaurant.url.nil? %>
-                <%= link_to mrs.restaurant.name, restaurant_path(mrs.restaurant), :class=>'   yelplink ', :data=>{:placement=> "bottom", :content=>"Not from Yelp", :trigger=>"hover"} %>
+          </span>  
+          <span class="votenumber"><%= vote_count %></span>   
+          <% if already_voted_down %>
+            <span class="glyphicon glyphicon-thumbs-down votedcolor" id="tdowna"
+              onclick="alert('You have already down voted!')">
+          <% else %>
+            <span class="glyphicon glyphicon-thumbs-down" id="tdowna"
+              onclick="changeVote('down', <%= mrs.id %>)">
+            </span>
+          <% end %>
+        </td>
+        <td>
+        
+            <% if not mrs.restaurant.nil? %>
+            <a href="<%=restaurant_path(mrs.restaurant)%>">
+              <% if mrs.restaurant['photo_url'].nil? %>
+                <img class="thumb" height="90" width="90" alt=<%=mrs.restaurant.name%> src=<%=image_path("default.jpg")%>>
               <% else %>
-                <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{ :placement=> "bottom", :content=>"Rating on Yelp is #{mrs.restaurant.  yelp_rating}" , :trigger=>"hover"} %>
+                <img class="thumb" height="90" width="90" alt=<%=mrs.restaurant.name%> src=<%=mrs.restaurant['photo_url']%>>
               <% end %>
-              
-              <p style="padding-left: 15px; font-size:16px" class=""> 
-                <% r = mrs.restaurant['yelp_rating'].to_i %>
-                <% for i in (1..r) %>
-                  <img src=<%=image_path("star.png")%>>
-                <% end %>
-                <% if r != 0 && mrs.restaurant['yelp_rating'].include?('.') %>
-                  <img src=<%=image_path("half_star.png")%>>
-                  <% for i in (r+1..4) %>
-                    <img src=<%=image_path("grey_star.png")%>>
-                  <% end %>
-                <% else %>
-                  <% for i in (r..4) %>
-                    <img src=<%=image_path("grey_star.png")%>>
-                  <% end %>
-                <% end %>
-                   <%#=mrs.restaurant['yelp_rating'] %>
-                
-                <%# if mrs.restaurant['review_count'] > 0 %>
-                <span style="font-size:12px; font-style:italic"> <%= mrs.restaurant['review_count']  %> reviews on Yelp</span>
-                <%# end %> 
-              </p>
-    
-              <p class="restaurant_categories "><%=mrs.restaurant['categories'] %></p>
-
-
-          </div>
-
-          <div class="address">
-            <% if not mrs.restaurant['address'].blank? %>
-              <span class="glyphicon glyphicon-map-marker"></span>
-              <address>
-                <% splitarray = mrs.restaurant['address'].split(',')%>
-                <%=splitarray[0] %>
-                <br >
-                <% gaddress = splitarray[1..-1] %>
-                <% if not gaddress.blank? %>
-                  <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.      join(',')%> 
-                <% end %>
-                
-              </address>
+            </a>
             <% end %>
-          </div>
-    </td>
-  </tr>
-  <% end %>
+            
+            <div class="restinfo" style="display: inline-block;">
+                <% if mrs.restaurant.url.nil? %>
+                  <%= link_to mrs.restaurant.name, restaurant_path(mrs.restaurant), :class=>'   yelplink ', :data=>{:placement=> "bottom", :content=>"Not from Yelp", :trigger=>"hover"} %>
+                <% else %>
+                  <%= link_to mrs.restaurant.name, mrs.restaurant.url, :class=>'yelplink', :data=>{ :placement=> "bottom", :content=>"Rating on Yelp is #{mrs.restaurant.  yelp_rating}" , :trigger=>"hover"} %>
+                <% end %>
+                
+                <p style="padding-left: 15px; font-size:16px" class=""> 
+                  <% r = mrs.restaurant['yelp_rating'].to_i %>
+                  <% for i in (1..r) %>
+                    <img src=<%=image_path("star.png")%>>
+                  <% end %>
+                  <% if r != 0 && mrs.restaurant['yelp_rating'].include?('.') %>
+                    <img src=<%=image_path("half_star.png")%>>
+                    <% for i in (r+1..4) %>
+                      <img src=<%=image_path("grey_star.png")%>>
+                    <% end %>
+                  <% else %>
+                    <% for i in (r..4) %>
+                      <img src=<%=image_path("grey_star.png")%>>
+                    <% end %>
+                  <% end %>
+                     <%#=mrs.restaurant['yelp_rating'] %>
+                  
+                  <%# if mrs.restaurant['review_count'] > 0 %>
+                  <span style="font-size:12px; font-style:italic"> <%= mrs.restaurant['review_count']  %> reviews on Yelp</span>
+                  <%# end %> 
+                </p>
+      
+                <p class="restaurant_categories "><%=mrs.restaurant['categories'] %></p>
+
+
+            </div>
+
+            <div class="address">
+              <% if not mrs.restaurant['address'].blank? %>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <address>
+                  <% splitarray = mrs.restaurant['address'].split(',')%>
+                  <%=splitarray[0] %>
+                  <br >
+                  <% gaddress = splitarray[1..-1] %>
+                  <% if not gaddress.blank? %>
+                    <%=gaddress.include?(' ') ? gaddress.reject!{|c| c == " "}.join(',') : gaddress.      join(',')%> 
+                  <% end %>
+                  
+                </address>
+              <% end %>
+            </div>
+      </td>
+    </tr>
+    <% end %>
+
 	</table>
+  <% end %>
   <script>
   $(document).ready(function(){
     $(".yelplink").popover();

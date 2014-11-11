@@ -50,7 +50,7 @@
 <% end %>
 
 <% if inGroup and not result_sent and not past%> 
-  <%= link_to 'Invite more', :select_members, :class=>"btn btn-default" %>
+  <%= link_to raw('Invite more <span class="glyphicon glyphicon-send"></span>'), :select_members, :class=>"btn btn-default" %>
   <br />
 <% end %>
   

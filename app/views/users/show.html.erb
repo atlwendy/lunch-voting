@@ -1,7 +1,7 @@
 <% provide(:title, @user.username) %>
 
 <% flash.each do |key, value| %>
-  <div class="<%=flash_class(key) %>">
+  <div class="flash <%=flash_class(key) %>">
         <%= value %>
   </div>
 <% end %>
@@ -35,8 +35,8 @@
       </div>
     </div>
     <% else %>
-      <h3> Upcoming </h3>
       <p> No future lunch scheduled. </p>
+      <a href="/meetings/new" class="btn btn-primary">Schedule a lunch!</a>
     <% end %>
   </div>
 
@@ -81,8 +81,3 @@
   
 </div>
 
-<% if current_user == @user %>
-  <%= link_to raw('<span class="glyphicon glyphicon-pencil"></span>'),      edit_user_path(@user) %> |
-  <%= link_to raw('<span class="glyphicon glyphicon-trash"></span>'), @user,    method:  :delete, data: { confirm: 'Are you sure?' } %> |
-  <%= link_to raw('<span class="glyphicon glyphicon-arrow-left"></span>'),    users_path %>
-<% end %>
