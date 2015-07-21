@@ -23,7 +23,7 @@ Extra notes:
 * 24 hours prior to lunch time, winner is selected and voting is locked. 
 * The final decision is emailed to the RSVP'd invitees. 
 
-The purpose of this is for everyone to plan on their event and prevent last minute plan change.
+The purpose of this mechanism is for everyone to plan on their event ahead of time and prevent last minute plan change.
 
 The entire application is written with Ruby/Rails and JQuery. 
 
