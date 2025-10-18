@@ -1,0 +1,19 @@
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/debug-1.11.0/ext/debug
+/home/codespace/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-h2q20p sitelibdir\=./.gem.20251017-31620-h2q20p clean
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-h2q20p sitelibdir\=./.gem.20251017-31620-h2q20p
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-h2q20p sitelibdir\=./.gem.20251017-31620-h2q20p install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20251017-31620-h2q20p/debug
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-h2q20p sitelibdir\=./.gem.20251017-31620-h2q20p clean

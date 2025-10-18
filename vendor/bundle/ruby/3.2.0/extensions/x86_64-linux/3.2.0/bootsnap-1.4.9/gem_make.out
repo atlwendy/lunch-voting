@@ -1,0 +1,25 @@
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.4.9/ext/bootsnap
+/home/codespace/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.4.9/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-vfsgom sitelibdir\=./.gem.20251017-31620-vfsgom clean
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.4.9/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-vfsgom sitelibdir\=./.gem.20251017-31620-vfsgom
+compiling bootsnap.c
+bootsnap.c: In function ‘bs_cache_path’:
+bootsnap.c:277:39: warning: format ‘%llx’ expects argument of type ‘long long unsigned int’, but argument 5 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+  277 |   sprintf(*cache_path, "%s/%02x/%014llx", cachedir, first_byte, remainder);
+      |                                 ~~~~~~^                         ~~~~~~~~~
+      |                                       |                         |
+      |                                       long long unsigned int    uint64_t {aka long unsigned int}
+      |                                 %014lx
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.4.9/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-vfsgom sitelibdir\=./.gem.20251017-31620-vfsgom install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20251017-31620-vfsgom/bootsnap
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.4.9/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-vfsgom sitelibdir\=./.gem.20251017-31620-vfsgom clean

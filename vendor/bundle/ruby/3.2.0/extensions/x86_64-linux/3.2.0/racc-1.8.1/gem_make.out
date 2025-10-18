@@ -1,0 +1,18 @@
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+/home/codespace/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-dj65k7 sitelibdir\=./.gem.20251017-31620-dj65k7 clean
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-dj65k7 sitelibdir\=./.gem.20251017-31620-dj65k7
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-dj65k7 sitelibdir\=./.gem.20251017-31620-dj65k7 install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20251017-31620-dj65k7/racc
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-dj65k7 sitelibdir\=./.gem.20251017-31620-dj65k7 clean

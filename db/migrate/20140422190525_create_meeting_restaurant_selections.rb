@@ -1,4 +1,4 @@
-class CreateMeetingRestaurantSelections < ActiveRecord::Migration
+class CreateMeetingRestaurantSelections < ActiveRecord::Migration[7.1]
   def change
     create_table :meeting_restaurant_selections do |t|
       t.integer :meeting_id

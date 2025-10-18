@@ -1,0 +1,30 @@
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/psych-5.2.6/ext/psych
+/home/codespace/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+checking for yaml.h... yes
+checking for yaml_get_version() in -lyaml... yes
+creating Makefile
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/psych-5.2.6/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-2a0k1i sitelibdir\=./.gem.20251017-31620-2a0k1i clean
+cd libyaml && make clean
+/bin/sh: 1: cd: can't cd to libyaml
+make: [Makefile:283: clean-so] Error 2 (ignored)
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/psych-5.2.6/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-2a0k1i sitelibdir\=./.gem.20251017-31620-2a0k1i
+compiling psych.c
+compiling psych_emitter.c
+compiling psych_parser.c
+compiling psych_to_ruby.c
+compiling psych_yaml_tree.c
+linking shared-object psych.so
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/psych-5.2.6/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-2a0k1i sitelibdir\=./.gem.20251017-31620-2a0k1i install
+/usr/bin/install -c -m 0755 psych.so ./.gem.20251017-31620-2a0k1i
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/psych-5.2.6/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-2a0k1i sitelibdir\=./.gem.20251017-31620-2a0k1i clean
+cd libyaml && make clean
+/bin/sh: 1: cd: can't cd to libyaml
+make: [Makefile:283: clean-so] Error 2 (ignored)
