@@ -1,0 +1,30 @@
+have_type: checking for rb_io_mode_t in ruby/io.h... -------------------- no
+
+LD_LIBRARY_PATH=.:/home/codespace/.rbenv/versions/3.2.3/lib "gcc -o conftest -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0/x86_64-linux -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0/ruby/backward -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0 -I.     -DUSE_OPENSSL -fPIC conftest.c  -L. -L/home/codespace/.rbenv/versions/3.2.3/lib -Wl,-rpath,/home/codespace/.rbenv/versions/3.2.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed     -Wl,-rpath,/home/codespace/.rbenv/versions/3.2.3/lib -L/home/codespace/.rbenv/versions/3.2.3/lib -lruby  -lm -lpthread  -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.:/home/codespace/.rbenv/versions/3.2.3/lib "gcc -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0/x86_64-linux -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0/ruby/backward -I/home/codespace/.rbenv/versions/3.2.3/include/ruby-3.2.0 -I.     -DUSE_OPENSSL -fPIC   -c conftest.c"
+conftest.c:6:9: error: unknown type name ‘rb_io_mode_t’
+    6 | typedef rb_io_mode_t conftest_type;
+      |         ^~~~~~~~~~~~
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/io.h>
+4: 
+5: /*top*/
+6: typedef rb_io_mode_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+

@@ -1,5 +1,10 @@
-Yelp.configure(:yws_id          => 'E3oMQjLLxUNH9dac6GYgfQ',
-               :consumer_key    => '0pSEKQvm5fv76giJ5NbMXQ',
-               :consumer_secret => 'y3UMsAI3mEXdC3exL2EYLDqUlW8',
-               :token           => 'r9r-9U7cnLhXarS14IsNZ-oCR0Cv3xY3',
-               :token_secret    => 'ty1Gm8_0COj1gwV6Br3SAJi9_jg')
+# Temporarily disabled during Rails 7 upgrade
+# Will be replaced with Yelp Fusion API integration
+#
+# Original config backed up to yelp.rb.bak:
+#
+# Yelp.configure(:yws_id          => '...',
+#                :consumer_key    => '...',
+#                :consumer_secret => '...',
+#                :token           => '...',
+#                :token_secret    => '...')

@@ -1,0 +1,18 @@
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/home/codespace/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-8fzyf sitelibdir\=./.gem.20251017-31620-8fzyf clean
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-8fzyf sitelibdir\=./.gem.20251017-31620-8fzyf
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-8fzyf sitelibdir\=./.gem.20251017-31620-8fzyf install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20251017-31620-8fzyf/skiptrace/internal
+
+current directory: /workspaces/lunch-voting/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251017-31620-8fzyf sitelibdir\=./.gem.20251017-31620-8fzyf clean

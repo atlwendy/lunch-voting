@@ -1,4 +1,4 @@
-class CreateInvitations < ActiveRecord::Migration
+class CreateInvitations < ActiveRecord::Migration[7.1]
   def change
     create_table :invitations do |t|
       t.string :recipient_email
